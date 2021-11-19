@@ -3,12 +3,12 @@ import Sidebar from "@components/navigation/sidebar";
 
 function Layout({ children }) {
   return (
-    <div>
+    <div className="grid grid-cols-7 h-screen border-r-2">
       <div>
         <Sidebar />
       </div>
 
-      <div>
+      <div className="col-span-6 bg-gray-900">
         <Header />
 
         {children}
