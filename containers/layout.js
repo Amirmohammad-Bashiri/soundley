@@ -1,3 +1,4 @@
+import Header from "@components/navigation/header";
 import Sidebar from "@components/navigation/sidebar";
 
 function Layout({ children }) {
@@ -8,7 +9,7 @@ function Layout({ children }) {
       </div>
 
       <div>
-        {/* header */}
+        <Header />
 
         {children}
       </div>
