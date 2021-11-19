@@ -7,7 +7,7 @@ function HomePage() {
         <title>Soundley | Listen to Music</title>
       </Head>
 
-      <main>soundley</main>
+      <main></main>
     </div>
   );
 }
