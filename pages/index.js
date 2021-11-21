@@ -1,5 +1,7 @@
 import Head from "next/head";
 
+import GenresList from "@components/home-page/genres/genresList";
+
 function HomePage() {
   return (
     <div>
@@ -7,7 +9,9 @@ function HomePage() {
         <title>Soundley | Listen to Music</title>
       </Head>
 
-      <main></main>
+      <main>
+        <GenresList />
+      </main>
     </div>
   );
 }
