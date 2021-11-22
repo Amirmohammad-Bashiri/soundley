@@ -41,7 +41,7 @@ function GenresList() {
           1280: { slidesPerView: 4, spaceBetween: 25 },
           1536: { slidesPerView: 5, spaceBetween: 25 },
         }}>
-        {data.genres.slice(0, 10).map(genre => (
+        {data.slice(0, 10).map(genre => (
           <SwiperSlide key={genre.id}>
             <GenreItem genre={genre} />
           </SwiperSlide>
