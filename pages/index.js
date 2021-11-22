@@ -1,6 +1,8 @@
 import Head from "next/head";
+import { QueryClient, dehydrate } from "react-query";
 
 import GenresList from "@components/home-page/genres/genresList";
+import { getGenres } from "@lib/genres";
 
 function HomePage() {
   return (
@@ -14,6 +16,18 @@ function HomePage() {
       </main>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery("genres", getGenres);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }
 
 export default HomePage;
