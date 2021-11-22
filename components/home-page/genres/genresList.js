@@ -61,18 +61,6 @@ function GenresList() {
           <GenreItem />
         </SwiperSlide>
       </Swiper>
-
-      {/* <div className="flex items-center pb-5 overflow-x-scroll gap-x-8">
-        <GenreItem />
-        <GenreItem />
-        <GenreItem />
-        <GenreItem />
-        <GenreItem />
-        <GenreItem />
-        <GenreItem />
-        <GenreItem />
-        <GenreItem />
-      </div> */}
     </section>
   );
 }
