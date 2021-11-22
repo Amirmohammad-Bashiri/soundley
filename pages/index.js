@@ -8,7 +8,7 @@ function HomePage() {
   return (
     <div>
       <Head>
-        <title>Soundley | Listen to Music</title>
+        <title>Soundley | Listen to What You Love</title>
       </Head>
 
       <main>
