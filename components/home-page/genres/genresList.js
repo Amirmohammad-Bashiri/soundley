@@ -13,10 +13,6 @@ SwiperCore.use([FreeMode]);
 function GenresList() {
   const [data, isLoading, isError] = useGenres();
 
-  if (isLoading) {
-    return <h1 className="text-2xl text-gray-50">Loading...</h1>;
-  }
-
   if (isError) {
     return <h1>Something went wrong</h1>;
   }
@@ -41,11 +37,13 @@ function GenresList() {
           1280: { slidesPerView: 4, spaceBetween: 25 },
           1536: { slidesPerView: 5, spaceBetween: 25 },
         }}>
-        {data.slice(0, 10).map(genre => (
-          <SwiperSlide key={genre.id}>
-            <GenreItem genre={genre} />
-          </SwiperSlide>
-        ))}
+        {!isLoading
+          ? data.slice(0, 10).map(genre => (
+              <SwiperSlide key={genre.id}>
+                <GenreItem genre={genre} />
+              </SwiperSlide>
+            ))
+          : null}
       </Swiper>
     </section>
   );
