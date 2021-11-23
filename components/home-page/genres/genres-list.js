@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { FreeMode } from "swiper";
 
 import { useGenres } from "@hooks/useGenres";
-import GenreItem from "./genreItem";
+import GenreItem from "./genre-item";
 
 import "swiper/css";
 import "swiper/css/free-mode";
