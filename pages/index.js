@@ -4,6 +4,7 @@ import { QueryClient, dehydrate } from "react-query";
 import GenresList from "@components/home-page/genres/genres-list";
 import GridContainer from "@containers/home-page/grid-container";
 import { getGenres } from "@lib/genres";
+import { getTopArtists } from "@lib/artists";
 
 function HomePage() {
   return (
@@ -24,6 +25,7 @@ export async function getStaticProps() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery("genres", getGenres);
+  await queryClient.prefetchQuery("artists", getTopArtists);
 
   return {
     props: {
