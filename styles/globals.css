@@ -13,6 +13,14 @@ body {
   background-color: #111827;
 }
 
+html {
+  block-size: 100%;
+}
+
+body {
+  min-block-size: 100%;
+}
+
 a {
   color: inherit;
   text-decoration: none;

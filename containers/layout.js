@@ -3,7 +3,7 @@ import Sidebar from "@components/navigation/sidebar";
 
 function Layout({ children }) {
   return (
-    <div className="">
+    <div>
       <div className="hidden xl:block">
         <Sidebar />
       </div>
