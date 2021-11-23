@@ -24,7 +24,9 @@ function GenresList() {
           Genres
         </h2>
         <Link href="/genres">
-          <a className="text-sm text-gray-300 md:text-base">View All</a>
+          <a className="text-sm font-medium text-gray-300 md:text-base">
+            View All
+          </a>
         </Link>
       </div>
 
