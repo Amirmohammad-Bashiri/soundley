@@ -1,7 +1,8 @@
 import Head from "next/head";
 import { QueryClient, dehydrate } from "react-query";
 
-import GenresList from "@components/home-page/genres/genresList";
+import GenresList from "@components/home-page/genres/genres-list";
+import GridContainer from "@containers/home-page/grid-container";
 import { getGenres } from "@lib/genres";
 
 function HomePage() {
@@ -13,6 +14,7 @@ function HomePage() {
 
       <main>
         <GenresList />
+        <GridContainer />
       </main>
     </div>
   );

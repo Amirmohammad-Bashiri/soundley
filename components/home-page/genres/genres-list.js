@@ -19,14 +19,14 @@ function GenresList() {
 
   return (
     <section className="px-4 pt-4 pb-6 mx-6 mt-10 bg-gray-800 rounded xl:px-6 md:mt-14 md:mx-10">
-      <ul className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold tracking-wide md:text-2xl lg:text-3xl text-gray-50">
           Genres
         </h2>
         <Link href="/genres">
           <a className="text-sm text-gray-300 md:text-base">View All</a>
         </Link>
-      </ul>
+      </div>
 
       <Swiper
         slidesPerView={2}
