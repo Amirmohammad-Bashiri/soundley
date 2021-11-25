@@ -24,8 +24,12 @@ function HomePage() {
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery("genres", getGenres);
-  await queryClient.prefetchQuery("artists", getTopArtists);
+  await queryClient.prefetchQuery("genres", getGenres, {
+    staleTime: 1000 * 60 * 60 * 24,
+  });
+  await queryClient.prefetchQuery("artists", getTopArtists, {
+    staleTime: 1000 * 60 * 60 * 24,
+  });
 
   return {
     props: {
