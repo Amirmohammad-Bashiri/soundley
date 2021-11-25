@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export const client = axios.create({
+export const deezerClient = axios.create({
   baseURL: "https://api.deezer.com",
 });

@@ -4,6 +4,7 @@ import SwiperCore, { FreeMode } from "swiper";
 
 import { useGenres } from "@hooks/useGenres";
 import GenreItem from "./genre-item";
+import { soundleyClient } from "@clients/soundley-client";
 
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -11,10 +12,10 @@ import "swiper/css/free-mode";
 SwiperCore.use([FreeMode]);
 
 function GenresList() {
-  const [data, isLoading, isError] = useGenres();
+  const { data, isFetching } = useGenres(soundleyClient, "/genres");
 
-  if (isError) {
-    return <h1>Something went wrong</h1>;
+  if (isFetching) {
+    return <h1 className="text-white">Loading...</h1>;
   }
 
   return (
@@ -39,13 +40,11 @@ function GenresList() {
           1280: { slidesPerView: 4, spaceBetween: 25 },
           1536: { slidesPerView: 5, spaceBetween: 25 },
         }}>
-        {!isLoading
-          ? data.slice(0, 10).map(genre => (
-              <SwiperSlide key={genre.id}>
-                <GenreItem genre={genre} />
-              </SwiperSlide>
-            ))
-          : null}
+        {data.slice(0, 10).map(genre => (
+          <SwiperSlide key={genre.id}>
+            <GenreItem genre={genre} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </section>
   );
