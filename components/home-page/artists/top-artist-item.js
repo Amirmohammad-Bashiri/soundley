@@ -16,7 +16,7 @@ function TopArtistItem({ artist }) {
             objectFit="contain"
           />
 
-          <div className="rounded h-44 w-44 border-gray-50 opacity-30 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
+          <div className="rounded opacity-25 h-44 w-44 border-gray-50 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
         </a>
       </Link>
       <p className="text-lg font-semibold text-gray-300">{name}</p>
