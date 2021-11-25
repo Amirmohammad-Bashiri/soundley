@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { ErrorBoundary } from "react-error-boundary";
 
 import TopArtists from "@components/home-page/artists/top-artists";
+import ErrorFallback from "@components/error-fallback";
 
 function GridContainer() {
   return (
@@ -16,8 +18,15 @@ function GridContainer() {
             </a>
           </Link>
         </div>
-
-        <TopArtists />
+        <ErrorBoundary
+          fallbackRender={({ resetErrorBoundary }) => (
+            <ErrorFallback
+              resetErrorBoundary={resetErrorBoundary}
+              queryKey="artists"
+            />
+          )}>
+          <TopArtists />
+        </ErrorBoundary>
       </section>
 
       <section className="col-span-5 bg-gray-800 rounded">
