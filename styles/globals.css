@@ -44,6 +44,10 @@ a {
   @apply flex items-center justify-center pt-4 pb-6 mx-6 mt-10 bg-gray-800 rounded h-52 md:mt-14 md:mx-10;
 }
 
+.top-albums-grid {
+  @apply grid grid-cols-2 px-6 mt-8 ml-5 md:grid-cols-4 xl:grid-cols-2 md:ml-6 xl:ml-2 2xl:ml-5 xl:gap-x-5 2xl:gap-x-0 gap-y-20 2xl:gap-y-24;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 16px;

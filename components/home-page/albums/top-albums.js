@@ -7,11 +7,11 @@ function TopAlbums() {
   const { data } = useAlbums(soundleyClient, "/albums");
 
   return (
-    <div className="grid grid-cols-2 px-6 mt-8 ml-5 gap-y-20">
+    <ul className="top-albums-grid">
       {data.map(album => (
         <TopAlbumItem key={album.id} album={album} />
       ))}
-    </div>
+    </ul>
   );
 }
 
