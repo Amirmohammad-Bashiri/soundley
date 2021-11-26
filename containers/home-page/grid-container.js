@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ErrorBoundary } from "react-error-boundary";
 
 import TopArtists from "@components/home-page/artists/top-artists";
+import TopAlbums from "@components/home-page/albums/top-albums";
 import ErrorFallback from "@components/error-fallback";
 
 function GridContainer() {
@@ -33,11 +34,15 @@ function GridContainer() {
         <h2>Music Player</h2>
       </section>
 
-      <section className="overflow-y-scroll bg-gray-800 rounded xl:col-span-3 xl:py-4 xl:px-6 max-h-72">
-        <h2>Top Albums</h2>
+      <section className="relative overflow-y-scroll bg-gray-800 rounded xl:col-span-3 max-h-80">
+        <h2 className="sticky top-0 z-10 py-4 pl-6 text-xl font-semibold tracking-wide bg-gray-800 md:text-2xl text-gray-50">
+          Top Albums
+        </h2>
+
+        <TopAlbums />
       </section>
 
-      <section className="bg-gray-800 rounded xl:col-span-4">
+      <section className="bg-gray-800 rounded xl:col-span-5">
         <h2>Top Charts</h2>
       </section>
     </div>
