@@ -46,7 +46,7 @@ export async function getStaticProps() {
     "artists",
     () => getTopArtists(deezerClient, "/chart/0/artists"),
     {
-      staleTime: 1000 * 60 * 60 * 24,
+      // staleTime: 1000 * 60 * 60 * 24,
     }
   );
 
