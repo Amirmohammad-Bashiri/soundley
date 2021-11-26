@@ -43,3 +43,26 @@ a {
 .default-fallback {
   @apply flex items-center justify-center pt-4 pb-6 mx-6 mt-10 bg-gray-800 rounded h-52 md:mt-14 md:mx-10;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: #111827;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 100vh;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4338ca;
+}
