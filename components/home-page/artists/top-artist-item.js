@@ -5,7 +5,7 @@ function TopArtistItem({ artist }) {
   const { picture_big, id, name } = artist;
 
   return (
-    <li className="flex flex-col justify-center px-1 py-4 space-y-3 text-center select-none">
+    <li className="flex flex-col justify-center px-1 pt-4 pb-6 space-y-3 text-center select-none">
       <Link href={`/artists/${id}`}>
         <a className="relative">
           <Image
@@ -16,10 +16,10 @@ function TopArtistItem({ artist }) {
             objectFit="contain"
           />
 
-          <div className="rounded opacity-25 h-44 w-44 border-gray-50 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
+          <div className="rounded opacity-25 w-28 h-28 md:w-32 md:h-32 border-gray-50 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
         </a>
       </Link>
-      <p className="text-lg font-semibold text-gray-300">{name}</p>
+      <p className="text-base font-semibold text-gray-300 md:text-lg">{name}</p>
     </li>
   );
 }
