@@ -6,7 +6,7 @@ import {
   HomeIcon,
   HeartIcon,
   CollectionIcon,
-  VolumeUpIcon,
+  ViewGridIcon,
 } from "@heroicons/react/solid";
 
 // import logo from "./soundley.svg";
@@ -44,7 +44,7 @@ function Sidebar() {
               })}>
               <Link href="/genres">
                 <a>
-                  <VolumeUpIcon className="cursor-pointer h-7 w-7 xl:h-8 xl:w-8" />
+                  <ViewGridIcon className="cursor-pointer h-7 w-7 xl:h-8 xl:w-8" />
                 </a>
               </Link>
               <Link href="/genres">
