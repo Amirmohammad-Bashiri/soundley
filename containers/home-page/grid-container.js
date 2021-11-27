@@ -7,7 +7,7 @@ import ErrorFallback from "@components/error-fallback";
 
 function GridContainer() {
   return (
-    <div className="px-6 pb-6 mt-12 space-y-10 md:px-10 md:pb-8 xl:space-y-0 xl:gap-8 xl:grid-cols-12 xl:grid-rows-6 xl:grid">
+    <div className="home-grid-layout">
       <section className="px-4 py-4 bg-gray-800 rounded xl:order-1 2xl:order-none xl:col-span-8 xl:row-span-3 xl:px-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold tracking-wide md:text-2xl text-gray-50">

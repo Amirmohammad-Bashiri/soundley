@@ -7,6 +7,7 @@ import GridContainer from "@containers/home-page/grid-container";
 import { getGenres } from "@lib/genres";
 import { getTopArtists } from "@lib/artists";
 import { getTopAlbums } from "@lib/albums";
+import { getTopTracks } from "@lib/tracks";
 import { deezerClient } from "../clients/deezer-client";
 import ErrorFallback from "@components/error-fallback";
 
@@ -52,6 +53,11 @@ export async function getStaticProps() {
   );
   await queryClient.prefetchQuery("albums", () =>
     getTopAlbums(deezerClient, "/chart/0/albums", {
+      staleTime: 1000 * 60 * 60 * 24,
+    })
+  );
+  await queryClient.prefetchQuery("tracks", () =>
+    getTopTracks(deezerClient, "/chart/0/tracks", {
       staleTime: 1000 * 60 * 60 * 24,
     })
   );
