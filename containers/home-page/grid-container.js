@@ -8,7 +8,7 @@ import ErrorFallback from "@components/error-fallback";
 function GridContainer() {
   return (
     <div className="px-6 pb-6 mt-12 space-y-10 md:px-10 md:pb-8 xl:space-y-0 xl:gap-8 xl:grid-cols-12 xl:grid-rows-6 xl:grid">
-      <section className="px-4 py-4 bg-gray-800 rounded xl:col-span-8 xl:row-span-3 xl:px-6">
+      <section className="px-4 py-4 bg-gray-800 rounded xl:order-1 2xl:order-none xl:col-span-8 xl:row-span-3 xl:px-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold tracking-wide md:text-2xl text-gray-50">
             Top Artists
@@ -30,11 +30,11 @@ function GridContainer() {
         </ErrorBoundary>
       </section>
 
-      <section className="hidden bg-gray-800 rounded xl:row-span-6 xl:block xl:col-span-4">
+      <section className="hidden bg-gray-800 rounded xl:order-3 2xl:order-none xl:row-span-3 2xl:row-span-6 xl:block xl:col-span-5 2xl:col-span-4">
         <h2>Music Player</h2>
       </section>
 
-      <section className="relative overflow-y-scroll bg-gray-800 rounded xl:row-span-3 xl:col-span-3 max-h-80">
+      <section className="relative overflow-y-scroll bg-gray-800 rounded xl:order-2 2xl:order-none xl:row-span-3 xl:col-span-4 2xl:col-span-3 max-h-80">
         <h2 className="sticky top-0 z-10 py-4 pl-6 text-xl font-semibold tracking-wide bg-gray-800 md:text-2xl text-gray-50">
           Top Albums
         </h2>
@@ -50,7 +50,7 @@ function GridContainer() {
         </ErrorBoundary>
       </section>
 
-      <section className="bg-gray-800 rounded xl:row-span-3 xl:col-span-5">
+      <section className="bg-gray-800 rounded xl:order-4 2xl:order-none xl:row-span-3 xl:col-span-7 2xl:col-span-5">
         <h2>Top Charts</h2>
       </section>
     </div>
