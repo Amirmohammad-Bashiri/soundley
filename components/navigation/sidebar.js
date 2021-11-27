@@ -1,4 +1,5 @@
 import Link from "next/link";
+// import Image from "next/image";
 import { useRouter } from "next/router";
 import cx from "clsx";
 import {
@@ -7,6 +8,8 @@ import {
   CollectionIcon,
   VolumeUpIcon,
 } from "@heroicons/react/solid";
+
+// import logo from "./soundley.svg";
 
 function Sidebar() {
   const { pathname } = useRouter();
