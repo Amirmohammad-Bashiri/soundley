@@ -15,9 +15,6 @@ function ErrorFallback({
   return (
     <div className={style}>
       <div className="flex flex-col items-center justify-center space-y-8 text-gray-50">
-        <p className="text-2xl font-medium tracking-wide">
-          Something went wrong
-        </p>
         <button
           className="px-4 py-2 font-semibold bg-indigo-500 rounded active:bg-indigo-400"
           onClick={handleReset}>

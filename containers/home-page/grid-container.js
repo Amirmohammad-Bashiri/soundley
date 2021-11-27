@@ -39,7 +39,15 @@ function GridContainer() {
           Top Albums
         </h2>
 
-        <TopAlbums />
+        <ErrorBoundary
+          fallbackRender={({ resetErrorBoundary }) => (
+            <ErrorFallback
+              resetErrorBoundary={resetErrorBoundary}
+              queryKey="albums"
+            />
+          )}>
+          <TopAlbums />
+        </ErrorBoundary>
       </section>
 
       <section className="bg-gray-800 rounded xl:col-span-5">

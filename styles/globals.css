@@ -41,7 +41,7 @@ a {
 }
 
 .default-fallback {
-  @apply flex items-center justify-center pt-4 pb-6 mx-6 mt-10 bg-gray-800 rounded h-52 md:mt-14 md:mx-10;
+  @apply flex items-center justify-center pt-4 pb-6 mx-6 bg-gray-800 rounded h-52 md:mt-10 md:mx-10;
 }
 
 .top-albums-grid {
