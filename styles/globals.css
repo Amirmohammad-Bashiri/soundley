@@ -45,7 +45,7 @@ a {
 }
 
 .top-albums-grid {
-  @apply grid grid-cols-2 px-6 mt-8 ml-5 md:grid-cols-4 xl:grid-cols-2 md:ml-6 xl:ml-2 2xl:ml-5 xl:gap-x-5 2xl:gap-x-0 gap-y-20 2xl:gap-y-24;
+  @apply grid grid-cols-2 px-6 mt-8 ml-5 md:pb-20 pb-14 md:grid-cols-4 xl:grid-cols-2 md:ml-6 xl:ml-2 2xl:ml-5 xl:gap-x-5 2xl:gap-x-0 gap-y-20 2xl:gap-y-24;
 }
 
 /* width */
@@ -66,7 +66,8 @@ a {
   border-radius: 100vh;
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+/* Handle on hover and active */
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
   background: #4338ca;
 }
