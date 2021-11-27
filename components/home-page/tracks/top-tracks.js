@@ -14,13 +14,16 @@ function TopTracks() {
       {data.map(track => (
         <li className="flex items-center justify-between" key={track.id}>
           <div className="flex items-center space-x-4">
-            <Image
-              src={track.artist.picture_medium}
-              alt={track.title}
-              width={60}
-              height={60}
-              className="rounded"
-            />
+            <div className="relative">
+              <Image
+                src={track.artist.picture_medium}
+                alt={track.title}
+                width={64}
+                height={64}
+                className="rounded"
+              />
+              <div className="absolute top-0 left-0 w-16 h-16 rounded opacity-20 border-gray-50 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
+            </div>
             <div className="flex flex-col items-center space-y-2">
               <strong className="text-gray-100 line-clamp-1">
                 {track.title}
