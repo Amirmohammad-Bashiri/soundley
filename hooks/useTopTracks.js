@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 import { getTopTracks } from "@lib/tracks";
 
-export function useGenres(client, url) {
+export function useTopTracks(client, url) {
   const { data, isLoading, isFetching } = useQuery(
     "tracks",
     () => getTopTracks(client, url),

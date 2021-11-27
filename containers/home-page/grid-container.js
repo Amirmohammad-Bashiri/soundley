@@ -3,6 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import TopArtists from "@components/home-page/artists/top-artists";
 import TopAlbums from "@components/home-page/albums/top-albums";
+import TopTracks from "@components/home-page/tracks/top-tracks";
 import ErrorFallback from "@components/error-fallback";
 
 function GridContainer() {
@@ -57,8 +58,19 @@ function GridContainer() {
         </ErrorBoundary>
       </section>
 
-      <section className="bg-gray-800 rounded xl:order-4 2xl:order-none xl:row-span-3 xl:col-span-7 2xl:col-span-5">
-        <h2>Top Charts</h2>
+      <section className="relative overflow-y-scroll bg-gray-800 rounded xl:order-4 2xl:order-none xl:row-span-3 xl:col-span-7 2xl:col-span-5 max-h-80">
+        <div className="sticky top-0 z-10 flex items-center justify-between py-4 mb-6 bg-gray-800">
+          <h2 className="pl-6 text-xl font-semibold tracking-wide md:text-2xl text-gray-50">
+            Top Tracks
+          </h2>
+          <Link href="/tracks">
+            <a className="pr-6 text-sm font-medium text-gray-300 md:text-base">
+              View All
+            </a>
+          </Link>
+        </div>
+
+        <TopTracks />
       </section>
     </div>
   );
