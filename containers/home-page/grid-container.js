@@ -70,7 +70,15 @@ function GridContainer() {
           </Link>
         </div>
 
-        <TopTracks />
+        <ErrorBoundary
+          fallbackRender={({ resetErrorBoundary }) => (
+            <ErrorFallback
+              resetErrorBoundary={resetErrorBoundary}
+              queryKey="tracks"
+            />
+          )}>
+          <TopTracks />
+        </ErrorBoundary>
       </section>
     </div>
   );

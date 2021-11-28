@@ -39,7 +39,7 @@ function TopTrackItem({ track }) {
         <button className="p-1 bg-gray-800 border border-gray-400 rounded">
           <PlayIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
         </button>
-        <button className="bg-gray-500 rounded">
+        <button className="hidden bg-gray-500 rounded md:block">
           <PlusIcon className="w-4 h-4 cursor-pointer xl:h-5 xl:w-5" />
         </button>
       </div>
