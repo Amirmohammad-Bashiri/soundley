@@ -32,7 +32,7 @@ function TopTrackItem({ track }) {
         </div>
       </div>
 
-      <div className="flex items-center space-x-3 md:space-x-6">
+      <div className="flex items-center space-x-4 md:space-x-6">
         <time className="text-sm font-semibold text-gray-200">
           {convertTrackDuration(track.duration)}
         </time>
