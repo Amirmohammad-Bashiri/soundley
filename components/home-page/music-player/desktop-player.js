@@ -38,11 +38,21 @@ function DesktopPlayer() {
 
       <div className="mt-4 2xl:mt-10">
         <div className="flex items-center justify-center space-x-8">
-          <i className="text-gray-100 cursor-pointer fas fa-redo-alt fa-lg"></i>
-          <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
-          <i className="p-4 text-gray-100 bg-indigo-500 rounded cursor-pointer fas fa-play fa-lg"></i>
-          <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
-          <i className="text-gray-100 cursor-pointer fas fa-random fa-lg"></i>
+          <button>
+            <i className="text-gray-100 cursor-pointer fas fa-redo-alt fa-lg"></i>
+          </button>
+          <button>
+            <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
+          </button>
+          <button>
+            <i className="p-4 text-gray-100 bg-indigo-500 rounded cursor-pointer fas fa-play fa-lg"></i>
+          </button>
+          <button>
+            <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
+          </button>
+          <button>
+            <i className="text-gray-100 cursor-pointer fas fa-random fa-lg"></i>
+          </button>
         </div>
       </div>
     </>
