@@ -1,10 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PlayIcon, PlusIcon } from "@heroicons/react/solid";
+import { PlayIcon, PlusIcon, PauseIcon } from "@heroicons/react/solid";
 
 import { convertTrackDuration } from "@utils/track-duration-converter";
+import { usePlayer } from "@store/player-context";
 
 function TopTrackItem({ track }) {
+  const { isPlaying, trackId, findTrackAndSetData } = usePlayer();
+
+  const actionButtonIcon =
+    isPlaying && trackId === track.id ? (
+      <PauseIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
+    ) : (
+      <PlayIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
+    );
+
   return (
     <li className="flex items-center justify-between">
       <div className="flex items-center space-x-5">
@@ -36,8 +46,10 @@ function TopTrackItem({ track }) {
         <time className="text-sm font-semibold text-gray-200">
           {convertTrackDuration(track.duration)}
         </time>
-        <button className="p-1 bg-gray-800 border border-gray-400 rounded">
-          <PlayIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
+        <button
+          onClick={() => findTrackAndSetData(track.id)}
+          className="p-1 bg-gray-800 border border-gray-400 rounded">
+          {actionButtonIcon}
         </button>
         <button className="hidden bg-gray-500 rounded md:block">
           <PlusIcon className="w-4 h-4 cursor-pointer xl:h-5 xl:w-5" />
