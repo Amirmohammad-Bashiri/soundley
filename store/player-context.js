@@ -16,26 +16,45 @@ function PlayerProvider(props) {
     setAudio(new Audio());
   }, []);
 
-  const togglePlay = () => {
-    if (isPlaying) {
+  const togglePlay = trackChanged => {
+    if (isPlaying && trackChanged) {
+      // if playing and track is changed pause audio then play
       audio.pause();
-    } else {
       audio.play();
+      setIsPlaying(true);
+    } else if (isPlaying && !trackChanged) {
+      // if playing and track is not changed pause the audio
+      audio.pause();
+      setIsPlaying(false);
+    } else if (!isPlaying) {
+      // if not playing play the audio
+      audio.play();
+      setIsPlaying(true);
     }
+  };
 
-    setIsPlaying(prevState => !prevState);
+  const playAudio = () => {
+    audio.play();
+    setIsPlaying(true);
+  };
+
+  const pauseAudio = () => {
+    audio.pause();
+  };
+
+  const hasAudioSourceChanged = trackId => {
+    return currentTrack.id !== trackId;
   };
 
   const findTrackAndSetData = trackId => {
     const trackIndex = data.findIndex(track => track.id === trackId);
-    console.log(data[trackIndex].preview);
     if (trackIndex) {
       setCurrentTrack(data[trackIndex]);
       setTrackId(trackId);
-      if (!audio.src) {
+      if (!audio.src || hasAudioSourceChanged(trackId)) {
         audio.src = data[trackIndex].preview;
       }
-      togglePlay();
+      togglePlay(hasAudioSourceChanged(trackId));
     }
   };
 
