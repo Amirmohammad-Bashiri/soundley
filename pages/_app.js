@@ -3,6 +3,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import Layout from "@containers/layout";
+import PlayerProvider from "@store/player-context";
 
 import "../styles/globals.css";
 
@@ -12,9 +13,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <PlayerProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </PlayerProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

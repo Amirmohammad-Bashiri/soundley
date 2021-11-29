@@ -1,15 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 import { useTopTracks } from "@hooks/useTopTracks";
 import { soundleyClient } from "@clients/soundley-client";
 
-const audio = new Audio();
 const PlayerContext = createContext();
 
 function PlayerProvider(props) {
+  const [audio, setAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState({});
   const { data } = useTopTracks(soundleyClient, "/tracks");
+
+  useEffect(() => {
+    setAudio(new Audio());
+  }, []);
 
   const togglePlay = () => {
     setIsPlaying(prevState => {
@@ -38,7 +42,7 @@ function PlayerProvider(props) {
     findTrackAndSetData,
   };
 
-  return <PlayerContext value={context} {...props} />;
+  return <PlayerContext.Provider value={context} {...props} />;
 }
 
 export function usePlayer() {
