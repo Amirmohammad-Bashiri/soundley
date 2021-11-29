@@ -17,6 +17,18 @@ function PlayerProvider(props) {
     setAudio(new Audio());
   }, []);
 
+  useEffect(() => {
+    if (audio) {
+      audio.addEventListener("ended", () => setIsPlaying(false));
+    }
+
+    return () => {
+      if (audio) {
+        audio.removeEventListener("ended", () => setIsPlaying(false));
+      }
+    };
+  }, [audio]);
+
   const togglePlay = trackChanged => {
     if (isPlaying && trackChanged) {
       // if playing and track is changed pause audio then play
