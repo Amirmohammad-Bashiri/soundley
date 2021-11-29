@@ -4,7 +4,7 @@ import { getTopTracks } from "@lib/tracks";
 
 export function useTopTracks(client, url) {
   const { data, isLoading, isFetching } = useQuery(
-    "tracks",
+    "topTracks",
     () => getTopTracks(client, url),
     {
       useErrorBoundary: true,
