@@ -47,7 +47,10 @@ function TopTrackItem({ track }) {
           {convertTrackDuration(track.duration)}
         </time>
         <button
-          onClick={() => findTrackAndSetData(track.id, "topTracks")}
+          onClick={() => {
+            findTrackAndSetData(track.id, "topTracks");
+            console.log(track);
+          }}
           className="p-1 bg-gray-800 border border-gray-400 rounded">
           {actionButtonIcon}
         </button>
