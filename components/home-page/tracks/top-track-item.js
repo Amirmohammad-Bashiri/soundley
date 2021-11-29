@@ -31,7 +31,7 @@ function TopTrackItem({ track }) {
 
   return (
     <li className="flex items-center justify-between">
-      <Toaster position="top-right" />
+      <Toaster />
       <div className="flex items-center space-x-5">
         <div
           className="relative w-16 h-16"
