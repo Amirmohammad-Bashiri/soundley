@@ -1,12 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PlayIcon, PlusIcon, PauseIcon } from "@heroicons/react/solid";
+import toast, { Toaster } from "react-hot-toast";
 
 import { convertTrackDuration } from "@utils/track-duration-converter";
 import { usePlayer } from "@store/player-context";
 
 function TopTrackItem({ track }) {
   const { isPlaying, trackId, findTrackAndSetData } = usePlayer();
+
+  const notify = () =>
+    toast(
+      "Unfortunately the API doesn't support preview for this track in this region."
+    );
 
   const actionButtonIcon =
     isPlaying && trackId === track.id ? (
@@ -15,8 +21,17 @@ function TopTrackItem({ track }) {
       <PlayIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
     );
 
+  const handlePlayClick = () => {
+    if (track.preview) {
+      findTrackAndSetData(track.id, "topTracks");
+    } else {
+      notify();
+    }
+  };
+
   return (
     <li className="flex items-center justify-between">
+      <Toaster position="top-right" />
       <div className="flex items-center space-x-5">
         <div
           className="relative w-16 h-16"
@@ -47,10 +62,7 @@ function TopTrackItem({ track }) {
           {convertTrackDuration(track.duration)}
         </time>
         <button
-          onClick={() => {
-            findTrackAndSetData(track.id, "topTracks");
-            console.log(track);
-          }}
+          onClick={handlePlayClick}
           className="p-1 bg-gray-800 border border-gray-400 rounded">
           {actionButtonIcon}
         </button>
