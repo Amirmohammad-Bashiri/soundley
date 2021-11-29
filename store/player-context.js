@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 import { useTopTracks } from "@hooks/useTopTracks";
 import { soundleyClient } from "@clients/soundley-client";
+import { hasAudioSourceChanged } from "@utils/has-source-audio-changed";
 
 const PlayerContext = createContext();
 
@@ -33,28 +34,15 @@ function PlayerProvider(props) {
     }
   };
 
-  const playAudio = () => {
-    audio.play();
-    setIsPlaying(true);
-  };
-
-  const pauseAudio = () => {
-    audio.pause();
-  };
-
-  const hasAudioSourceChanged = trackId => {
-    return currentTrack.id !== trackId;
-  };
-
   const findTrackAndSetData = trackId => {
     const trackIndex = data.findIndex(track => track.id === trackId);
     if (trackIndex) {
       setCurrentTrack(data[trackIndex]);
       setTrackId(trackId);
-      if (!audio.src || hasAudioSourceChanged(trackId)) {
+      if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
         audio.src = data[trackIndex].preview;
       }
-      togglePlay(hasAudioSourceChanged(trackId));
+      togglePlay(hasAudioSourceChanged(trackId, currentTrack));
     }
   };
 
