@@ -24,8 +24,6 @@ function DesktopPlayer() {
         </Link>
       </div>
 
-      <audio />
-
       <div className="flex items-center px-6 mt-4 space-x-4">
         <time className="font-medium text-gray-100">0:00</time>
         <div className="w-full h-1 bg-gray-600 rounded cursor-pointer">
