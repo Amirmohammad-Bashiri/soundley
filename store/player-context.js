@@ -11,6 +11,7 @@ function PlayerProvider(props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState({});
   const [trackId, setTrackId] = useState(null);
+  const [trackIndex, setTrackIndex] = useState(null);
   const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
 
   useEffect(() => {
@@ -46,16 +47,21 @@ function PlayerProvider(props) {
     }
   };
 
-  const findTrackAndSetData = (trackId, queryKey) => {
+  const setAudioData = (trackIndex, trackId) => {
+    setCurrentTrack(topTracks[trackIndex]);
+    if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
+      audio.src = topTracks[trackIndex].preview;
+    }
+    togglePlay(hasAudioSourceChanged(trackId, currentTrack));
+  };
+
+  const findTrackIndex = (trackId, queryKey) => {
     if (queryKey === "topTracks") {
       const trackIndex = topTracks.findIndex(track => track.id === trackId);
       if (trackIndex) {
-        setCurrentTrack(topTracks[trackIndex]);
         setTrackId(trackId);
-        if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
-          audio.src = topTracks[trackIndex].preview;
-        }
-        togglePlay(hasAudioSourceChanged(trackId, currentTrack));
+        setTrackIndex(trackIndex);
+        setAudioData(trackIndex, trackId);
       }
     }
   };
@@ -66,7 +72,7 @@ function PlayerProvider(props) {
     audio,
     currentTrack,
     trackId,
-    findTrackAndSetData,
+    findTrackIndex,
   };
 
   return <PlayerContext.Provider value={context} {...props} />;

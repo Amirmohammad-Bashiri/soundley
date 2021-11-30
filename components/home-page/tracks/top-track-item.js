@@ -7,7 +7,7 @@ import { convertTrackDuration } from "@utils/track-duration-converter";
 import { usePlayer } from "@store/player-context";
 
 function TopTrackItem({ track }) {
-  const { isPlaying, trackId, findTrackAndSetData } = usePlayer();
+  const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
   const notify = () =>
     toast(
@@ -23,7 +23,7 @@ function TopTrackItem({ track }) {
 
   const handlePlayClick = () => {
     if (track.preview) {
-      findTrackAndSetData(track.id, "topTracks");
+      findTrackIndex(track.id, "topTracks");
     } else {
       notify();
     }
