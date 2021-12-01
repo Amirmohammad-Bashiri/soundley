@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 
 import { useTopTracks } from "@hooks/useTopTracks";
 import { soundleyClient } from "@clients/soundley-client";
@@ -7,28 +7,31 @@ import { hasAudioSourceChanged } from "@utils/has-source-audio-changed";
 const PlayerContext = createContext();
 
 function PlayerProvider(props) {
+  const firstLoad = useRef(true);
+
   const [audio, setAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState({});
   const [trackId, setTrackId] = useState(null);
   const [trackIndex, setTrackIndex] = useState(null);
+
   const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
 
   useEffect(() => {
     setAudio(new Audio());
   }, []);
 
-  useEffect(() => {
-    if (audio) {
-      audio.addEventListener("ended", () => setIsPlaying(false));
-    }
+  // useEffect(() => {
+  //   if (audio) {
+  //     audio.addEventListener("ended", () => setIsPlaying(false));
+  //   }
 
-    return () => {
-      if (audio) {
-        audio.removeEventListener("ended", () => setIsPlaying(false));
-      }
-    };
-  }, [audio]);
+  //   return () => {
+  //     if (audio) {
+  //       audio.removeEventListener("ended", () => setIsPlaying(false));
+  //     }
+  //   };
+  // }, [audio]);
 
   const togglePlay = trackChanged => {
     if (isPlaying && trackChanged) {
@@ -47,7 +50,7 @@ function PlayerProvider(props) {
     }
   };
 
-  const setAudioData = (trackIndex, trackId) => {
+  const setAudioData = () => {
     setCurrentTrack(topTracks[trackIndex]);
     if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
       audio.src = topTracks[trackIndex].preview;
@@ -61,10 +64,23 @@ function PlayerProvider(props) {
       if (trackIndex) {
         setTrackId(trackId);
         setTrackIndex(trackIndex);
-        setAudioData(trackIndex, trackId);
+
+        if (!hasAudioSourceChanged(trackId, currentTrack)) {
+          setAudioData();
+        }
       }
     }
   };
+
+  useEffect(() => {
+    if (firstLoad.current) {
+      firstLoad.current = false;
+
+      return;
+    }
+
+    setAudioData();
+  }, [trackIndex]);
 
   const context = {
     isPlaying,
