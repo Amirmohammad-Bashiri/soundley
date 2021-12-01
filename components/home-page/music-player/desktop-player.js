@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { ViewGridAddIcon } from "@heroicons/react/solid";
 
+import { usePlayer } from "@store/player-context";
+
 function DesktopPlayer() {
+  const { goToNextTrack } = usePlayer();
+
   return (
     <>
       <div className="hidden px-6 2xl:items-center 2xl:justify-between 2xl:flex text-gray-50">
@@ -45,7 +49,7 @@ function DesktopPlayer() {
           <button>
             <i className="p-4 text-gray-100 bg-indigo-500 rounded cursor-pointer fas fa-play fa-lg"></i>
           </button>
-          <button>
+          <button onClick={goToNextTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
           </button>
           <button>

@@ -7,39 +7,48 @@ import { hasAudioSourceChanged } from "@utils/has-source-audio-changed";
 const PlayerContext = createContext();
 
 function PlayerProvider(props) {
-  const firstLoad = useRef(true);
-
   const [audio, setAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState({});
   const [trackId, setTrackId] = useState(null);
   const [trackIndex, setTrackIndex] = useState(null);
 
-  const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
+  const firstLoad = useRef(true);
+  const trackIndexRef = useRef(trackIndex);
 
-  const audioStatus = audio && audio.ended;
+  const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
 
   useEffect(() => {
     setAudio(new Audio());
   }, []);
 
-  useEffect(() => {
-    if (audio) {
-      audio.addEventListener("ended", () => {
-        setIsPlaying(false);
-        console.log(audio.ended);
-      });
-    }
+  // useEffect(() => {
+  //   if (audio) {
+  //     audio.addEventListener("ended", () => {
+  //       if (trackIndexRef.current < topTracks.length - 1) {
+  //         setTrackIndex(prevState => prevState + 1);
+  //         trackIndexRef.current = trackIndexRef.current + 1;
+  //         setIsPlaying(false);
+  //       } else {
+  //         setTrackIndex(0);
+  //         trackIndexRef.current = 0;
+  //         setIsPlaying(false);
+  //       }
+  //     });
+  //   }
 
-    return () => {
-      if (audio) {
-        audio.addEventListener("ended", () => {
-          setIsPlaying(false);
-          console.log(audio.ended);
-        });
-      }
-    };
-  }, [audio]);
+  //   return () => {
+  //     if (audio) {
+  //       if (trackIndexRef.current < topTracks.length - 1) {
+  //         setTrackIndex(prevState => prevState + 1);
+  //         trackIndexRef.current = trackIndexRef.current + 1;
+  //       } else {
+  //         setTrackIndex(0);
+  //         trackIndexRef.current = 0;
+  //       }
+  //     }
+  //   };
+  // }, [audio]);
 
   const togglePlay = trackChanged => {
     if (isPlaying && trackChanged) {
@@ -59,10 +68,11 @@ function PlayerProvider(props) {
   };
 
   const setAudioData = () => {
-    setCurrentTrack(topTracks[trackIndex]);
     if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
       audio.src = topTracks[trackIndex].preview;
     }
+    console.log(hasAudioSourceChanged(trackId, currentTrack));
+    console.log("TRACK ID: ", trackId, "CURRENT TRACK ID: ", currentTrack.id);
     togglePlay(hasAudioSourceChanged(trackId, currentTrack));
   };
 
@@ -72,6 +82,7 @@ function PlayerProvider(props) {
       if (trackIndex) {
         setTrackId(trackId);
         setTrackIndex(trackIndex);
+        trackIndexRef.current = trackIndex;
 
         if (!hasAudioSourceChanged(trackId, currentTrack)) {
           setAudioData();
@@ -87,8 +98,23 @@ function PlayerProvider(props) {
       return;
     }
 
+    setCurrentTrack(topTracks[trackIndex]);
     setAudioData();
-  }, [trackIndex]);
+  }, [trackIndex, trackIndexRef.current]);
+
+  const goToNextTrack = () => {
+    if (trackIndexRef.current < topTracks.length - 1) {
+      setTrackIndex(prevState => prevState + 1);
+      trackIndexRef.current = trackIndexRef.current + 1;
+      setTrackId(topTracks[trackIndex + 1].id);
+      setIsPlaying(false);
+    } else {
+      setTrackIndex(0);
+      trackIndexRef.current = 0;
+      setTrackId(topTracks[0].id);
+      setIsPlaying(false);
+    }
+  };
 
   const context = {
     isPlaying,
@@ -97,6 +123,7 @@ function PlayerProvider(props) {
     currentTrack,
     trackId,
     findTrackIndex,
+    goToNextTrack,
   };
 
   return <PlayerContext.Provider value={context} {...props} />;
