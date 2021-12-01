@@ -17,21 +17,29 @@ function PlayerProvider(props) {
 
   const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
 
+  const audioStatus = audio && audio.ended;
+
   useEffect(() => {
     setAudio(new Audio());
   }, []);
 
-  // useEffect(() => {
-  //   if (audio) {
-  //     audio.addEventListener("ended", () => setIsPlaying(false));
-  //   }
+  useEffect(() => {
+    if (audio) {
+      audio.addEventListener("ended", () => {
+        setIsPlaying(false);
+        console.log(audio.ended);
+      });
+    }
 
-  //   return () => {
-  //     if (audio) {
-  //       audio.removeEventListener("ended", () => setIsPlaying(false));
-  //     }
-  //   };
-  // }, [audio]);
+    return () => {
+      if (audio) {
+        audio.addEventListener("ended", () => {
+          setIsPlaying(false);
+          console.log(audio.ended);
+        });
+      }
+    };
+  }, [audio]);
 
   const togglePlay = trackChanged => {
     if (isPlaying && trackChanged) {
