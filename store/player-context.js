@@ -116,6 +116,22 @@ function PlayerProvider(props) {
     }
   };
 
+  const goToPrevTrack = () => {
+    const lastElementIndex = topTracks.length - 1;
+
+    if (trackIndexRef.current > 0) {
+      setTrackIndex(prevState => prevState - 1);
+      trackIndexRef.current = trackIndexRef.current - 1;
+      setTrackId(topTracks[trackIndex - 1].id);
+      setIsPlaying(false);
+    } else {
+      setTrackIndex(lastElementIndex);
+      trackIndexRef.current = lastElementIndex;
+      setTrackId(topTracks[lastElementIndex].id);
+      setIsPlaying(false);
+    }
+  };
+
   const context = {
     isPlaying,
     togglePlay,
@@ -124,6 +140,7 @@ function PlayerProvider(props) {
     trackId,
     findTrackIndex,
     goToNextTrack,
+    goToPrevTrack,
   };
 
   return <PlayerContext.Provider value={context} {...props} />;

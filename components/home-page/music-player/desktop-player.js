@@ -4,7 +4,7 @@ import { ViewGridAddIcon } from "@heroicons/react/solid";
 import { usePlayer } from "@store/player-context";
 
 function DesktopPlayer() {
-  const { goToNextTrack } = usePlayer();
+  const { goToNextTrack, goToPrevTrack } = usePlayer();
 
   return (
     <>
@@ -43,7 +43,7 @@ function DesktopPlayer() {
           <button>
             <i className="text-gray-100 cursor-pointer fas fa-redo-alt fa-lg"></i>
           </button>
-          <button>
+          <button onClick={goToPrevTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
           </button>
           <button>
