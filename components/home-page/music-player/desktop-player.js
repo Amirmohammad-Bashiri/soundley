@@ -4,7 +4,17 @@ import { ViewGridAddIcon } from "@heroicons/react/solid";
 import { usePlayer } from "@store/player-context";
 
 function DesktopPlayer() {
-  const { goToNextTrack, goToPrevTrack } = usePlayer();
+  const { goToNextTrack, goToPrevTrack, pause, play, isPlaying } = usePlayer();
+
+  const actionButtonIcon = isPlaying ? (
+    <button onClick={pause}>
+      <i className="p-4 text-gray-100 bg-indigo-500 rounded cursor-pointer fas fa-pause fa-lg"></i>
+    </button>
+  ) : (
+    <button onClick={play}>
+      <i className="p-4 text-gray-100 bg-indigo-500 rounded cursor-pointer fas fa-play fa-lg"></i>
+    </button>
+  );
 
   return (
     <>
@@ -46,9 +56,7 @@ function DesktopPlayer() {
           <button onClick={goToPrevTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
           </button>
-          <button>
-            <i className="p-4 text-gray-100 bg-indigo-500 rounded cursor-pointer fas fa-play fa-lg"></i>
-          </button>
+          {actionButtonIcon}
           <button onClick={goToNextTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
           </button>

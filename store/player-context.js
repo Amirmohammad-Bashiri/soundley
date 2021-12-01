@@ -22,34 +22,6 @@ function PlayerProvider(props) {
     setAudio(new Audio());
   }, []);
 
-  // useEffect(() => {
-  //   if (audio) {
-  //     audio.addEventListener("ended", () => {
-  //       if (trackIndexRef.current < topTracks.length - 1) {
-  //         setTrackIndex(prevState => prevState + 1);
-  //         trackIndexRef.current = trackIndexRef.current + 1;
-  //         setIsPlaying(false);
-  //       } else {
-  //         setTrackIndex(0);
-  //         trackIndexRef.current = 0;
-  //         setIsPlaying(false);
-  //       }
-  //     });
-  //   }
-
-  //   return () => {
-  //     if (audio) {
-  //       if (trackIndexRef.current < topTracks.length - 1) {
-  //         setTrackIndex(prevState => prevState + 1);
-  //         trackIndexRef.current = trackIndexRef.current + 1;
-  //       } else {
-  //         setTrackIndex(0);
-  //         trackIndexRef.current = 0;
-  //       }
-  //     }
-  //   };
-  // }, [audio]);
-
   const togglePlay = trackChanged => {
     if (isPlaying && trackChanged) {
       // if playing and track is changed pause audio then play
@@ -132,6 +104,35 @@ function PlayerProvider(props) {
     }
   };
 
+  const play = () => {
+    if (!trackId) {
+      return;
+    }
+    setIsPlaying(true);
+    audio.play();
+  };
+
+  const pause = () => {
+    setIsPlaying(false);
+    audio.pause();
+  };
+
+  // useEffect(() => {
+  //   if (audio) {
+  //     audio.addEventListener("ended", () => {
+  //       goToNextTrack();
+  //     });
+  //   }
+
+  //   return () => {
+  //     if (audio) {
+  //       audio.removeEventListener("ended", () => {
+  //         goToNextTrack();
+  //       });
+  //     }
+  //   };
+  // }, [audio]);
+
   const context = {
     isPlaying,
     togglePlay,
@@ -141,6 +142,8 @@ function PlayerProvider(props) {
     findTrackIndex,
     goToNextTrack,
     goToPrevTrack,
+    play,
+    pause,
   };
 
   return <PlayerContext.Provider value={context} {...props} />;
