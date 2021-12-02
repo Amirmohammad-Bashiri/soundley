@@ -52,14 +52,12 @@ function PlayerProvider(props) {
   const findTrackIndex = (trackId, queryKey) => {
     if (queryKey === "topTracks") {
       const trackIndex = topTracks.findIndex(track => track.id === trackId);
-      if (trackIndex) {
-        setTrackId(trackId);
-        setTrackIndex(trackIndex);
-        trackIndexRef.current = trackIndex;
+      setTrackId(trackId);
+      setTrackIndex(trackIndex);
+      trackIndexRef.current = trackIndex;
 
-        if (!hasAudioSourceChanged(trackId, currentTrack)) {
-          setAudioData();
-        }
+      if (!hasAudioSourceChanged(trackId, currentTrack)) {
+        setAudioData();
       }
     }
   };
