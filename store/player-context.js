@@ -40,12 +40,13 @@ function PlayerProvider(props) {
   };
 
   const setAudioData = () => {
-    if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
-      audio.src = topTracks[trackIndex].preview;
+    if (!topTracks[trackIndex].preview) {
+    } else {
+      if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
+        audio.src = topTracks[trackIndex].preview;
+      }
+      togglePlay(hasAudioSourceChanged(trackId, currentTrack));
     }
-    console.log(hasAudioSourceChanged(trackId, currentTrack));
-    console.log("TRACK ID: ", trackId, "CURRENT TRACK ID: ", currentTrack.id);
-    togglePlay(hasAudioSourceChanged(trackId, currentTrack));
   };
 
   const findTrackIndex = (trackId, queryKey) => {
@@ -66,12 +67,13 @@ function PlayerProvider(props) {
   useEffect(() => {
     if (firstLoad.current) {
       firstLoad.current = false;
-
       return;
     }
 
     setCurrentTrack(topTracks[trackIndex]);
     setAudioData();
+
+    // eslint-disable-next-line
   }, [trackIndex, trackIndexRef.current]);
 
   const goToNextTrack = () => {

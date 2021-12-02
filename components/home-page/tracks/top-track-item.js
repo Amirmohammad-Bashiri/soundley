@@ -1,18 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PlayIcon, PlusIcon, PauseIcon } from "@heroicons/react/solid";
-import toast, { Toaster } from "react-hot-toast";
 
 import { convertTrackDuration } from "@utils/track-duration-converter";
 import { usePlayer } from "@store/player-context";
 
 function TopTrackItem({ track }) {
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
-
-  const notify = () =>
-    toast(
-      "Unfortunately the API doesn't support preview for this track in this region."
-    );
 
   const actionButtonIcon =
     isPlaying && trackId === track.id ? (
@@ -22,16 +16,11 @@ function TopTrackItem({ track }) {
     );
 
   const handlePlayClick = () => {
-    if (track.preview) {
-      findTrackIndex(track.id, "topTracks");
-    } else {
-      notify();
-    }
+    findTrackIndex(track.id, "topTracks");
   };
 
   return (
     <li className="flex items-center justify-between">
-      <Toaster />
       <div className="flex items-center space-x-5">
         <div
           className="relative w-16 h-16"
