@@ -32,6 +32,7 @@ function PlayerProvider(props) {
       // if playing and track is not changed pause the audio
       audio.pause();
       setIsPlaying(false);
+      console.log("boop");
     } else if (!isPlaying) {
       // if not playing play the audio
       audio.play();
@@ -40,13 +41,10 @@ function PlayerProvider(props) {
   };
 
   const setAudioData = () => {
-    if (!topTracks[trackIndex].preview) {
-    } else {
-      if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
-        audio.src = topTracks[trackIndex].preview;
-      }
-      togglePlay(hasAudioSourceChanged(trackId, currentTrack));
+    if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
+      audio.src = topTracks[trackIndex].preview;
     }
+    togglePlay(hasAudioSourceChanged(trackId, currentTrack));
   };
 
   const findTrackIndex = (trackId, queryKey) => {
@@ -117,21 +115,41 @@ function PlayerProvider(props) {
     audio.pause();
   };
 
-  // useEffect(() => {
-  //   if (audio) {
-  //     audio.addEventListener("ended", () => {
-  //       goToNextTrack();
-  //     });
-  //   }
+  useEffect(() => {
+    if (audio) {
+      audio.addEventListener("ended", () => {
+        if (trackIndexRef.current < topTracks.length - 1) {
+          setTrackId(topTracks[trackIndexRef.current + 1].id);
+          trackIndexRef.current = trackIndexRef.current + 1;
+          setTrackIndex(trackIndexRef.current);
+          setIsPlaying(false);
+        } else {
+          trackIndexRef.current = 0;
+          setTrackIndex(trackIndexRef.current);
+          setTrackId(topTracks[0].id);
+          setIsPlaying(false);
+        }
+      });
+    }
 
-  //   return () => {
-  //     if (audio) {
-  //       audio.removeEventListener("ended", () => {
-  //         goToNextTrack();
-  //       });
-  //     }
-  //   };
-  // }, [audio]);
+    return () => {
+      if (audio) {
+        audio.removeEventListener("ended", () => {
+          if (trackIndexRef.current < topTracks.length - 1) {
+            setTrackIndex(prevState => prevState + 1);
+            setTrackId(topTracks[trackIndexRef.current + 1].id);
+            trackIndexRef.current = trackIndexRef.current + 1;
+            setIsPlaying(false);
+          } else {
+            setTrackIndex(0);
+            trackIndexRef.current = 0;
+            setTrackId(topTracks[0].id);
+            setIsPlaying(false);
+          }
+        });
+      }
+    };
+  }, [audio]);
 
   const context = {
     isPlaying,
