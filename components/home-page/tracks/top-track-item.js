@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import cx from "clsx";
 import { PlayIcon, PlusIcon, PauseIcon } from "@heroicons/react/solid";
 
 import { convertTrackDuration } from "@utils/track-duration-converter";
@@ -52,7 +53,9 @@ function TopTrackItem({ track }) {
         </time>
         <button
           onClick={handlePlayClick}
-          className="p-1 bg-gray-800 border border-gray-400 rounded">
+          className={cx("p-1 bg-gray-800 border border-gray-400 rounded", {
+            "border-indigo-600": isPlaying && trackId === track.id,
+          })}>
           {actionButtonIcon}
         </button>
         <button className="hidden bg-gray-500 rounded md:block">

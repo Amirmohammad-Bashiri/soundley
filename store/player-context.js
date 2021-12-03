@@ -32,7 +32,6 @@ function PlayerProvider(props) {
       // if playing and track is not changed pause the audio
       audio.pause();
       setIsPlaying(false);
-      console.log("boop");
     } else if (!isPlaying) {
       // if not playing play the audio
       audio.play();
@@ -42,7 +41,7 @@ function PlayerProvider(props) {
 
   const setAudioData = () => {
     if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
-      audio.src = topTracks[trackIndex].preview;
+      audio.src = topTracks[trackIndex]?.preview;
     }
     togglePlay(hasAudioSourceChanged(trackId, currentTrack));
   };
