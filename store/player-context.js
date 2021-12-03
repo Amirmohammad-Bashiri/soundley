@@ -12,6 +12,7 @@ function PlayerProvider(props) {
   const [currentTrack, setCurrentTrack] = useState({});
   const [trackId, setTrackId] = useState(null);
   const [trackIndex, setTrackIndex] = useState(null);
+  const [loop, setLoop] = useState(false);
 
   const firstLoad = useRef(true);
   const trackIndexRef = useRef(trackIndex);
@@ -21,6 +22,12 @@ function PlayerProvider(props) {
   useEffect(() => {
     setAudio(new Audio());
   }, []);
+
+  useEffect(() => {
+    if (audio) {
+      audio.loop = loop;
+    }
+  }, [loop]);
 
   const togglePlay = trackChanged => {
     if (isPlaying && trackChanged) {
@@ -114,6 +121,10 @@ function PlayerProvider(props) {
     audio.pause();
   };
 
+  const toggleLoop = () => {
+    setLoop(prevState => !prevState);
+  };
+
   useEffect(() => {
     if (audio) {
       audio.addEventListener("ended", () => {
@@ -161,6 +172,8 @@ function PlayerProvider(props) {
     goToPrevTrack,
     play,
     pause,
+    toggleLoop,
+    loop,
   };
 
   return <PlayerContext.Provider value={context} {...props} />;

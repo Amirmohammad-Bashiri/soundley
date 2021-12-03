@@ -1,10 +1,19 @@
 import Link from "next/link";
 import { ViewGridAddIcon } from "@heroicons/react/solid";
 
+import cx from "clsx";
 import { usePlayer } from "@store/player-context";
 
 function DesktopPlayer() {
-  const { goToNextTrack, goToPrevTrack, pause, play, isPlaying } = usePlayer();
+  const {
+    goToNextTrack,
+    goToPrevTrack,
+    pause,
+    play,
+    isPlaying,
+    toggleLoop,
+    loop,
+  } = usePlayer();
 
   const actionButtonIcon = isPlaying ? (
     <button onClick={pause}>
@@ -50,8 +59,12 @@ function DesktopPlayer() {
 
       <div className="mt-4 2xl:mt-10">
         <div className="flex items-center justify-center space-x-8">
-          <button>
-            <i className="text-gray-100 cursor-pointer fas fa-redo-alt fa-lg"></i>
+          <button onClick={toggleLoop}>
+            <i
+              className={cx(
+                "text-gray-100 cursor-pointer fas fa-redo-alt fa-lg",
+                { "text-indigo-500": loop }
+              )}></i>
           </button>
           <button onClick={goToPrevTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
