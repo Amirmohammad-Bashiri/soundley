@@ -124,9 +124,9 @@ function PlayerProvider(props) {
           setTrackIndex(trackIndexRef.current);
           setIsPlaying(false);
         } else {
+          setTrackId(topTracks[0].id);
           trackIndexRef.current = 0;
           setTrackIndex(trackIndexRef.current);
-          setTrackId(topTracks[0].id);
           setIsPlaying(false);
         }
       });
@@ -136,13 +136,13 @@ function PlayerProvider(props) {
       if (audio) {
         audio.removeEventListener("ended", () => {
           if (trackIndexRef.current < topTracks.length - 1) {
-            setTrackIndex(prevState => prevState + 1);
             setTrackId(topTracks[trackIndexRef.current + 1].id);
             trackIndexRef.current = trackIndexRef.current + 1;
+            setTrackIndex(trackIndexRef.current);
             setIsPlaying(false);
           } else {
-            setTrackIndex(0);
             trackIndexRef.current = 0;
+            setTrackIndex(trackIndexRef.current);
             setTrackId(topTracks[0].id);
             setIsPlaying(false);
           }
