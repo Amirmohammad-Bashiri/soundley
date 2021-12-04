@@ -13,6 +13,8 @@ function DesktopPlayer() {
     isPlaying,
     toggleLoop,
     loop,
+    toggleShuffle,
+    isShuffled,
   } = usePlayer();
 
   const actionButtonIcon = isPlaying ? (
@@ -73,8 +75,12 @@ function DesktopPlayer() {
           <button onClick={goToNextTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
           </button>
-          <button>
-            <i className="text-gray-100 cursor-pointer fas fa-random fa-lg"></i>
+          <button onClick={toggleShuffle}>
+            <i
+              className={cx(
+                "text-gray-100 cursor-pointer fas fa-random fa-lg",
+                { "text-indigo-500": isShuffled }
+              )}></i>
           </button>
         </div>
       </div>
