@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ViewGridAddIcon } from "@heroicons/react/solid";
 
 import cx from "clsx";
@@ -15,6 +16,8 @@ function DesktopPlayer() {
     loop,
     toggleShuffle,
     isShuffled,
+    currentTrack,
+    audio,
   } = usePlayer();
 
   const actionButtonIcon = isPlaying ? (
@@ -37,15 +40,26 @@ function DesktopPlayer() {
       </div>
 
       <div className="flex items-center justify-center px-16 mt-4 2xl:mt-10">
-        <div className="w-32 h-24 bg-blue-500 rounded 2xl:w-full 2xl:h-80"></div>
+        <div className="relative w-32 h-24 rounded 2xl:w-full 2xl:h-80">
+          {currentTrack.album ? (
+            <Image
+              src={currentTrack?.album?.cover_medium}
+              alt="Track Cover"
+              layout="fill"
+            />
+          ) : null}
+          <div className="absolute top-0 left-0 w-32 h-24 rounded opacity-25 border-gray-50 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800 2xl:w-full 2xl:h-80"></div>
+        </div>
       </div>
 
       <div className="flex flex-col items-center justify-center px-6 mt-5 2xl:space-y-2">
-        <h1 className="text-xl font-semibold 2xl:text-2xl text-gray-50">
-          Butterfly Effect
+        <h1 className="text-xl font-semibold 2xl:text-2xl line-clamp-1 text-gray-50">
+          {currentTrack.title ? currentTrack.title : "Song Title"}
         </h1>
         <Link href="/artists/:artistid">
-          <a className="text-base text-gray-300 2xl:text-lg">Travis Scott</a>
+          <a className="text-base text-gray-300 2xl:text-lg line-clamp-1">
+            {currentTrack.artist ? currentTrack.artist.name : "Artist Name"}
+          </a>
         </Link>
       </div>
 

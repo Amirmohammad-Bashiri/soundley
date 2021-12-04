@@ -28,7 +28,7 @@ function TopTrackItem({ track }) {
           className="relative w-16 h-16"
           style={{ minHeight: "4rem", minWidth: "4rem" }}>
           <Image
-            src={track.artist.picture_medium}
+            src={track.album.cover_medium}
             alt={track.title}
             layout="fill"
             objectFit="contain"
