@@ -1,38 +1,48 @@
-import { createContext, useContext, useState, useEffect, useRef } from "react";
+import * as React from "react";
 import shuffle from "lodash.shuffle";
 
 import { useTopTracks } from "@hooks/useTopTracks";
 import { soundleyClient } from "@clients/soundley-client";
 import { hasAudioSourceChanged } from "@utils/has-source-audio-changed";
 
-const PlayerContext = createContext();
+const PlayerContext = React.createContext();
 
 function PlayerProvider(props) {
+  const audio = React.useMemo(
+    () => (typeof Audio !== "undefined" ? new Audio() : undefined),
+    []
+  );
+
   const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
 
-  const [audio, setAudio] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState({});
-  const [trackId, setTrackId] = useState(null);
-  const [trackIndex, setTrackIndex] = useState(null);
-  const [loop, setLoop] = useState(false);
-  const [isShuffled, setIsShuffled] = useState(false);
-  const [tracksData, setTracksData] = useState(topTracks);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [currentTrack, setCurrentTrack] = React.useState({});
+  const [trackId, setTrackId] = React.useState(null);
+  const [trackIndex, setTrackIndex] = React.useState(null);
+  const [loop, setLoop] = React.useState(false);
+  const [isShuffled, setIsShuffled] = React.useState(false);
+  const [currentTime, setCurrentTime] = React.useState(0.0);
+  const [tracksData, setTracksData] = React.useState(topTracks);
 
-  const firstLoad = useRef(true);
-  const trackIndexRef = useRef(trackIndex);
+  const firstLoad = React.useRef(true);
+  const trackIndexRef = React.useRef(trackIndex);
 
-  useEffect(() => {
-    setAudio(new Audio());
-  }, []);
-
-  useEffect(() => {
-    if (audio) {
-      audio.loop = loop;
-    }
+  React.useEffect(() => {
+    audio.loop = loop;
   }, [loop, audio]);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    audio.addEventListener("timeupdate", () => {
+      setCurrentTime(audio.currentTime);
+    });
+
+    return () =>
+      audio.removeEventListener("timeupdate", () => {
+        setCurrentTime(audio.currentTime);
+      });
+  }, [audio]);
+
+  React.useEffect(() => {
     if (isShuffled) {
       setTracksData(shuffle(tracksData));
       // const trackIndex = tracksData.findIndex(track => track.id === trackId);
@@ -80,7 +90,7 @@ function PlayerProvider(props) {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (firstLoad.current) {
       firstLoad.current = false;
       return;
@@ -143,39 +153,35 @@ function PlayerProvider(props) {
     setIsShuffled(prevState => !prevState);
   };
 
-  useEffect(() => {
-    if (audio) {
-      audio.addEventListener("ended", () => {
+  React.useEffect(() => {
+    audio.addEventListener("ended", () => {
+      if (trackIndexRef.current < tracksData.length - 1) {
+        setTrackId(tracksData[trackIndexRef.current + 1].id);
+        trackIndexRef.current = trackIndexRef.current + 1;
+        setTrackIndex(trackIndexRef.current);
+        setIsPlaying(false);
+      } else {
+        setTrackId(tracksData[0].id);
+        trackIndexRef.current = 0;
+        setTrackIndex(trackIndexRef.current);
+        setIsPlaying(false);
+      }
+    });
+
+    return () => {
+      audio.removeEventListener("ended", () => {
         if (trackIndexRef.current < tracksData.length - 1) {
           setTrackId(tracksData[trackIndexRef.current + 1].id);
           trackIndexRef.current = trackIndexRef.current + 1;
           setTrackIndex(trackIndexRef.current);
           setIsPlaying(false);
         } else {
-          setTrackId(tracksData[0].id);
           trackIndexRef.current = 0;
           setTrackIndex(trackIndexRef.current);
+          setTrackId(tracksData[0].id);
           setIsPlaying(false);
         }
       });
-    }
-
-    return () => {
-      if (audio) {
-        audio.removeEventListener("ended", () => {
-          if (trackIndexRef.current < tracksData.length - 1) {
-            setTrackId(tracksData[trackIndexRef.current + 1].id);
-            trackIndexRef.current = trackIndexRef.current + 1;
-            setTrackIndex(trackIndexRef.current);
-            setIsPlaying(false);
-          } else {
-            trackIndexRef.current = 0;
-            setTrackIndex(trackIndexRef.current);
-            setTrackId(tracksData[0].id);
-            setIsPlaying(false);
-          }
-        });
-      }
     };
   }, [audio]);
 
@@ -194,13 +200,14 @@ function PlayerProvider(props) {
     loop,
     toggleShuffle,
     isShuffled,
+    currentTime,
   };
 
   return <PlayerContext.Provider value={context} {...props} />;
 }
 
 export function usePlayer() {
-  const context = useContext(PlayerContext);
+  const context = React.useContext(PlayerContext);
 
   if (!context) {
     throw new Error("usePlayer must be within a PlayerProvider");

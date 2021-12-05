@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ViewGridAddIcon } from "@heroicons/react/solid";
-
 import cx from "clsx";
+
 import { usePlayer } from "@store/player-context";
+import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
+import { getTrackLength } from "@utils/get-track-length";
 
 function DesktopPlayer() {
   const {
@@ -17,8 +19,12 @@ function DesktopPlayer() {
     toggleShuffle,
     isShuffled,
     currentTrack,
+    currentTime,
     audio,
   } = usePlayer();
+
+  const trackDuration =
+    audio && audio.duration ? convertTrackCurrentTime(audio.duration) : "0:00";
 
   const actionButtonIcon = isPlaying ? (
     <button onClick={pause}>
@@ -64,13 +70,15 @@ function DesktopPlayer() {
       </div>
 
       <div className="flex items-center px-6 mt-4 space-x-4">
-        <time className="font-medium text-gray-100">0:00</time>
+        <time className="font-medium text-gray-100">
+          {convertTrackCurrentTime(currentTime)}
+        </time>
         <div className="w-full h-1 bg-gray-600 rounded cursor-pointer">
           <div className="relative w-20 h-full bg-gray-100 rounded">
             <div className="absolute right-0 w-3 h-3 bg-indigo-600 border-2 border-gray-100 rounded-full cursor-pointer -top-1"></div>
           </div>
         </div>
-        <time className="font-medium text-gray-100">3:25</time>
+        <time className="font-medium text-gray-100">{trackDuration}</time>
       </div>
 
       <div className="mt-4 2xl:mt-10">

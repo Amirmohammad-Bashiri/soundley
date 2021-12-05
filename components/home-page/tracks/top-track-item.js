@@ -3,7 +3,7 @@ import Link from "next/link";
 import cx from "clsx";
 import { PlayIcon, PlusIcon, PauseIcon } from "@heroicons/react/solid";
 
-import { convertTrackDuration } from "@utils/track-duration-converter";
+import { getTrackLength } from "@utils/get-track-length";
 import { usePlayer } from "@store/player-context";
 
 function TopTrackItem({ track }) {
@@ -53,7 +53,7 @@ function TopTrackItem({ track }) {
 
       <div className="flex items-center space-x-4 md:space-x-6">
         <time className="text-sm font-semibold text-gray-200">
-          {convertTrackDuration(track.duration)}
+          {getTrackLength(track.duration)}
         </time>
         <button
           onClick={handlePlayClick}
