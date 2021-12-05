@@ -9,7 +9,7 @@ import {
 
 function BottomNavigation() {
   return (
-    <nav className="sticky bottom-0 left-0 z-20 w-full py-2 bg-black bg-opacity-80 xl:hidden">
+    <nav className="sticky bottom-0 left-0 z-20 w-full py-2 bg-black mt-14 bg-opacity-80 xl:hidden">
       <ul className="flex items-center justify-around">
         <li>
           <Link href="/">

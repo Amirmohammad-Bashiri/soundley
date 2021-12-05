@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
           </Layout>
         </PlayerProvider>
       </Hydrate>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   );
 }
