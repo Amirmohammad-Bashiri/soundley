@@ -26,11 +26,13 @@ function DesktopPlayer() {
   } = usePlayer();
 
   function updateProgress(e) {
-    const width = progressRef.current.clientWidth;
-    const clickX = e.nativeEvent.offsetX;
+    if (audio.currentTime) {
+      const width = progressRef.current.clientWidth;
+      const clickX = e.nativeEvent.offsetX;
 
-    console.log((clickX / width) * audio.duration);
-    audio.currentTime = (clickX / width) * audio.duration;
+      console.log((clickX / width) * audio.duration);
+      audio.currentTime = (clickX / width) * audio.duration;
+    }
   }
 
   const trackDuration =
