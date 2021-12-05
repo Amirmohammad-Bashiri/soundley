@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ViewGridAddIcon } from "@heroicons/react/solid";
@@ -7,6 +8,8 @@ import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 
 function DesktopPlayer() {
+  const progressRef = useRef();
+
   const {
     goToNextTrack,
     goToPrevTrack,
@@ -21,6 +24,14 @@ function DesktopPlayer() {
     currentTime,
     audio,
   } = usePlayer();
+
+  function updateProgress(e) {
+    const width = progressRef.current.clientWidth;
+    const clickX = e.nativeEvent.offsetX;
+
+    console.log((clickX / width) * audio.duration);
+    audio.currentTime = (clickX / width) * audio.duration;
+  }
 
   const trackDuration =
     audio && audio.duration ? convertTrackCurrentTime(audio.duration) : "0:00";
@@ -48,15 +59,16 @@ function DesktopPlayer() {
       </div>
 
       <div className="flex items-center justify-center px-16 mt-4 2xl:mt-10">
-        <div className="relative w-32 h-24 rounded 2xl:w-full 2xl:h-80">
+        <div className="relative w-24 h-24 rounded 2xl:w-full 2xl:h-80">
           {currentTrack.album ? (
             <Image
               src={currentTrack?.album?.cover_medium}
               alt="Track Cover"
               layout="fill"
+              className="rounded"
             />
           ) : null}
-          <div className="absolute top-0 left-0 w-32 h-24 rounded opacity-25 border-gray-50 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800 2xl:w-full 2xl:h-80"></div>
+          <div className="absolute top-0 left-0 w-24 h-24 rounded opacity-25 border-gray-50 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800 2xl:w-full 2xl:h-80"></div>
         </div>
       </div>
 
@@ -75,7 +87,10 @@ function DesktopPlayer() {
         <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">
           {convertTrackCurrentTime(currentTime)}
         </time>
-        <div className="w-full h-1 bg-gray-600 rounded cursor-pointer">
+        <div
+          ref={progressRef}
+          onClick={updateProgress}
+          className="w-full h-1 bg-gray-600 rounded cursor-pointer">
           <div
             className="relative h-full bg-gray-100 rounded"
             style={{ width: `${percentage}%` }}>
