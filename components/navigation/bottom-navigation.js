@@ -14,7 +14,7 @@ function BottomNavigation() {
         <li>
           <Link href="/">
             <a>
-              <div className="flex flex-col items-center justify-center text-gray-100 md:space-y-1">
+              <div className="flex flex-col items-center justify-center space-y-1 text-gray-100">
                 <HomeIcon className="w-6 h-6 md:w-8 md:h-8" />
                 <small>Home</small>
               </div>
@@ -24,7 +24,7 @@ function BottomNavigation() {
         <li>
           <Link href="/genres">
             <a>
-              <div className="flex flex-col items-center justify-center text-gray-100 md:space-y-1">
+              <div className="flex flex-col items-center justify-center space-y-1 text-gray-100">
                 <ViewGridIcon className="w-6 h-6 md:w-8 md:h-8" />
                 <small>Genres</small>
               </div>
@@ -34,7 +34,7 @@ function BottomNavigation() {
         <li>
           <Link href="/favourites">
             <a>
-              <div className="flex flex-col items-center justify-center text-gray-100 md:space-y-1">
+              <div className="flex flex-col items-center justify-center space-y-1 text-gray-100">
                 <HeartIcon className="w-6 h-6 md:w-8 md:h-8" />
                 <small>Genres</small>
               </div>
@@ -44,7 +44,7 @@ function BottomNavigation() {
         <li>
           <Link href="/playlists">
             <a>
-              <div className="flex flex-col items-center justify-center text-gray-100 md:space-y-1">
+              <div className="flex flex-col items-center justify-center space-y-1 text-gray-100">
                 <CollectionIcon className="w-6 h-6 md:w-8 md:h-8" />
                 <small>Playlists</small>
               </div>
@@ -54,7 +54,7 @@ function BottomNavigation() {
         <li>
           <Link href="/login">
             <a>
-              <div className="flex flex-col items-center justify-center text-gray-100 md:space-y-1">
+              <div className="flex flex-col items-center justify-center space-y-1 text-gray-100">
                 <UserCircleIcon className="w-6 h-6 md:w-8 md:h-8" />
                 <small>Profile</small>
               </div>
