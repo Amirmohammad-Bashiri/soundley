@@ -21,7 +21,7 @@ function PlayerProvider(props) {
   const [trackIndex, setTrackIndex] = React.useState(null);
   const [loop, setLoop] = React.useState(false);
   const [isShuffled, setIsShuffled] = React.useState(false);
-  const [currentTime, setCurrentTime] = React.useState(0.0);
+  const [currentTime, setCurrentTime] = React.useState(0);
   const [tracksData, setTracksData] = React.useState(topTracks);
 
   const firstLoad = React.useRef(true);
