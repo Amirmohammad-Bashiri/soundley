@@ -1,5 +1,6 @@
 import Header from "@components/navigation/header";
 import Sidebar from "@components/navigation/sidebar";
+import BottomNavigation from "@components/navigation/bottom-navigation";
 
 function Layout({ children }) {
   return (
@@ -13,6 +14,8 @@ function Layout({ children }) {
 
         {children}
       </div>
+
+      <BottomNavigation />
     </div>
   );
 }
