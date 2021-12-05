@@ -29,8 +29,6 @@ function DesktopPlayer() {
     if (audio.currentTime) {
       const width = progressRef.current.clientWidth;
       const clickX = e.nativeEvent.offsetX;
-
-      console.log((clickX / width) * audio.duration);
       audio.currentTime = (clickX / width) * audio.duration;
     }
   }

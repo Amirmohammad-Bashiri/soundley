@@ -67,36 +67,40 @@ function PlayerProvider(props) {
   };
 
   const goToNextTrack = () => {
-    if (trackIndexRef.current < tracksData.length - 1) {
-      // if it's not the last track increase the index and ref index
-      setTrackIndex(prevState => prevState + 1);
-      trackIndexRef.current = trackIndexRef.current + 1;
-      setTrackId(tracksData[trackIndex + 1].id);
-      setIsPlaying(false);
-    } else {
-      // jump to the first track
-      setTrackIndex(0);
-      trackIndexRef.current = 0;
-      setTrackId(tracksData[0].id);
-      setIsPlaying(false);
+    if (tracksData) {
+      if (trackIndexRef.current < tracksData.length - 1) {
+        // if it's not the last track increase the index and ref index
+        setTrackIndex(prevState => prevState + 1);
+        trackIndexRef.current = trackIndexRef.current + 1;
+        setTrackId(tracksData[trackIndex + 1].id);
+        // setIsPlaying(false);
+      } else {
+        // jump to the first track
+        setTrackIndex(0);
+        trackIndexRef.current = 0;
+        setTrackId(tracksData[0].id);
+        // setIsPlaying(false);
+      }
     }
   };
 
   const goToPrevTrack = () => {
-    const lastElementIndex = tracksData.length - 1;
+    if (tracksData) {
+      const lastElementIndex = tracksData.length - 1;
 
-    if (trackIndexRef.current > 0) {
-      // if it's not the first track decrease the index and ref
-      setTrackIndex(prevState => prevState - 1);
-      trackIndexRef.current = trackIndexRef.current - 1;
-      setTrackId(tracksData[trackIndex - 1].id);
-      setIsPlaying(false);
-    } else {
-      // jump to the last track
-      setTrackIndex(lastElementIndex);
-      trackIndexRef.current = lastElementIndex;
-      setTrackId(tracksData[lastElementIndex].id);
-      setIsPlaying(false);
+      if (trackIndexRef.current > 0) {
+        // if it's not the first track decrease the index and ref
+        setTrackIndex(prevState => prevState - 1);
+        trackIndexRef.current = trackIndexRef.current - 1;
+        setTrackId(tracksData[trackIndex - 1].id);
+        // setIsPlaying(false);
+      } else {
+        // jump to the last track
+        setTrackIndex(lastElementIndex);
+        trackIndexRef.current = lastElementIndex;
+        setTrackId(tracksData[lastElementIndex].id);
+        // setIsPlaying(false);
+      }
     }
   };
 
