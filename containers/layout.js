@@ -18,7 +18,7 @@ function Layout({ children }) {
         <GlobalMusicPlayer />
       </div>
 
-      <div>
+      <div className="mt-32">
         <BottomNavigation />
       </div>
     </div>

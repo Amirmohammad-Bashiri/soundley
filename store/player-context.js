@@ -22,36 +22,11 @@ function PlayerProvider(props) {
   const [loop, setLoop] = React.useState(false);
   const [isShuffled, setIsShuffled] = React.useState(false);
   const [currentTime, setCurrentTime] = React.useState(0);
-  const [tracksData, setTracksData] = React.useState(topTracks);
+  const [tracksData, setTracksData] = React.useState(null);
 
   const firstLoad = React.useRef(true);
   const trackIndexRef = React.useRef(trackIndex);
-
-  React.useEffect(() => {
-    audio.loop = loop;
-  }, [loop, audio]);
-
-  React.useEffect(() => {
-    audio.addEventListener("timeupdate", () => {
-      setCurrentTime(audio.currentTime);
-    });
-
-    return () =>
-      audio.removeEventListener("timeupdate", () => {
-        setCurrentTime(audio.currentTime);
-      });
-  }, [audio]);
-
-  React.useEffect(() => {
-    if (isShuffled) {
-      setTracksData(shuffle(tracksData));
-      // const trackIndex = tracksData.findIndex(track => track.id === trackId);
-      // setCurrentTrack(tracksData[trackIndex]);
-      // setTrackId(tracksData[trackIndex].id);
-    } else {
-      setTracksData(topTracks);
-    }
-  }, [isShuffled]);
+  const tracksDataRef = React.useRef(tracksData);
 
   const togglePlay = trackChanged => {
     if (isPlaying && trackChanged) {
@@ -72,6 +47,7 @@ function PlayerProvider(props) {
 
   const setAudioData = () => {
     if (!audio.src || hasAudioSourceChanged(trackId, currentTrack)) {
+      // if there is no source or the audio has changed set a source
       audio.src = tracksData[trackIndex]?.preview;
     }
     togglePlay(hasAudioSourceChanged(trackId, currentTrack));
@@ -79,10 +55,10 @@ function PlayerProvider(props) {
 
   const findTrackIndex = (trackId, queryKey) => {
     if (queryKey === "topTracks") {
-      const trackIndex = tracksData.findIndex(track => track.id === trackId);
+      // set tracks data and id by query key
+      setTracksData(topTracks);
+      tracksDataRef.current = topTracks;
       setTrackId(trackId);
-      setTrackIndex(trackIndex);
-      trackIndexRef.current = trackIndex;
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
@@ -90,25 +66,15 @@ function PlayerProvider(props) {
     }
   };
 
-  React.useEffect(() => {
-    if (firstLoad.current) {
-      firstLoad.current = false;
-      return;
-    }
-
-    setCurrentTrack(tracksData[trackIndex]);
-    setAudioData();
-
-    // eslint-disable-next-line
-  }, [trackIndex, trackIndexRef.current]);
-
   const goToNextTrack = () => {
     if (trackIndexRef.current < tracksData.length - 1) {
+      // if it's not the last track increase the index and ref index
       setTrackIndex(prevState => prevState + 1);
       trackIndexRef.current = trackIndexRef.current + 1;
       setTrackId(tracksData[trackIndex + 1].id);
       setIsPlaying(false);
     } else {
+      // jump to the first track
       setTrackIndex(0);
       trackIndexRef.current = 0;
       setTrackId(tracksData[0].id);
@@ -120,11 +86,13 @@ function PlayerProvider(props) {
     const lastElementIndex = tracksData.length - 1;
 
     if (trackIndexRef.current > 0) {
+      // if it's not the first track decrease the index and ref
       setTrackIndex(prevState => prevState - 1);
       trackIndexRef.current = trackIndexRef.current - 1;
       setTrackId(tracksData[trackIndex - 1].id);
       setIsPlaying(false);
     } else {
+      // jump to the last track
       setTrackIndex(lastElementIndex);
       trackIndexRef.current = lastElementIndex;
       setTrackId(tracksData[lastElementIndex].id);
@@ -154,14 +122,63 @@ function PlayerProvider(props) {
   };
 
   React.useEffect(() => {
+    audio.loop = loop;
+  }, [loop, audio]);
+
+  React.useEffect(() => {
+    audio.addEventListener("timeupdate", () => {
+      setCurrentTime(audio.currentTime);
+    });
+
+    return () =>
+      audio.removeEventListener("timeupdate", () => {
+        setCurrentTime(audio.currentTime);
+      });
+  }, [audio]);
+
+  // React.useEffect(() => {
+  //   if (isShuffled) {
+  //     setTracksData(shuffle(tracksData));
+  //     // const trackIndex = tracksData.findIndex(track => track.id === trackId);
+  //     // setCurrentTrack(tracksData[trackIndex]);
+  //     // setTrackId(tracksData[trackIndex].id);
+  //   } else {
+  //     setTracksData(topTracks);
+  //   }
+  // }, [isShuffled]);
+
+  React.useEffect(() => {
+    if (tracksData) {
+      // find track index
+      const trackIndex = tracksData.findIndex(track => track.id === trackId);
+      setTrackIndex(trackIndex);
+      trackIndexRef.current = trackIndex;
+    }
+  }, [tracksData, trackId]);
+
+  React.useEffect(() => {
+    if (firstLoad.current) {
+      firstLoad.current = false;
+      return;
+    }
+
+    setCurrentTrack(tracksData[trackIndex]);
+    setAudioData();
+
+    // eslint-disable-next-line
+  }, [trackIndex, trackIndexRef.current]);
+
+  React.useEffect(() => {
     audio.addEventListener("ended", () => {
-      if (trackIndexRef.current < tracksData.length - 1) {
-        setTrackId(tracksData[trackIndexRef.current + 1].id);
+      if (trackIndexRef.current < tracksDataRef.current.length - 1) {
+        // if it's not the last track go to the next track on end
+        setTrackId(tracksDataRef.current[trackIndexRef.current + 1].id);
         trackIndexRef.current = trackIndexRef.current + 1;
         setTrackIndex(trackIndexRef.current);
         setIsPlaying(false);
       } else {
-        setTrackId(tracksData[0].id);
+        // jump to the first track on end
+        setTrackId(tracksDataRef.current[0].id);
         trackIndexRef.current = 0;
         setTrackIndex(trackIndexRef.current);
         setIsPlaying(false);
@@ -170,15 +187,15 @@ function PlayerProvider(props) {
 
     return () => {
       audio.removeEventListener("ended", () => {
-        if (trackIndexRef.current < tracksData.length - 1) {
-          setTrackId(tracksData[trackIndexRef.current + 1].id);
+        if (trackIndexRef.current < tracksDataRef.current.length - 1) {
+          setTrackId(tracksDataRef.current[trackIndexRef.current + 1].id);
           trackIndexRef.current = trackIndexRef.current + 1;
           setTrackIndex(trackIndexRef.current);
           setIsPlaying(false);
         } else {
           trackIndexRef.current = 0;
           setTrackIndex(trackIndexRef.current);
-          setTrackId(tracksData[0].id);
+          setTrackId(tracksDataRef.current[0].id);
           setIsPlaying(false);
         }
       });
