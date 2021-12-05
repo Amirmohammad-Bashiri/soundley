@@ -7,9 +7,7 @@ function GlobalMusicPlayer() {
 
   const trackTitle = currentTrack.title ? currentTrack.title : "";
   const trackArtist = currentTrack.artist ? currentTrack.artist.name : "";
-  const trackImage = currentTrack.album
-    ? currentTrack.album.cover_medium
-    : null;
+  const trackImage = currentTrack.album ? currentTrack.album.cover_medium : "";
 
   const actionButtonIcon = isPlaying ? (
     <button onClick={pause}>
@@ -25,12 +23,14 @@ function GlobalMusicPlayer() {
     <div className="fixed z-30 flex items-center justify-between w-full h-16 px-5 bg-black opacity-90 bottom-16 xl:bottom-0 xl:right-0">
       <div className="flex items-center space-x-5">
         <div className="relative w-12 h-12">
-          <Image
-            src={trackImage}
-            alt="Track Cover"
-            layout="fill"
-            className="rounded"
-          />
+          {currentTrack.album ? (
+            <Image
+              src={currentTrack?.album?.cover_medium}
+              alt="Track Cover"
+              layout="fill"
+              className="rounded"
+            />
+          ) : null}
           <div className="w-12 h-12 rounded opacity-25 md:w-16 md:h-16 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
         </div>
 
