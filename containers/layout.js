@@ -1,9 +1,14 @@
+import cx from "clsx";
+
 import Header from "@components/navigation/header";
 import Sidebar from "@components/navigation/sidebar";
 import BottomNavigation from "@components/navigation/bottom-navigation";
 import GlobalMusicPlayer from "@components/global-music-player";
+import { usePlayer } from "@store/player-context";
 
 function Layout({ children }) {
+  const { trackId } = usePlayer();
+
   return (
     <div>
       <div className="hidden xl:block">
@@ -15,10 +20,10 @@ function Layout({ children }) {
 
         {children}
 
-        <GlobalMusicPlayer />
+        {trackId ? <GlobalMusicPlayer /> : null}
       </div>
 
-      <div className="mt-32">
+      <div className={cx("mt-28 xl:mt-0", { "mt-44 xl:mt-0": trackId })}>
         <BottomNavigation />
       </div>
     </div>

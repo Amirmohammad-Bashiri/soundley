@@ -40,7 +40,7 @@ function GlobalMusicPlayer() {
               className="rounded"
             />
           ) : null}
-          <div className="w-12 h-12 rounded opacity-25 md:w-16 md:h-16 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
+          <div className="rounded opacity-25 w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
         </div>
 
         <div className="flex flex-col">
