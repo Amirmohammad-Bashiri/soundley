@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import Image from "next/image";
+import cx from "clsx";
 
 import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
@@ -8,35 +9,34 @@ import { updateProgress } from "@utils/update-progress";
 function GlobalMusicPlayer() {
   const progressRef = useRef();
 
-  const {
-    currentTrack,
-    play,
-    pause,
-    goToNextTrack,
-    goToPrevTrack,
-    isPlaying,
-    currentTime,
-    audio,
-  } = usePlayer();
+  const playerInfo = usePlayer();
 
   const progressHandler = e => {
-    updateProgress(e, progressRef, audio);
+    updateProgress(e, progressRef, playerInfo.audio);
   };
 
-  const trackTitle = currentTrack.title ? currentTrack.title : "";
-  const trackArtist = currentTrack.artist ? currentTrack.artist.name : "";
+  const trackTitle = playerInfo.currentTrack.title
+    ? playerInfo.currentTrack.title
+    : "";
+  const trackArtist = playerInfo.currentTrack.artist
+    ? playerInfo.currentTrack.artist.name
+    : "";
 
   const percentage =
-    audio && currentTime ? (currentTime / audio.duration) * 100 : 0;
+    playerInfo.audio && playerInfo.currentTime
+      ? (playerInfo.currentTime / playerInfo.audio.duration) * 100
+      : 0;
   const trackDuration =
-    audio && audio.duration ? convertTrackCurrentTime(audio.duration) : "0:00";
+    playerInfo.audio && playerInfo.audio.duration
+      ? convertTrackCurrentTime(playerInfo.audio.duration)
+      : "0:00";
 
-  const actionButtonIcon = isPlaying ? (
-    <button onClick={pause}>
+  const actionButtonIcon = playerInfo.isPlaying ? (
+    <button onClick={playerInfo.pause}>
       <i className="text-gray-100 cursor-pointer fas fa-pause fa-lg"></i>
     </button>
   ) : (
-    <button onClick={play}>
+    <button onClick={playerInfo.play}>
       <i className="text-gray-100 cursor-pointer fas fa-play fa-lg"></i>
     </button>
   );
@@ -45,9 +45,9 @@ function GlobalMusicPlayer() {
     <div className="fixed z-30 flex items-center justify-between w-full h-24 px-5 -mb-1 bg-black xl:space-x-5 xl:-mb-0 opacity-95 bottom-16 xl:bottom-0 xl:right-0">
       <div className="flex items-center space-x-5">
         <div className="relative w-14 h-14 xl:w-16 xl:h-16">
-          {currentTrack.album ? (
+          {playerInfo.currentTrack.album ? (
             <Image
-              src={currentTrack?.album?.cover_medium}
+              src={playerInfo.currentTrack?.album?.cover_medium}
               alt="Track Cover"
               layout="fill"
               className="rounded"
@@ -66,7 +66,7 @@ function GlobalMusicPlayer() {
 
       <div className="items-center flex-grow hidden px-6 space-x-6 xl:flex">
         <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">
-          {convertTrackCurrentTime(currentTime)}
+          {convertTrackCurrentTime(playerInfo.currentTime)}
         </time>
         <div
           ref={progressRef}
@@ -82,12 +82,24 @@ function GlobalMusicPlayer() {
       </div>
 
       <div className="flex items-center space-x-4">
-        <button onClick={goToPrevTrack}>
+        <button className="hidden xl:block" onClick={playerInfo.toggleLoop}>
+          <i
+            className={cx("text-gray-100 cursor-pointer fas fa-redo-alt", {
+              "text-indigo-500": playerInfo.loop,
+            })}></i>
+        </button>
+        <button onClick={playerInfo.goToPrevTrack}>
           <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
         </button>
         {actionButtonIcon}
-        <button onClick={goToNextTrack}>
+        <button onClick={playerInfo.goToNextTrack}>
           <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
+        </button>
+        <button className="hidden xl:block" onClick={playerInfo.toggleShuffle}>
+          <i
+            className={cx("text-gray-100 cursor-pointer fas fa-random", {
+              "text-indigo-500": playerInfo.isShuffled,
+            })}></i>
         </button>
       </div>
 
