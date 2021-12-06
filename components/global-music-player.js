@@ -2,12 +2,21 @@ import Image from "next/image";
 import { usePlayer } from "@store/player-context";
 
 function GlobalMusicPlayer() {
-  const { currentTrack, play, pause, goToNextTrack, goToPrevTrack, isPlaying } =
-    usePlayer();
+  const {
+    currentTrack,
+    play,
+    pause,
+    goToNextTrack,
+    goToPrevTrack,
+    isPlaying,
+    currentTime,
+    audio,
+  } = usePlayer();
 
   const trackTitle = currentTrack.title ? currentTrack.title : "";
   const trackArtist = currentTrack.artist ? currentTrack.artist.name : "";
-  const trackImage = currentTrack.album ? currentTrack.album.cover_medium : "";
+  const percentage =
+    audio && currentTime ? (currentTime / audio.duration) * 100 : 0;
 
   const actionButtonIcon = isPlaying ? (
     <button onClick={pause}>
@@ -20,9 +29,9 @@ function GlobalMusicPlayer() {
   );
 
   return (
-    <div className="fixed z-30 flex items-center justify-between w-full h-16 px-5 bg-black opacity-90 bottom-16 xl:bottom-0 xl:right-0">
+    <div className="fixed z-30 flex items-center justify-between w-full h-24 px-5 -mb-1 bg-black xl:-mb-0 opacity-95 bottom-16 xl:bottom-0 xl:right-0">
       <div className="flex items-center space-x-5">
-        <div className="relative w-12 h-12">
+        <div className="relative w-14 h-14">
           {currentTrack.album ? (
             <Image
               src={currentTrack?.album?.cover_medium}
@@ -51,6 +60,10 @@ function GlobalMusicPlayer() {
           <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
         </button>
       </div>
+
+      <div
+        className="absolute left-0 h-1 bg-indigo-900 bottom-2"
+        style={{ width: `${percentage}%` }}></div>
     </div>
   );
 }
