@@ -7,9 +7,9 @@ import { getTrackLength } from "@utils/get-track-length";
 import { usePlayer } from "@store/player-context";
 
 function TopTrackItem({ track }) {
-  const { isPlaying, trackId, findTrackIndex } = usePlayer();
+  const { trackId, findTrackIndex } = usePlayer();
 
-  const isThisTrackBeingPlayed = isPlaying && trackId === track.id;
+  const isThisTrackBeingPlayed = trackId === track.id;
 
   const actionButtonIcon = isThisTrackBeingPlayed ? (
     <PauseIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
