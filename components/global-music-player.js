@@ -1,12 +1,20 @@
 import { useRef } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import cx from "clsx";
+import { useMediaQuery } from "react-responsive";
 
 import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { updateProgress } from "@utils/update-progress";
 
 function GlobalMusicPlayer() {
+  const { pathname } = useRouter();
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1280px)",
+  });
+
   const progressRef = useRef();
 
   const playerInfo = usePlayer();
@@ -41,8 +49,12 @@ function GlobalMusicPlayer() {
     </button>
   );
 
+  const shouldDisplay = pathname === "/" && isDesktopOrLaptop ? "none" : "flex";
+
   return (
-    <div className="fixed z-30 flex items-center justify-between w-full h-24 px-5 -mb-1 bg-black xl:space-x-5 xl:-mb-0 opacity-95 bottom-16 xl:bottom-0 xl:right-0">
+    <div
+      style={{ display: shouldDisplay }}
+      className="fixed z-30 flex items-center justify-between w-full h-24 px-5 -mb-1 bg-black xl:space-x-5 xl:-mb-0 opacity-95 bottom-16 xl:bottom-0 xl:right-0">
       <div className="flex items-center space-x-5">
         <div className="relative w-14 h-14 xl:w-16 xl:h-16">
           {playerInfo.currentTrack.album ? (
