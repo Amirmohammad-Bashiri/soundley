@@ -1,3 +1,5 @@
+import cx from "clsx";
+
 import Header from "@components/navigation/header";
 import Sidebar from "@components/navigation/sidebar";
 import BottomNavigation from "@components/navigation/bottom-navigation";
@@ -21,7 +23,7 @@ function Layout({ children }) {
         {trackId ? <GlobalMusicPlayer /> : null}
       </div>
 
-      <div>
+      <div className={cx("pt-28 xl:pt-0", { "pt-44 xl:pt-24": trackId })}>
         <BottomNavigation />
       </div>
     </div>
