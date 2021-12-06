@@ -104,7 +104,7 @@ function GlobalMusicPlayer() {
       </div>
 
       <div
-        className="absolute left-0 h-1 bg-indigo-900 xl:hidden bottom-2"
+        className="absolute left-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-800 to-purple-900 xl:hidden bottom-2"
         style={{ width: `${percentage}%` }}></div>
     </div>
   );
