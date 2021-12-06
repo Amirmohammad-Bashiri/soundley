@@ -6,6 +6,7 @@ import cx from "clsx";
 
 import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
+import { updateProgress } from "@utils/update-progress";
 
 function DesktopPlayer() {
   const progressRef = useRef();
@@ -25,13 +26,9 @@ function DesktopPlayer() {
     audio,
   } = usePlayer();
 
-  function updateProgress(e) {
-    if (audio.currentTime) {
-      const width = progressRef.current.clientWidth;
-      const clickX = e.nativeEvent.offsetX;
-      audio.currentTime = (clickX / width) * audio.duration;
-    }
-  }
+  const progressHandler = e => {
+    updateProgress(e, progressRef, audio);
+  };
 
   const trackDuration =
     audio && audio.duration ? convertTrackCurrentTime(audio.duration) : "0:00";
@@ -89,7 +86,7 @@ function DesktopPlayer() {
         </time>
         <div
           ref={progressRef}
-          onClick={updateProgress}
+          onClick={progressHandler}
           className="w-full h-1 bg-gray-600 rounded cursor-pointer">
           <div
             className="relative h-full bg-gray-100 rounded"

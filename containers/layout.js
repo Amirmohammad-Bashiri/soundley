@@ -23,7 +23,7 @@ function Layout({ children }) {
         {trackId ? <GlobalMusicPlayer /> : null}
       </div>
 
-      <div className={cx("pt-28 xl:pt-0", { "pt-44 xl:pt-0": trackId })}>
+      <div className={cx("pt-28 xl:pt-0", { "pt-44 xl:pt-24": trackId })}>
         <BottomNavigation />
       </div>
     </div>
