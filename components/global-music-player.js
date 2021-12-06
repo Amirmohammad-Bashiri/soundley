@@ -73,7 +73,7 @@ function GlobalMusicPlayer() {
           onClick={progressHandler}
           className="w-full h-1 bg-gray-600 rounded cursor-pointer">
           <div
-            className="relative h-full bg-gray-100 rounded"
+            className="relative h-full rounded bg-gradient-to-r from-blue-600 via-indigo-800 to-purple-900"
             style={{ width: `${percentage}%` }}>
             <div className="absolute right-0 w-3 h-3 bg-indigo-600 border-2 border-gray-100 rounded-full cursor-pointer -top-1"></div>
           </div>
