@@ -69,8 +69,10 @@ function GlobalMusicPlayer() {
         </div>
 
         <div className="flex flex-col">
-          <strong className="text-gray-100 line-clamp-1">{trackTitle}</strong>
-          <small className="font-semibold text-gray-300 line-clamp-1">
+          <strong className="text-gray-100 line-clamp-1 md:text-lg">
+            {trackTitle}
+          </strong>
+          <small className="font-semibold text-gray-300 line-clamp-1 md:text-base">
             {trackArtist}
           </small>
         </div>
