@@ -12,8 +12,6 @@ function Layout({ children }) {
 
   const { trackId } = usePlayer();
 
-  console.log(pathname === "/");
-
   return (
     <div>
       <div className="hidden xl:block">
