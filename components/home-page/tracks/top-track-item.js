@@ -7,9 +7,9 @@ import { getTrackLength } from "@utils/get-track-length";
 import { usePlayer } from "@store/player-context";
 
 function TopTrackItem({ track }) {
-  const { trackId, findTrackIndex } = usePlayer();
+  const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
-  const isThisTrackBeingPlayed = trackId === track.id;
+  const isThisTrackBeingPlayed = isPlaying && trackId === track.id;
 
   const actionButtonIcon = isThisTrackBeingPlayed ? (
     <PauseIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
@@ -39,7 +39,7 @@ function TopTrackItem({ track }) {
         <div className="flex flex-col justify-center space-y-2">
           <strong
             className={cx("text-sm text-gray-100 line-clamp-1 md:text-lg", {
-              "text-indigo-400": isThisTrackBeingPlayed,
+              "text-indigo-400": trackId === track.id,
             })}>
             {track.title}
           </strong>
