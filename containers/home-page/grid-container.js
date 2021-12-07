@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ErrorBoundary } from "react-error-boundary";
 
 import TopArtists from "@components/home-page/artists/top-artists";
