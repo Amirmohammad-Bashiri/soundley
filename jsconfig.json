@@ -5,7 +5,11 @@
       "@containers/*": ["containers/*"],
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
-      "@hooks/*": ["hooks/*"]
+      "@hooks/*": ["hooks/*"],
+      "@lib/*": ["lib/*"],
+      "@clients/*": ["clients/*"],
+      "@utils/*": ["utils/*"],
+      "@store/*": ["store/*"]
     }
   }
 }

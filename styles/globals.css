@@ -10,6 +10,15 @@ body {
   margin: 0;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #111827;
+}
+
+html {
+  block-size: 100%;
+}
+
+body {
+  min-block-size: 100%;
 }
 
 a {
@@ -19,4 +28,50 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+}
+
+.default-fallback {
+  @apply flex items-center justify-center pt-4 pb-6 mx-6 bg-gray-800 rounded h-52 md:mt-10 md:mx-10;
+}
+
+.top-albums-grid {
+  @apply grid grid-cols-2 px-6 mt-8 ml-5 md:pb-20 pb-14 md:grid-cols-4 xl:grid-cols-2 md:ml-6 xl:ml-2 2xl:ml-5 xl:gap-x-5 2xl:gap-x-0 gap-y-20 2xl:gap-y-24;
+}
+
+.home-grid-layout {
+  @apply px-6 pb-6 mt-12 space-y-10 md:px-10 md:pb-8 xl:space-y-0 xl:gap-8 xl:grid-cols-12 xl:grid-rows-6 xl:grid;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: #111827;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 100vh;
+}
+
+/* Handle on hover and active */
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background: #4338ca;
 }
