@@ -14,13 +14,6 @@ function PlayerProvider(props) {
     []
   );
 
-  const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
-  const { data: album } = useAlbum(
-    soundleyClient,
-    `/album/${props.albumId}`,
-    props.albumId
-  );
-
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState({});
   const [trackId, setTrackId] = React.useState(null);
@@ -30,10 +23,18 @@ function PlayerProvider(props) {
   const [currentTime, setCurrentTime] = React.useState(0);
   const [tracksData, setTracksData] = React.useState(null);
   const [trackCover, setTrackCover] = React.useState(null);
+  const [albumId, setAlbumId] = React.useState(null);
 
   const firstLoad = React.useRef(true);
   const trackIndexRef = React.useRef(trackIndex);
   const tracksDataRef = React.useRef(tracksData);
+
+  const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
+  const { data: album } = useAlbum(
+    soundleyClient,
+    `/album/${albumId}`,
+    albumId
+  );
 
   const togglePlay = trackChanged => {
     if (isPlaying && trackChanged) {
@@ -239,6 +240,7 @@ function PlayerProvider(props) {
     isShuffled,
     currentTime,
     trackCover,
+    setAlbumId,
   };
 
   return <PlayerContext.Provider value={context} {...props} />;

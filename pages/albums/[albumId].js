@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "react-query";
@@ -12,7 +13,11 @@ import { usePlayer } from "@store/player-context";
 function AlbumPage() {
   const { query } = useRouter();
 
-  const { isPlaying, trackId, findTrackIndex } = usePlayer();
+  useEffect(() => {
+    setAlbumId(query.albumId);
+  }, [query, setAlbumId]);
+
+  const { isPlaying, trackId, findTrackIndex, setAlbumId } = usePlayer();
 
   const actionButtonIcon = (
     <PlayIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
