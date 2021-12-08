@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "react-query";
@@ -12,10 +11,6 @@ import { usePlayer } from "@store/player-context";
 
 function AlbumPage() {
   const { query } = useRouter();
-
-  useEffect(() => {
-    setAlbumId(query.albumId);
-  }, [query, setAlbumId]);
 
   const { isPlaying, trackId, findTrackIndex, setAlbumId } = usePlayer();
 
