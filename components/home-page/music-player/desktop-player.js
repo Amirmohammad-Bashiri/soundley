@@ -24,6 +24,7 @@ function DesktopPlayer() {
     currentTrack,
     currentTime,
     audio,
+    trackCover,
   } = usePlayer();
 
   const progressHandler = e => {
@@ -60,6 +61,13 @@ function DesktopPlayer() {
           {currentTrack.album ? (
             <Image
               src={currentTrack?.album?.cover_medium}
+              alt="Track Cover"
+              layout="fill"
+              className="rounded"
+            />
+          ) : trackCover ? (
+            <Image
+              src={trackCover}
               alt="Track Cover"
               layout="fill"
               className="rounded"

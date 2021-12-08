@@ -64,6 +64,13 @@ function GlobalMusicPlayer() {
               layout="fill"
               className="rounded"
             />
+          ) : playerInfo.trackCover ? (
+            <Image
+              src={playerInfo?.trackCover}
+              alt="Track Cover"
+              layout="fill"
+              className="rounded"
+            />
           ) : null}
           <div className="rounded opacity-25 w-14 h-14 xl:w-16 xl:h-16 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
         </div>
