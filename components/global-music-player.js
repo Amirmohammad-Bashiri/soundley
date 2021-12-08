@@ -23,6 +23,10 @@ function GlobalMusicPlayer() {
     updateProgress(e, progressRef, playerInfo.audio);
   };
 
+  const loopClass = !playerInfo.loop
+    ? "text-gray-100 cursor-pointer fas fa-redo-alt fa-lg"
+    : "text-indigo-500 cursor-pointer fas fa-redo-alt fa-lg";
+
   const trackTitle = playerInfo.currentTrack.title
     ? playerInfo.currentTrack.title
     : "";
@@ -104,10 +108,7 @@ function GlobalMusicPlayer() {
 
       <div className="flex items-center space-x-4">
         <button className="hidden xl:block" onClick={playerInfo.toggleLoop}>
-          <i
-            className={cx("text-gray-100 cursor-pointer fas fa-redo-alt", {
-              "text-indigo-500": playerInfo.loop,
-            })}></i>
+          <i className={loopClass}></i>
         </button>
         <button onClick={playerInfo.goToPrevTrack}>
           <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
