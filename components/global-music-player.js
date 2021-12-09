@@ -24,8 +24,8 @@ function GlobalMusicPlayer() {
   };
 
   const loopClass = !playerInfo.loop
-    ? "text-gray-100 cursor-pointer fas fa-redo-alt fa-lg"
-    : "text-indigo-500 cursor-pointer fas fa-redo-alt fa-lg";
+    ? "text-gray-100 cursor-pointer fas fa-redo-alt"
+    : "text-indigo-500 cursor-pointer fas fa-redo-alt";
 
   const trackTitle = playerInfo.currentTrack.title
     ? playerInfo.currentTrack.title
