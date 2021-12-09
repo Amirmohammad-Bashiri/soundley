@@ -17,8 +17,8 @@ function PlayerProvider(props) {
   const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
   const { data: album } = useAlbum(
     soundleyClient,
-    `/album/${props?.albumId}`,
-    props?.albumId
+    `/album/${props.albumId}`,
+    props.albumId
   );
 
   const [isPlaying, setIsPlaying] = React.useState(false);
@@ -30,7 +30,6 @@ function PlayerProvider(props) {
   const [currentTime, setCurrentTime] = React.useState(0);
   const [tracksData, setTracksData] = React.useState(null);
   const [trackCover, setTrackCover] = React.useState(null);
-  const [albumId, setAlbumId] = React.useState(null);
 
   const firstLoad = React.useRef(true);
   const trackIndexRef = React.useRef(trackIndex);
