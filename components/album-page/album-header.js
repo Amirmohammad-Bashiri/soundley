@@ -21,7 +21,7 @@ function AlbumHeader({ data }) {
         </h3>
 
         {/* album title */}
-        <h1 className="text-2xl font-bold text-center md:text-4xl xl:text-5xl 2xl:text-6xl text-gray-50">
+        <h1 className="text-2xl font-bold text-center md:text-left md:text-4xl xl:text-5xl 2xl:text-6xl text-gray-50">
           {data.title}
         </h1>
         {/* artist image */}
