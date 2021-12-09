@@ -49,7 +49,7 @@ function BottomNavigation() {
             <a>
               <div className="flex flex-col items-center justify-center space-y-1">
                 <HeartIcon className="w-6 h-6 md:w-8 md:h-8" />
-                <small>Genres</small>
+                <small>Favourites</small>
               </div>
             </a>
           </Link>
