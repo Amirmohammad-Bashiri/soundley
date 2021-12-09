@@ -6,7 +6,9 @@ function AlbumList({ data, isLoading }) {
   }
 
   return (
-    <ul className="w-full px-10 py-2 space-y-4 overflow-y-scroll bg-gray-800 divide-y-2 divide-gray-700 max-h-96">
+    <ul
+      style={{ maxHeight: "440px" }}
+      className="w-full px-5 py-2 space-y-4 overflow-y-scroll bg-gray-800 divide-y-2 divide-gray-700 md:px-10">
       {data.tracks.data.map(track => (
         <AlbumListItem key={track.id} track={track} />
       ))}

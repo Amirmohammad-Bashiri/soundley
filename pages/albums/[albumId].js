@@ -35,7 +35,7 @@ function AlbumPage() {
       </Head>
 
       <main className="w-full">
-        <section className="flex flex-col items-center justify-center px-20 py-16 space-y-20">
+        <section className="flex flex-col items-center justify-center px-8 py-16 space-y-20 md:px-20">
           <AlbumHeader data={data} />
 
           <AlbumList data={data} isLoading={isLoading} />
