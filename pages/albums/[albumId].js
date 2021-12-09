@@ -1,26 +1,20 @@
 import Head from "next/head";
+
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "react-query";
-import { PlayIcon, PlusIcon, PauseIcon } from "@heroicons/react/solid";
+// import { prominent } from "color.js";
 
+import { soundleyClient } from "@clients/soundley-client";
 import { useAlbum } from "@hooks/useAlbum";
 import { getAlbum } from "@lib/albums";
 import { deezerClient } from "@clients/deezer-client";
-import { soundleyClient } from "@clients/soundley-client";
-import { usePlayer } from "@store/player-context";
+import AlbumList from "@components/album-page/album-list";
+import AlbumHeader from "@components/album-page/album-header";
 
 function AlbumPage() {
+  // const [prominentColor, setProminentColor] = useState([]);
+
   const { query } = useRouter();
-
-  const { isPlaying, trackId, findTrackIndex, setAlbumId } = usePlayer();
-
-  const actionButtonIcon = (
-    <PlayIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
-  );
-
-  const handlePlayClick = track => {
-    findTrackIndex(track.id, "album");
-  };
 
   const { data, isLoading } = useAlbum(
     soundleyClient,
@@ -28,35 +22,23 @@ function AlbumPage() {
     query.albumId
   );
 
-  if (isLoading) {
-    return <h1 className="text-white">Loading...</h1>;
-  }
+  // if (data && data.cover_small) {
+  //   prominent(data.cover_small, { amount: 1 }).then(color => {
+  //     setProminentColor(color);
+  //   });
+  // }
 
   return (
-    <div>
+    <div className="flex items-center justify-center">
       <Head>
         <title>Soundley | Listen to What You Love</title>
       </Head>
 
-      <main>
-        <section className="flex flex-col w-full bg-gray-500 h-96">
-          {data.tracks.data.map(track => (
-            <div key={track.id} className="flex justify-around">
-              <p>{track.title}</p>
-              <button onClick={() => handlePlayClick(track)}>
-                {actionButtonIcon}
-              </button>
-            </div>
-          ))}
+      <main className="w-full">
+        <section className="flex flex-col items-center justify-center px-20 py-16 space-y-20">
+          <AlbumHeader data={data} />
 
-          <div className="flex justify-around">
-            <p>title</p>
-            <button>play</button>
-          </div>
-          <div className="flex justify-around">
-            <p>title</p>
-            <button>play</button>
-          </div>
+          <AlbumList data={data} isLoading={isLoading} />
         </section>
       </main>
     </div>
@@ -79,7 +61,5 @@ export async function getServerSideProps(ctx) {
     },
   };
 }
-
-// export async function getStaticPaths() {}
 
 export default AlbumPage;
