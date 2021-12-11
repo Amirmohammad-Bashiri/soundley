@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <PlayerProvider albumId={query?.albumId}>
+        <PlayerProvider albumId={query?.albumId} artistId={query?.artistId}>
           <Layout>
             <Component {...pageProps} />
           </Layout>

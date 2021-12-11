@@ -5,6 +5,7 @@ import { useTopTracks } from "@hooks/useTopTracks";
 import { useAlbum } from "@hooks/useAlbum";
 import { soundleyClient } from "@clients/soundley-client";
 import { hasAudioSourceChanged } from "@utils/has-source-audio-changed";
+import { useArtist } from "@hooks/useArtist";
 
 const PlayerContext = React.createContext();
 
@@ -19,6 +20,11 @@ function PlayerProvider(props) {
     soundleyClient,
     `/album/${props.albumId}`,
     props.albumId
+  );
+  const { data: artistTracks } = useArtist(
+    soundleyClient,
+    `/artist/${props.artistId}`,
+    props.artistId
   );
 
   const [isPlaying, setIsPlaying] = React.useState(false);
@@ -75,6 +81,15 @@ function PlayerProvider(props) {
       tracksDataRef.current = album.tracks.data;
       setTrackId(trackId);
       setTrackCover(album.cover_big);
+
+      if (!hasAudioSourceChanged(trackId, currentTrack)) {
+        setAudioData();
+      }
+    } else if (queryKey === "artist") {
+      setTracksData(artistTracks.data);
+      tracksDataRef.current = artistTracks.data;
+      setTrackId(trackId);
+      setTrackCover(artistTracks.data[0]?.album.cover_big);
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();

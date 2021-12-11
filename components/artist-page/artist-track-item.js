@@ -15,7 +15,7 @@ function ArtistTrackItem({ track }) {
   );
 
   const handlePlayClick = track => {
-    findTrackIndex(track.id, "album");
+    findTrackIndex(track.id, "artist");
   };
 
   return (
