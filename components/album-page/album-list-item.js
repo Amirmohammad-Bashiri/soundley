@@ -1,4 +1,5 @@
 import { PlayIcon, PlusIcon, PauseIcon } from "@heroicons/react/solid";
+import cx from "clsx";
 
 import { usePlayer } from "@store/player-context";
 import { getTrackLength } from "@utils/get-track-length";
@@ -22,7 +23,9 @@ function AlbumListItem({ track }) {
     <li className="flex items-center justify-between pt-4 space-x-1 text-gray-100 ">
       <strong
         onClick={() => handlePlayClick(track)}
-        className="text-sm cursor-pointer md:text-lg line-clamp-1">
+        className={cx("text-sm cursor-pointer md:text-lg line-clamp-1", {
+          "text-indigo-500": isThisTrackBeingPlayed,
+        })}>
         {track.title}
       </strong>
       <div className="flex items-center space-x-5">

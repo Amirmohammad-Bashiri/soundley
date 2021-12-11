@@ -14,6 +14,7 @@ function AlbumHeader({ data }) {
           objectFit="contain"
           priority={true}
         />
+        <div className="absolute top-0 left-0 rounded w-52 h-52 xl:w-64 xl:h-64 opacity-20 border-gray-50 bg-gradient-to-r from-blue-500 via-indigo-800 to-purple-800"></div>
       </div>
 
       <div className="space-y-5">
