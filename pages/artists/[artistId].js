@@ -8,6 +8,7 @@ import { deezerClient } from "@clients/deezer-client";
 import { soundleyClient } from "@clients/soundley-client";
 import { useArtist } from "@hooks/useArtist";
 import ArtistHeader from "@components/artist-page/artist-header";
+import ArtistTrackList from "@components/artist-page/artist-track-list";
 
 function ArtistPage() {
   const { query } = useRouter();
@@ -27,6 +28,7 @@ function ArtistPage() {
       <main className="w-full">
         <section className="flex flex-col items-center justify-center px-8 py-16 space-y-20 md:px-20">
           <ArtistHeader data={data} />
+          <ArtistTrackList data={data} isLoading={isLoading} />
         </section>
       </main>
     </div>
