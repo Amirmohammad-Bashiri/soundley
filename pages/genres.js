@@ -11,15 +11,15 @@ function GenresPage() {
   const { data } = useGenres(soundleyClient, "/genres");
 
   return (
-    <main className="flex items-center justify-center w-full px-4 pt-4 pb-6 mx-6 mt-10 rounded xl:px-6 md:mt-14 md:mx-10">
-      <ul className="flex flex-wrap items-center gap-x-5 gap-y-10">
+    <main className="pb-6 mx-6 mt-10 rounded xl:pb-10 md:mt-14">
+      <ul className="flex flex-wrap items-center justify-center md:justify-start md:gap-x-5 gap-y-10">
         {data.map(genre => (
           <li
             key={genre.id}
             className="transition duration-300 hover:scale-105">
             <Link href={`/genre/${genre.id}`}>
               <a>
-                <div className="relative h-40 rounded w-72">
+                <div className="relative h-40 rounded md:h-32 w-72 md:w-60 xl:h-32 xl:w-60 2xl:h-40 2xl:w-72">
                   <Image
                     src={genre.picture_medium}
                     alt="Genre Cover"
