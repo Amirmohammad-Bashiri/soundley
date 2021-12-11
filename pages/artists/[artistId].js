@@ -41,7 +41,11 @@ export async function getServerSideProps(ctx) {
 
   await queryClient.prefetchQuery(
     ["artists", query.artistId],
-    () => getArtistTopTracks(deezerClient, `/artist/${query.artistId}/top`),
+    () =>
+      getArtistTopTracks(
+        deezerClient,
+        `/artist/${query.artistId}/top?limit=10`
+      ),
     { staleTime: 1000 * 60 * 60 * 24 }
   );
 
