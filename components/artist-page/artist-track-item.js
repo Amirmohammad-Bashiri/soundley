@@ -4,7 +4,7 @@ import cx from "clsx";
 import { usePlayer } from "@store/player-context";
 import { getTrackLength } from "@utils/get-track-length";
 
-function AlbumListItem({ track }) {
+function ArtistTrackItem({ track }) {
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
   const isThisTrackBeingPlayed = isPlaying && trackId === track.id;
@@ -16,7 +16,7 @@ function AlbumListItem({ track }) {
   );
 
   const handlePlayClick = track => {
-    findTrackIndex(track.id, "album");
+    findTrackIndex(track.id, "artist");
   };
 
   return (
@@ -43,4 +43,4 @@ function AlbumListItem({ track }) {
   );
 }
 
-export default AlbumListItem;
+export default ArtistTrackItem;
