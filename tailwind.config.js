@@ -1,11 +1,9 @@
 module.exports = {
-  mode: "jit",
-  purge: [
+  content: [
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
     "./containers/**/*.{js,jsx}",
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
     fontSize: {
@@ -21,9 +19,6 @@ module.exports = {
       "6xl": "4rem",
       "7xl": "5rem",
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [require("@tailwindcss/line-clamp")],
 };

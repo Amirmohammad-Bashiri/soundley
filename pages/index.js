@@ -8,7 +8,7 @@ import { getGenres } from "@lib/genres";
 import { getTopArtists } from "@lib/artists";
 import { getTopAlbums } from "@lib/albums";
 import { getTopTracks } from "@lib/tracks";
-import { deezerClient } from "../clients/deezer-client";
+import { deezerClient } from "@clients/deezer-client";
 import ErrorFallback from "@components/error-fallback";
 
 function HomePage() {

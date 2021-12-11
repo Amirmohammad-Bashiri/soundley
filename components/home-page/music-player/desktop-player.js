@@ -24,6 +24,7 @@ function DesktopPlayer() {
     currentTrack,
     currentTime,
     audio,
+    trackCover,
   } = usePlayer();
 
   const progressHandler = e => {
@@ -46,6 +47,10 @@ function DesktopPlayer() {
     </button>
   );
 
+  const loopClass = !loop
+    ? "text-gray-100 cursor-pointer fas fa-redo-alt fa-lg"
+    : "text-indigo-500 cursor-pointer fas fa-redo-alt fa-lg";
+
   return (
     <>
       <div className="hidden px-6 2xl:items-center 2xl:justify-between 2xl:flex text-gray-50">
@@ -60,6 +65,13 @@ function DesktopPlayer() {
           {currentTrack.album ? (
             <Image
               src={currentTrack?.album?.cover_medium}
+              alt="Track Cover"
+              layout="fill"
+              className="rounded"
+            />
+          ) : trackCover ? (
+            <Image
+              src={trackCover}
               alt="Track Cover"
               layout="fill"
               className="rounded"
@@ -100,11 +112,7 @@ function DesktopPlayer() {
       <div className="mt-4 2xl:mt-10">
         <div className="flex items-center justify-center space-x-8">
           <button onClick={toggleLoop}>
-            <i
-              className={cx(
-                "text-gray-100 cursor-pointer fas fa-redo-alt fa-lg",
-                { "text-indigo-500": loop }
-              )}></i>
+            <i className={loopClass}></i>
           </button>
           <button onClick={goToPrevTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>

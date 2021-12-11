@@ -1,7 +1,8 @@
 import * as React from "react";
-import shuffle from "lodash.shuffle";
+// import shuffle from "lodash.shuffle";
 
 import { useTopTracks } from "@hooks/useTopTracks";
+import { useAlbum } from "@hooks/useAlbum";
 import { soundleyClient } from "@clients/soundley-client";
 import { hasAudioSourceChanged } from "@utils/has-source-audio-changed";
 
@@ -14,6 +15,11 @@ function PlayerProvider(props) {
   );
 
   const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
+  const { data: album } = useAlbum(
+    soundleyClient,
+    `/album/${props.albumId}`,
+    props.albumId
+  );
 
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState({});
@@ -23,6 +29,7 @@ function PlayerProvider(props) {
   const [isShuffled, setIsShuffled] = React.useState(false);
   const [currentTime, setCurrentTime] = React.useState(0);
   const [tracksData, setTracksData] = React.useState(null);
+  const [trackCover, setTrackCover] = React.useState(null);
 
   const firstLoad = React.useRef(true);
   const trackIndexRef = React.useRef(trackIndex);
@@ -59,6 +66,15 @@ function PlayerProvider(props) {
       setTracksData(topTracks);
       tracksDataRef.current = topTracks;
       setTrackId(trackId);
+
+      if (!hasAudioSourceChanged(trackId, currentTrack)) {
+        setAudioData();
+      }
+    } else if (queryKey === "album") {
+      setTracksData(album.tracks.data);
+      tracksDataRef.current = album.tracks.data;
+      setTrackId(trackId);
+      setTrackCover(album.cover_big);
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
@@ -222,6 +238,7 @@ function PlayerProvider(props) {
     toggleShuffle,
     isShuffled,
     currentTime,
+    trackCover,
   };
 
   return <PlayerContext.Provider value={context} {...props} />;
