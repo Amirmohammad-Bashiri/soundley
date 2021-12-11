@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 import cx from "clsx";
 import { useMediaQuery } from "react-responsive";
 
@@ -83,9 +84,13 @@ function GlobalMusicPlayer() {
           <strong className="text-gray-100 line-clamp-1 md:text-lg">
             {trackTitle}
           </strong>
-          <small className="font-semibold text-gray-300 line-clamp-1 md:text-base">
-            {trackArtist}
-          </small>
+          <Link href={`/artists/${playerInfo?.currentTrack?.artist?.id}`}>
+            <a>
+              <small className="font-semibold text-gray-300 line-clamp-1 md:text-base">
+                {trackArtist}
+              </small>
+            </a>
+          </Link>
         </div>
       </div>
 
