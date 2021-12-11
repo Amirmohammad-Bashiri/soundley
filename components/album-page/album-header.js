@@ -11,6 +11,7 @@ function AlbumHeader({ data }) {
           alt="Album Cover"
           layout="fill"
           className="rounded-sm"
+          objectFit="contain"
           priority={true}
         />
       </div>
