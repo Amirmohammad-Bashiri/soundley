@@ -8,6 +8,7 @@ export function useAlbum(client, url, albumId) {
     () => getAlbum(client, url),
     {
       staleTime: 1000 * 60 * 60 * 24,
+      useErrorBoundary: true,
     }
   );
 

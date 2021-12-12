@@ -2,6 +2,7 @@ import Head from "next/head";
 
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "react-query";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { getArtistTopTracks } from "@lib/artists";
 import { deezerClient } from "@clients/deezer-client";
@@ -9,11 +10,12 @@ import { soundleyClient } from "@clients/soundley-client";
 import { useArtist } from "@hooks/useArtist";
 import ArtistHeader from "@components/artist-page/artist-header";
 import ArtistTrackList from "@components/artist-page/artist-track-list";
+import ErrorFallback from "@components/error-fallback";
 
 function ArtistPage() {
   const { query } = useRouter();
 
-  const { data, isLoading } = useArtist(
+  const { data, isFetching } = useArtist(
     soundleyClient,
     `/artist/${query.artistId}`,
     query.artistId
@@ -27,8 +29,16 @@ function ArtistPage() {
 
       <main className="w-full">
         <section className="flex flex-col items-center justify-center px-8 py-16 space-y-20 md:px-20">
-          <ArtistHeader data={data} />
-          <ArtistTrackList data={data} isLoading={isLoading} />
+          <ErrorBoundary
+            fallbackRender={({ resetErrorBoundary }) => (
+              <ErrorFallback
+                resetErrorBoundary={resetErrorBoundary}
+                queryKey={["artists", query.artistId]}
+              />
+            )}>
+            <ArtistHeader data={data} />
+            <ArtistTrackList data={data} isFetching={isFetching} />
+          </ErrorBoundary>
         </section>
       </main>
     </div>

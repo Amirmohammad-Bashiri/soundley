@@ -8,7 +8,7 @@ function ErrorFallback({
   const queryClient = useQueryClient();
 
   const handleReset = () => {
-    queryClient.invalidateQueries(queryKey);
+    queryClient.invalidateQueries([...queryKey]);
     resetErrorBoundary();
   };
 
