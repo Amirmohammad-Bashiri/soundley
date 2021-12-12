@@ -5,6 +5,7 @@ import { soundleyClient } from "@clients/soundley-client";
 
 import { getGenreItem } from "@lib/genres";
 import { useGenre } from "@hooks/useGenre";
+import GenreArtistsList from "@components/genre-item-page/genre-artists-list";
 
 function GenreItemPage() {
   const { query } = useRouter();
@@ -20,8 +21,8 @@ function GenreItemPage() {
   }
 
   return (
-    <main>
-      <h1 className="text-white">Genre ID: {query.genreId}</h1>
+    <main className="pb-6 mx-6 mt-10 xl:pb-10 md:mt-14">
+      <GenreArtistsList artists={data.data} />
     </main>
   );
 }

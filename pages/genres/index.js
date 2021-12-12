@@ -10,7 +10,7 @@ function GenresPage() {
   const { data } = useGenres(soundleyClient, "/genres");
 
   return (
-    <main className="pb-6 mx-6 mt-10 rounded xl:pb-10 md:mt-14">
+    <main className="pb-6 mx-6 mt-10 xl:pb-10 md:mt-14">
       <GenresList data={data} />
     </main>
   );
