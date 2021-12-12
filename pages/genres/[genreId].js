@@ -1,11 +1,23 @@
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "react-query";
 import { deezerClient } from "@clients/deezer-client";
+import { soundleyClient } from "@clients/soundley-client";
 
 import { getGenreItem } from "@lib/genres";
+import { useGenre } from "@hooks/useGenre";
 
 function GenreItemPage() {
   const { query } = useRouter();
+
+  const { data, isLoading } = useGenre(
+    soundleyClient,
+    `/genres/${query.genreId}`,
+    query.genreId
+  );
+
+  if (isLoading) {
+    return <h1 className="text-white">Loading...</h1>;
+  }
 
   return (
     <main>
