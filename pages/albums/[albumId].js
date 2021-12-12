@@ -2,6 +2,7 @@ import Head from "next/head";
 
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "react-query";
+import { ErrorBoundary } from "react-error-boundary";
 // import { prominent } from "color.js";
 
 import { soundleyClient } from "@clients/soundley-client";
@@ -10,13 +11,14 @@ import { getAlbum } from "@lib/albums";
 import { deezerClient } from "@clients/deezer-client";
 import AlbumList from "@components/album-page/album-list";
 import AlbumHeader from "@components/album-page/album-header";
+import ErrorFallback from "@components/error-fallback";
 
 function AlbumPage() {
   // const [prominentColor, setProminentColor] = useState([]);
 
   const { query } = useRouter();
 
-  const { data, isLoading } = useAlbum(
+  const { data, isFetching } = useAlbum(
     soundleyClient,
     `/album/${query.albumId}`,
     query.albumId
@@ -36,9 +38,17 @@ function AlbumPage() {
 
       <main className="w-full">
         <section className="flex flex-col items-center justify-center px-8 py-16 space-y-20 md:px-20">
-          <AlbumHeader data={data} />
+          <ErrorBoundary
+            fallbackRender={({ resetErrorBoundary }) => (
+              <ErrorFallback
+                resetErrorBoundary={resetErrorBoundary}
+                queryKey={["albums", query.albumId]}
+              />
+            )}>
+            <AlbumHeader data={data} />
 
-          <AlbumList data={data} isLoading={isLoading} />
+            <AlbumList data={data} isFetching={isFetching} />
+          </ErrorBoundary>
         </section>
       </main>
     </div>

@@ -9,7 +9,7 @@ function TopAlbums() {
   return (
     <>
       {isFetching ? (
-        <div className="flex items-center justify-center ">
+        <div className="flex items-center justify-center">
           <Loader type="Oval" color="#D1D5DB" height={70} width={70} />
         </div>
       ) : (

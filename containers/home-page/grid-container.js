@@ -17,7 +17,7 @@ function GridContainer() {
           fallbackRender={({ resetErrorBoundary }) => (
             <ErrorFallback
               resetErrorBoundary={resetErrorBoundary}
-              queryKey="artists"
+              queryKey={["artists"]}
             />
           )}>
           <TopArtists />
@@ -37,7 +37,7 @@ function GridContainer() {
           fallbackRender={({ resetErrorBoundary }) => (
             <ErrorFallback
               resetErrorBoundary={resetErrorBoundary}
-              queryKey="albums"
+              queryKey={["albums"]}
             />
           )}>
           <TopAlbums />
@@ -53,7 +53,7 @@ function GridContainer() {
           fallbackRender={({ resetErrorBoundary }) => (
             <ErrorFallback
               resetErrorBoundary={resetErrorBoundary}
-              queryKey="tracks"
+              queryKey={["topTracks"]}
             />
           )}>
           <TopTracks />
