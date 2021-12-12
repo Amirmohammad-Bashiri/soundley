@@ -4,7 +4,7 @@ import Link from "next/link";
 function GenresListItem({ genre }) {
   return (
     <li key={genre.id} className="transition duration-300 hover:scale-105">
-      <Link href={`/genre/${genre.id}`}>
+      <Link href={`/genres/${genre.id}`}>
         <a>
           <div className="relative h-40 rounded md:h-32 w-72 md:w-60 xl:h-32 xl:w-60 2xl:h-40 2xl:w-72">
             <Image
