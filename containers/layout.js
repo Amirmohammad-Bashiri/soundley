@@ -5,6 +5,7 @@ import { useMediaQuery } from "react-responsive";
 
 import Header from "@components/navigation/header";
 import Sidebar from "@components/navigation/sidebar";
+import BottomNavigation from "@components/navigation/bottom-navigation";
 import GlobalMusicPlayer from "@components/global-player/global-music-player";
 import { usePlayer } from "@store/player-context";
 
@@ -13,11 +14,6 @@ const MusicPlayerPortal = dynamic(() => import("../hoc/music-player-portal"), {
 });
 const MusicPlayerPopup = dynamic(
   () => import("@components/global-player/music-player-popup"),
-  { ssr: false }
-);
-
-const BottomNavigation = dynamic(
-  () => import("@components/navigation/bottom-navigation"),
   { ssr: false }
 );
 
@@ -55,7 +51,7 @@ function Layout({ children }) {
           </MusicPlayerPortal>
         ) : null}
 
-        {!isDesktopOrLaptop ? <BottomNavigation /> : null}
+        <BottomNavigation />
       </div>
     </div>
   );
