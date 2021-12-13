@@ -8,6 +8,7 @@ import { useMediaQuery } from "react-responsive";
 import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { updateProgress } from "@utils/update-progress";
+import { useMusicPlayerPopup } from "@store/music-player-popup-context";
 
 function GlobalMusicPlayer() {
   const { pathname } = useRouter();
@@ -15,6 +16,8 @@ function GlobalMusicPlayer() {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1280px)",
   });
+
+  const { togglePopup } = useMusicPlayerPopup();
 
   const progressRef = useRef();
 
@@ -86,13 +89,17 @@ function GlobalMusicPlayer() {
           </strong>
           <Link href={`/artists/${playerInfo?.currentTrack?.artist?.id}`}>
             <a>
-              <small className="font-semibold text-gray-300 line-clamp-1 md:text-base">
+              <small className="font-semibold text-gray-300 max-w-max line-clamp-1 md:text-base">
                 {trackArtist}
               </small>
             </a>
           </Link>
         </div>
       </div>
+
+      <div
+        onClick={togglePopup}
+        className="flex-grow h-full xl:hidden basis-8"></div>
 
       <div className="items-center flex-grow hidden px-6 space-x-6 xl:flex">
         <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">

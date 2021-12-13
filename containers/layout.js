@@ -1,16 +1,30 @@
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import cx from "clsx";
+import { useMediaQuery } from "react-responsive";
 
 import Header from "@components/navigation/header";
 import Sidebar from "@components/navigation/sidebar";
 import BottomNavigation from "@components/navigation/bottom-navigation";
-import GlobalMusicPlayer from "@components/global-music-player";
+import GlobalMusicPlayer from "@components/global-player/global-music-player";
 import { usePlayer } from "@store/player-context";
+
+const MusicPlayerPortal = dynamic(() => import("../hoc/music-player-portal"), {
+  ssr: false,
+});
+const MusicPlayerPopup = dynamic(
+  () => import("@components/global-player/music-player-popup"),
+  { ssr: false }
+);
 
 function Layout({ children }) {
   const { pathname } = useRouter();
 
   const { trackId } = usePlayer();
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1280px)",
+  });
 
   return (
     <div>
@@ -31,6 +45,12 @@ function Layout({ children }) {
           "pt-44": trackId,
           "xl:pt-24": trackId && pathname !== "/",
         })}>
+        {!isDesktopOrLaptop ? (
+          <MusicPlayerPortal>
+            <MusicPlayerPopup />
+          </MusicPlayerPortal>
+        ) : null}
+
         <BottomNavigation />
       </div>
     </div>
