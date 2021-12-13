@@ -5,6 +5,14 @@ module.exports = {
     "./containers/**/*.{js,jsx}",
   ],
   theme: {
+    screens: {
+      xs: "300px",
+      sm: "360px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
     extend: {},
     fontSize: {
       xs: ".75rem",
