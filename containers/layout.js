@@ -4,8 +4,10 @@ import cx from "clsx";
 import Header from "@components/navigation/header";
 import Sidebar from "@components/navigation/sidebar";
 import BottomNavigation from "@components/navigation/bottom-navigation";
-import GlobalMusicPlayer from "@components/global-music-player";
+import GlobalMusicPlayer from "@components/global-player/global-music-player";
 import { usePlayer } from "@store/player-context";
+import MusicPlayerPopup from "@components/global-player/music-player-popup";
+import MusicPlayerPortal from "../hoc/music-player-portal";
 
 function Layout({ children }) {
   const { pathname } = useRouter();
@@ -31,6 +33,10 @@ function Layout({ children }) {
           "pt-44": trackId,
           "xl:pt-24": trackId && pathname !== "/",
         })}>
+        <MusicPlayerPortal>
+          <MusicPlayerPopup />
+        </MusicPlayerPortal>
+
         <BottomNavigation />
       </div>
     </div>

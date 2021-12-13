@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 
 import Layout from "@containers/layout";
 import PlayerProvider from "@store/player-context";
+import MusicPlayerPopupProvider from "@store/music-player-popup-context";
 
 import "../styles/globals.css";
 
@@ -17,9 +18,11 @@ function MyApp({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <PlayerProvider albumId={query?.albumId} artistId={query?.artistId}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <MusicPlayerPopupProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </MusicPlayerPopupProvider>
         </PlayerProvider>
       </Hydrate>
       <ReactQueryDevtools />

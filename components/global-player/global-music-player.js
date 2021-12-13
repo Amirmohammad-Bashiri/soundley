@@ -8,6 +8,7 @@ import { useMediaQuery } from "react-responsive";
 import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { updateProgress } from "@utils/update-progress";
+import { useMusicPlayerPopup } from "@store/music-player-popup-context";
 
 function GlobalMusicPlayer() {
   const { pathname } = useRouter();
@@ -15,6 +16,8 @@ function GlobalMusicPlayer() {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1280px)",
   });
+
+  const { togglePopup } = useMusicPlayerPopup();
 
   const progressRef = useRef();
 
@@ -58,6 +61,7 @@ function GlobalMusicPlayer() {
 
   return (
     <div
+      onClick={togglePopup}
       style={{ display: shouldDisplay }}
       className="fixed z-30 flex items-center justify-between w-full h-24 px-5 -mb-1 bg-black xl:space-x-5 xl:-mb-0 opacity-95 bottom-16 xl:bottom-0 xl:right-0">
       <div className="flex items-center space-x-5">
