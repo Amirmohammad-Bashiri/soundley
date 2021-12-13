@@ -61,7 +61,6 @@ function GlobalMusicPlayer() {
 
   return (
     <div
-      onClick={togglePopup}
       style={{ display: shouldDisplay }}
       className="fixed z-30 flex items-center justify-between w-full h-24 px-5 -mb-1 bg-black xl:space-x-5 xl:-mb-0 opacity-95 bottom-16 xl:bottom-0 xl:right-0">
       <div className="flex items-center space-x-5">
@@ -97,6 +96,10 @@ function GlobalMusicPlayer() {
           </Link>
         </div>
       </div>
+
+      <div
+        onClick={togglePopup}
+        className="flex-grow h-full xl:hidden basis-8"></div>
 
       <div className="items-center flex-grow hidden px-6 space-x-6 xl:flex">
         <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">

@@ -32,8 +32,10 @@ function MusicPlayerPopup() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="fixed top-0 left-0 z-30 w-full h-full bg-blue-500">
-      <button onClick={togglePopup}>close</button>
+      className="fixed top-0 left-0 z-30 w-full h-full bg-gray-900">
+      <button className="text-white" onClick={togglePopup}>
+        close
+      </button>
     </motion.div>
   );
 }
