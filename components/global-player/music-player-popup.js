@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { ChevronDownIcon, CollectionIcon } from "@heroicons/react/solid";
 import cx from "clsx";
@@ -34,8 +35,22 @@ const dropIn = {
 function MusicPlayerPopup() {
   const progressRef = useRef();
 
-  const { togglePopup } = useMusicPlayerPopup();
+  const router = useRouter();
+
+  const { togglePopup, isPopupOpen } = useMusicPlayerPopup();
   const playerInfo = usePlayer();
+
+  // useEffect(() => {
+  //   if (isPopupOpen) {
+  //     router.events.on("beforeHistoryChange", path => {
+  //       router.push(path);
+  //       router.events.on("routeChangeComplete", () => {
+  //         togglePopup();
+  //         console.log("boop");
+  //       });
+  //     });
+  //   }
+  // }, [router]);
 
   const progressHandler = e => {
     updateProgress(e, progressRef, playerInfo.audio);
@@ -83,7 +98,7 @@ function MusicPlayerPopup() {
 
       {/* Track image */}
       <div className="flex flex-col items-center justify-center xs:mt-10 sm:mt-16 ">
-        <div className="relative w-40 h-40 rounded sm:w-72 sm:h-72">
+        <div className="relative rounded w-52 h-52 sm:w-80 sm:h-80">
           {playerInfo.currentTrack.album ? (
             <Image
               src={playerInfo.currentTrack?.album?.cover_medium}
@@ -118,44 +133,46 @@ function MusicPlayerPopup() {
           </Link>
         </div>
 
-        {/* Track percentage */}
-        <div className="flex items-center w-full px-8 mt-6 space-x-6">
-          <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">
-            {convertTrackCurrentTime(playerInfo.currentTime)}
-          </time>
-          <div
-            ref={progressRef}
-            onClick={progressHandler}
-            className="w-full h-1 bg-gray-600 rounded cursor-pointer">
+        <div className="absolute bottom-0 flex flex-col w-full pb-5 space-y-5 bg-gray-800">
+          {/* Track percentage */}
+          <div className="flex items-center w-full px-4 mt-6 space-x-6">
+            <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">
+              {convertTrackCurrentTime(playerInfo.currentTime)}
+            </time>
             <div
-              className="relative h-full rounded bg-gradient-to-r from-blue-600 via-indigo-800 to-purple-900"
-              style={{ width: `${percentage}%` }}>
-              <div className="absolute right-0 w-3 h-3 bg-indigo-600 border-2 border-gray-100 rounded-full cursor-pointer -top-1"></div>
+              ref={progressRef}
+              onClick={progressHandler}
+              className="w-full h-1 bg-gray-600 rounded cursor-pointer">
+              <div
+                className="relative h-full rounded bg-gradient-to-r from-blue-600 via-indigo-800 to-purple-900"
+                style={{ width: `${percentage}%` }}>
+                <div className="absolute right-0 w-3 h-3 bg-indigo-600 border-2 border-gray-100 rounded-full cursor-pointer -top-1"></div>
+              </div>
             </div>
+            <time className="font-medium text-gray-100">{trackDuration}</time>
           </div>
-          <time className="font-medium text-gray-100">{trackDuration}</time>
-        </div>
 
-        {/* Player controls */}
-        <div className="absolute bottom-0 flex items-center justify-center w-full py-6 bg-gray-800">
-          <div className="flex items-center justify-center space-x-8">
-            <button onClick={playerInfo.toggleLoop}>
-              <i className={loopClass}></i>
-            </button>
-            <button onClick={playerInfo.goToPrevTrack}>
-              <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
-            </button>
-            {actionButtonIcon}
-            <button onClick={playerInfo.goToNextTrack}>
-              <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
-            </button>
-            <button onClick={playerInfo.toggleShuffle}>
-              <i
-                className={cx(
-                  "text-gray-100 cursor-pointer fas fa-random fa-lg",
-                  { "text-indigo-500": playerInfo.isShuffled }
-                )}></i>
-            </button>
+          {/* Player controls */}
+          <div className="flex items-center justify-center ">
+            <div className="flex items-center justify-center space-x-8">
+              <button onClick={playerInfo.toggleLoop}>
+                <i className={loopClass}></i>
+              </button>
+              <button onClick={playerInfo.goToPrevTrack}>
+                <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
+              </button>
+              {actionButtonIcon}
+              <button onClick={playerInfo.goToNextTrack}>
+                <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
+              </button>
+              <button onClick={playerInfo.toggleShuffle}>
+                <i
+                  className={cx(
+                    "text-gray-100 cursor-pointer fas fa-random fa-lg",
+                    { "text-indigo-500": playerInfo.isShuffled }
+                  )}></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
