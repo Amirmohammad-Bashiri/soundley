@@ -87,18 +87,18 @@ function MusicPlayerPopup() {
       animate="visible"
       exit="exit"
       className="fixed top-0 left-0 z-50 w-full h-full text-center bg-gray-900">
-      <div className="flex items-center justify-between px-5 pt-4 text-gray-200">
+      <div className="flex items-center justify-between px-5 pt-4 text-gray-200 md:pt-8">
         <button onClick={togglePopup}>
-          <ChevronDownIcon className="w-8 h-8" />
+          <ChevronDownIcon className="w-8 h-8 md:w-14 md:h-14" />
         </button>
         <button>
-          <CollectionIcon className="w-7 h-7" />
+          <CollectionIcon className="w-7 h-7 md:w-12 md:h-12" />
         </button>
       </div>
 
       {/* Track image */}
       <div className="flex flex-col items-center justify-center xs:mt-10 sm:mt-16 ">
-        <div className="relative rounded w-52 h-52 sm:w-80 sm:h-80">
+        <div className="relative rounded w-52 h-52 sm:w-80 sm:h-80 md:w-96 md:h-96">
           {playerInfo.currentTrack.album ? (
             <Image
               src={playerInfo.currentTrack?.album?.cover_medium}
@@ -119,13 +119,13 @@ function MusicPlayerPopup() {
 
         {/* Track info*/}
         <div className="flex flex-col items-center justify-center px-6 mt-5">
-          <h1 className="text-xl font-semibold line-clamp-1 text-gray-50">
+          <h1 className="text-2xl font-semibold md:text-4xl line-clamp-1 text-gray-50">
             {playerInfo?.currentTrack.title
               ? playerInfo?.currentTrack.title
               : "Song Title"}
           </h1>
           <Link href={`/artists/${playerInfo?.currentTrack?.artist?.id}`}>
-            <a className="text-base font-medium text-gray-300 line-clamp-1">
+            <a className="text-base font-medium text-gray-300 md:text-xl line-clamp-1">
               {playerInfo?.currentTrack.artist
                 ? playerInfo?.currentTrack.artist.name
                 : "Artist Name"}
@@ -136,7 +136,7 @@ function MusicPlayerPopup() {
         <div className="absolute bottom-0 flex flex-col w-full pb-5 space-y-5 bg-gray-800">
           {/* Track percentage */}
           <div className="flex items-center w-full px-4 mt-6 space-x-6">
-            <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">
+            <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100 md:text-lg">
               {convertTrackCurrentTime(playerInfo.currentTime)}
             </time>
             <div
@@ -149,7 +149,9 @@ function MusicPlayerPopup() {
                 <div className="absolute right-0 w-3 h-3 bg-indigo-600 border-2 border-gray-100 rounded-full cursor-pointer -top-1"></div>
               </div>
             </div>
-            <time className="font-medium text-gray-100">{trackDuration}</time>
+            <time className="font-medium text-gray-100 md:text-lg">
+              {trackDuration}
+            </time>
           </div>
 
           {/* Player controls */}

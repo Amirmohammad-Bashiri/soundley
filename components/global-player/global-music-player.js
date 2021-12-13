@@ -89,7 +89,7 @@ function GlobalMusicPlayer() {
           </strong>
           <Link href={`/artists/${playerInfo?.currentTrack?.artist?.id}`}>
             <a>
-              <small className="font-semibold text-gray-300 line-clamp-1 md:text-base">
+              <small className="font-semibold text-gray-300 max-w-max line-clamp-1 md:text-base">
                 {trackArtist}
               </small>
             </a>

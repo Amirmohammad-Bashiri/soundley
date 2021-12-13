@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import cx from "clsx";
+import { useMediaQuery } from "react-responsive";
 
 import Header from "@components/navigation/header";
 import Sidebar from "@components/navigation/sidebar";
@@ -21,6 +22,10 @@ function Layout({ children }) {
 
   const { trackId } = usePlayer();
 
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1280px)",
+  });
+
   return (
     <div>
       <div className="hidden xl:block">
@@ -40,9 +45,11 @@ function Layout({ children }) {
           "pt-44": trackId,
           "xl:pt-24": trackId && pathname !== "/",
         })}>
-        <MusicPlayerPortal>
-          <MusicPlayerPopup />
-        </MusicPlayerPortal>
+        {!isDesktopOrLaptop ? (
+          <MusicPlayerPortal>
+            <MusicPlayerPopup />
+          </MusicPlayerPortal>
+        ) : null}
 
         <BottomNavigation />
       </div>
