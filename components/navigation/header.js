@@ -13,8 +13,6 @@ function Header() {
     signOut();
   };
 
-  console.log(session);
-
   return (
     <header className="flex items-center justify-center px-10 py-6 xl:justify-between">
       {/* search bar */}
@@ -33,7 +31,7 @@ function Header() {
           <div className="flex bg-gray-600 rounded-md ">
             <Image
               src={session.user.image}
-              alt="User Image"
+              alt={session.user.name}
               width={50}
               height={50}
               className="rounded-md"
