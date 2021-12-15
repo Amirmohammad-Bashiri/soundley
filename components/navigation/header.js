@@ -1,15 +1,19 @@
 import Image from "next/image";
 import { SearchIcon, UserCircleIcon } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useQueryClient } from "react-query";
 
 function Header() {
   const { data: session, status } = useSession();
+
+  const queryClient = useQueryClient();
 
   const handleSignIn = () => {
     signIn("google");
   };
 
   const handleSignOut = () => {
+    queryClient.removeQueries("user", { exact: true });
     signOut();
   };
 

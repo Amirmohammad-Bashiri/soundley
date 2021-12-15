@@ -12,9 +12,11 @@ export default NextAuth({
   ],
   session: {
     strategy: "jwt",
+    maxAge: 60 * 60 * 24 * 7,
   },
   jwt: {
     secret: process.env.JWT_SECRET,
+    maxAge: 60 * 60 * 24 * 7,
   },
   secret: process.env.NEXTAUTH_SECRET,
   adapter: MongoDBAdapter(clientPromise),
