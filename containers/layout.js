@@ -8,6 +8,7 @@ import Sidebar from "@components/navigation/sidebar";
 import BottomNavigation from "@components/navigation/bottom-navigation";
 import GlobalMusicPlayer from "@components/global-player/global-music-player";
 import { usePlayer } from "@store/player-context";
+import { useUser } from "@hooks/useUser";
 
 const MusicPlayerPortal = dynamic(() => import("../hoc/music-player-portal"), {
   ssr: false,
@@ -21,6 +22,8 @@ function Layout({ children }) {
   const { pathname } = useRouter();
 
   const { trackId } = usePlayer();
+
+  useUser();
 
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1280px)",

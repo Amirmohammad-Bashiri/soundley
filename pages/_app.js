@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { SessionProvider } from "next-auth/react";
 
 import Layout from "@containers/layout";
 import PlayerProvider from "@store/player-context";
@@ -16,15 +17,17 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <PlayerProvider albumId={query?.albumId} artistId={query?.artistId}>
-          <MusicPlayerPopupProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </MusicPlayerPopupProvider>
-        </PlayerProvider>
-      </Hydrate>
+      <SessionProvider session={pageProps.session}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <PlayerProvider albumId={query?.albumId} artistId={query?.artistId}>
+            <MusicPlayerPopupProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </MusicPlayerPopupProvider>
+          </PlayerProvider>
+        </Hydrate>
+      </SessionProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
