@@ -1,7 +1,11 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ViewGridAddIcon } from "@heroicons/react/solid";
+import {
+  ViewGridAddIcon,
+  HeartIcon as HeartIconSolid,
+} from "@heroicons/react/solid";
+import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
 import cx from "clsx";
 
 import { usePlayer } from "@store/player-context";
@@ -19,8 +23,6 @@ function DesktopPlayer() {
     isPlaying,
     toggleLoop,
     loop,
-    toggleShuffle,
-    isShuffled,
     currentTrack,
     currentTime,
     audio,
@@ -121,12 +123,14 @@ function DesktopPlayer() {
           <button onClick={goToNextTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
           </button>
-          <button onClick={toggleShuffle}>
-            <i
+          <button>
+            <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
+
+            {/* <i
               className={cx(
                 "text-gray-100 cursor-pointer fas fa-random fa-lg",
                 { "text-indigo-500": isShuffled }
-              )}></i>
+              )}></i> */}
           </button>
         </div>
       </div>
