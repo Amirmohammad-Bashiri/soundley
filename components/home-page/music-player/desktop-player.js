@@ -11,6 +11,7 @@ import cx from "clsx";
 import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { updateProgress } from "@utils/update-progress";
+import { useLikeTrack } from "@hooks/useLikeTrack";
 
 function DesktopPlayer() {
   const progressRef = useRef();
@@ -27,7 +28,15 @@ function DesktopPlayer() {
     currentTime,
     audio,
     trackCover,
+    trackId,
   } = usePlayer();
+
+  const mutation = useLikeTrack();
+
+  const handleLike = () => {
+    if (!trackId) return;
+    mutation.mutate(currentTrack);
+  };
 
   const progressHandler = e => {
     updateProgress(e, progressRef, audio);
@@ -123,7 +132,7 @@ function DesktopPlayer() {
           <button onClick={goToNextTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
           </button>
-          <button>
+          <button onClick={handleLike}>
             <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
 
             {/* <i

@@ -29,9 +29,9 @@ export default async function handler(req, res) {
       let likes;
 
       if (user.likes) {
-        likes = [...user?.likes, { title: "title12" }];
+        likes = [...user?.likes, req.body];
       } else {
-        likes = [{ title: "kuft" }];
+        likes = [req.body];
       }
 
       const query = { email: session.user.email };
