@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -13,9 +13,15 @@ import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { updateProgress } from "@utils/update-progress";
 import { useLikeTrack } from "@hooks/useLikeTrack";
 import { useDislikeTrack } from "@hooks/useDislikeTrack";
+import { isTrackLiked } from "@utils/is-track-liked";
+import { useUser } from "@hooks/useUser";
 
 function DesktopPlayer() {
   const progressRef = useRef();
+
+  const [liked, setLiked] = useState(false);
+
+  const { data } = useUser();
 
   const {
     goToNextTrack,
@@ -31,6 +37,12 @@ function DesktopPlayer() {
     trackCover,
     trackId,
   } = usePlayer();
+
+  useEffect(() => {
+    if (trackId && data) {
+      setLiked(isTrackLiked(currentTrack, data.likes));
+    }
+  }, [currentTrack, trackId, data]);
 
   const likeMutation = useLikeTrack();
   const dislikeMutation = useDislikeTrack();
@@ -139,18 +151,16 @@ function DesktopPlayer() {
           <button onClick={goToNextTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
           </button>
-          <button onClick={handleLike}>
-            <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
 
-            {/* <i
-              className={cx(
-                "text-gray-100 cursor-pointer fas fa-random fa-lg",
-                { "text-indigo-500": isShuffled }
-              )}></i> */}
-          </button>
-          <button onClick={handleDislike}>
-            <HeartIconSolid className="w-8 h-8 text-gray-100 cursor-pointer" />
-          </button>
+          {liked ? (
+            <button onClick={handleDislike}>
+              <HeartIconSolid className="w-8 h-8 text-gray-100 cursor-pointer" />
+            </button>
+          ) : (
+            <button onClick={handleLike}>
+              <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
+            </button>
+          )}
         </div>
       </div>
     </>
