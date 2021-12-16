@@ -17,6 +17,7 @@ import { usePlayer } from "@store/player-context";
 
 function BottomNavigation() {
   const [isSignOutOpen, setIsSignOutOpen] = useState(false);
+  const [isAuthButtonDisabled, setIsAuthButtonDisabled] = useState(false);
 
   const { pathname } = useRouter();
 
@@ -32,11 +33,13 @@ function BottomNavigation() {
 
   const handleSignIn = () => {
     signIn("google");
+    setIsAuthButtonDisabled(true);
   };
 
   const handleSignOut = () => {
     queryClient.removeQueries("user", { exact: true });
     signOut();
+    setIsAuthButtonDisabled(true);
   };
 
   return (
