@@ -12,6 +12,7 @@ import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { updateProgress } from "@utils/update-progress";
 import { useLikeTrack } from "@hooks/useLikeTrack";
+import { useDislikeTrack } from "@hooks/useDislikeTrack";
 
 function DesktopPlayer() {
   const progressRef = useRef();
@@ -31,11 +32,17 @@ function DesktopPlayer() {
     trackId,
   } = usePlayer();
 
-  const mutation = useLikeTrack();
+  const likeMutation = useLikeTrack();
+  const dislikeMutation = useDislikeTrack();
 
   const handleLike = () => {
     if (!trackId) return;
-    mutation.mutate(currentTrack);
+    likeMutation.mutate(currentTrack);
+  };
+
+  const handleDislike = () => {
+    if (!trackId) return;
+    dislikeMutation.mutate(trackId);
   };
 
   const progressHandler = e => {
@@ -140,6 +147,9 @@ function DesktopPlayer() {
                 "text-gray-100 cursor-pointer fas fa-random fa-lg",
                 { "text-indigo-500": isShuffled }
               )}></i> */}
+          </button>
+          <button onClick={handleDislike}>
+            <HeartIconSolid className="w-8 h-8 text-gray-100 cursor-pointer" />
           </button>
         </div>
       </div>
