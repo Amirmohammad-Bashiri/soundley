@@ -10,7 +10,10 @@ import {
   ViewGridIcon,
   UserCircleIcon,
 } from "@heroicons/react/solid";
-import { useSession } from "next-auth/react";
+import { useSession, signOut, signIn } from "next-auth/react";
+import { useQueryClient } from "react-query";
+
+import { usePlayer } from "@store/player-context";
 
 function BottomNavigation() {
   const [isSignOutOpen, setIsSignOutOpen] = useState(false);
@@ -19,8 +22,21 @@ function BottomNavigation() {
 
   const { data: session, status } = useSession();
 
+  const { trackId } = usePlayer();
+
   const toggleIsSignOutOpen = () => {
     setIsSignOutOpen(prevState => !prevState);
+  };
+
+  const queryClient = useQueryClient();
+
+  const handleSignIn = () => {
+    signIn("google");
+  };
+
+  const handleSignOut = () => {
+    queryClient.removeQueries("user", { exact: true });
+    signOut();
   };
 
   return (
@@ -82,25 +98,39 @@ function BottomNavigation() {
           className={cx("text-gray-100", {
             "text-indigo-500": pathname === "/login",
           })}>
-          <Link href="/login">
-            <a>
-              {status === "unauthenticated" ? (
-                <div className="flex flex-col items-center justify-center space-y-1">
-                  <UserCircleIcon className="w-6 h-6 md:w-8 md:h-8" />
-                  <small>Sign In</small>
+          {status === "unauthenticated" ? (
+            <div
+              onClick={handleSignIn}
+              className="flex flex-col items-center justify-center space-y-1">
+              <UserCircleIcon className="w-6 h-6 md:w-8 md:h-8" />
+              <small>Sign In</small>
+            </div>
+          ) : status === "authenticated" ? (
+            <div onClick={toggleIsSignOutOpen} className="relative z-40">
+              {isSignOutOpen ? (
+                <div
+                  className={cx(
+                    "absolute px-5 py-2 rounded-sm bg-gray-700 -top-16 -left-12",
+                    { "-top-40": trackId }
+                  )}>
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full text-lg font-semibold text-gray-100 md:text-2xl">
+                    Logout
+                  </button>
                 </div>
-              ) : (
-                <div className="relative w-8 h-8 md:w-10 md:h-10">
-                  <Image
-                    src={session.user.image}
-                    alt={session.user.name}
-                    layout="fill"
-                    className="rounded-full"
-                  />
-                </div>
-              )}
-            </a>
-          </Link>
+              ) : null}
+
+              <div className="relative w-8 h-8 md:w-10 md:h-10">
+                <Image
+                  src={session?.user?.image}
+                  alt={session?.user?.name}
+                  layout="fill"
+                  className="rounded-full"
+                />
+              </div>
+            </div>
+          ) : null}
         </li>
       </ul>
     </nav>
