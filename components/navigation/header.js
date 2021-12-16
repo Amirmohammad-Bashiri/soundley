@@ -1,20 +1,25 @@
+import { useState } from "react";
 import Image from "next/image";
 import { SearchIcon, UserCircleIcon } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useQueryClient } from "react-query";
 
 function Header() {
+  const [isAuthButtonDisabled, setIsAuthButtonDisabled] = useState(false);
+
   const { data: session, status } = useSession();
 
   const queryClient = useQueryClient();
 
   const handleSignIn = () => {
     signIn("google");
+    setIsAuthButtonDisabled(true);
   };
 
   const handleSignOut = () => {
     queryClient.removeQueries("user", { exact: true });
     signOut();
+    setIsAuthButtonDisabled(true);
   };
 
   return (
@@ -48,11 +53,17 @@ function Header() {
         )}
         <div className="pr-5 text-gray-50">
           {status === "authenticated" ? (
-            <button onClick={handleSignOut} className="text-lg font-bold">
+            <button
+              disabled={isAuthButtonDisabled}
+              onClick={handleSignOut}
+              className="text-lg font-bold disabled:cursor-not-allowed">
               Sign Out
             </button>
           ) : (
-            <button onClick={handleSignIn} className="text-lg font-bold">
+            <button
+              disabled={isAuthButtonDisabled}
+              onClick={handleSignIn}
+              className="text-lg font-bold disabled:cursor-not-allowed">
               Sign In
             </button>
           )}
