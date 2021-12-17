@@ -1,10 +1,23 @@
-import { PlayIcon, PlusIcon, PauseIcon } from "@heroicons/react/solid";
+import { useEffect, useState } from "react";
+import {
+  PlayIcon,
+  PlusIcon,
+  PauseIcon,
+  HeartIcon as HeartIconSolid,
+} from "@heroicons/react/solid";
+import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
 import cx from "clsx";
 
 import { usePlayer } from "@store/player-context";
 import { getTrackLength } from "@utils/get-track-length";
+import { useLikeTrack } from "@hooks/useLikeTrack";
+import { useDislikeTrack } from "@hooks/useDislikeTrack";
+import { useUser } from "@hooks/useUser";
+import { isTrackLiked } from "@utils/is-track-liked";
 
 function AlbumListItem({ track }) {
+  const [liked, setLiked] = useState(false);
+
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
   const isThisTrackBeingPlayed = isPlaying && trackId === track.id;
@@ -14,6 +27,27 @@ function AlbumListItem({ track }) {
   ) : (
     <PlayIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-7 xl:w-7" />
   );
+
+  const { data } = useUser();
+
+  useEffect(() => {
+    if (track && data) {
+      setLiked(isTrackLiked(track, data.likes));
+    }
+  }, [track, data]);
+
+  const likeMutation = useLikeTrack();
+  const dislikeMutation = useDislikeTrack();
+
+  const handleLike = () => {
+    if (!track.id) return;
+    likeMutation.mutate(track);
+  };
+
+  const handleDislike = () => {
+    if (!track.id) return;
+    dislikeMutation.mutate(track.id);
+  };
 
   const handlePlayClick = track => {
     findTrackIndex(track.id, "album");
@@ -38,6 +72,15 @@ function AlbumListItem({ track }) {
         <button className="hidden bg-gray-500 rounded md:block">
           <PlusIcon className="w-4 h-4 cursor-pointer xl:h-6 xl:w-6" />
         </button>
+        {liked ? (
+          <button onClick={handleDislike}>
+            <HeartIconSolid className="w-6 h-6 text-indigo-500 cursor-pointer md:w-7 md:h-7" />
+          </button>
+        ) : (
+          <button onClick={handleLike}>
+            <HeartIconOutline className="w-6 h-6 text-gray-100 cursor-pointer md:w-7 md:h-7" />
+          </button>
+        )}
       </div>
     </li>
   );

@@ -20,7 +20,7 @@ import { isTrackLiked } from "@utils/is-track-liked";
 function TopTrackItem({ track }) {
   const [liked, setLiked] = useState(false);
 
-  const { isPlaying, trackId, findTrackIndex, currentTrack } = usePlayer();
+  const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
   const isThisTrackBeingPlayed = isPlaying && trackId === track.id;
 
