@@ -1,15 +1,23 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
-import { ChevronDownIcon, CollectionIcon } from "@heroicons/react/solid";
-import cx from "clsx";
+import {
+  ChevronDownIcon,
+  CollectionIcon,
+  HeartIcon as HeartIconSolid,
+} from "@heroicons/react/solid";
+import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
 
 import { useMusicPlayerPopup } from "@store/music-player-popup-context";
 import { usePlayer } from "@store/player-context";
 import { updateProgress } from "@utils/update-progress";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
+import { useLikeTrack } from "@hooks/useLikeTrack";
+import { useDislikeTrack } from "@hooks/useDislikeTrack";
+import { useIsTrackLiked } from "@hooks/useIsTrackLiked";
 
 const dropIn = {
   hidden: {
@@ -35,22 +43,41 @@ const dropIn = {
 function MusicPlayerPopup() {
   const progressRef = useRef();
 
-  const router = useRouter();
+  const { push } = useRouter();
 
-  const { togglePopup, isPopupOpen } = useMusicPlayerPopup();
+  const { togglePopup } = useMusicPlayerPopup();
+
   const playerInfo = usePlayer();
 
-  // useEffect(() => {
-  //   if (isPopupOpen) {
-  //     router.events.on("beforeHistoryChange", path => {
-  //       router.push(path);
-  //       router.events.on("routeChangeComplete", () => {
-  //         togglePopup();
-  //         console.log("boop");
-  //       });
-  //     });
-  //   }
-  // }, [router]);
+  const { liked } = useIsTrackLiked(
+    playerInfo.currentTrack,
+    playerInfo.trackId
+  );
+
+  const { status } = useSession();
+
+  const likeMutation = useLikeTrack();
+  const dislikeMutation = useDislikeTrack();
+
+  const handleLike = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
+    if (!playerInfo.trackId) return;
+
+    likeMutation.mutate(playerInfo.currentTrack);
+  };
+
+  const handleDislike = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
+    if (!playerInfo.trackId) return;
+
+    dislikeMutation.mutate(playerInfo.trackId);
+  };
 
   const progressHandler = e => {
     updateProgress(e, progressRef, playerInfo.audio);
@@ -167,13 +194,15 @@ function MusicPlayerPopup() {
               <button onClick={playerInfo.goToNextTrack}>
                 <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
               </button>
-              <button onClick={playerInfo.toggleShuffle}>
-                <i
-                  className={cx(
-                    "text-gray-100 cursor-pointer fas fa-random fa-lg",
-                    { "text-indigo-500": playerInfo.isShuffled }
-                  )}></i>
-              </button>
+              {liked ? (
+                <button onClick={handleDislike}>
+                  <HeartIconSolid className="w-8 h-8 text-indigo-500 cursor-pointer" />
+                </button>
+              ) : (
+                <button onClick={handleLike}>
+                  <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
+                </button>
+              )}
             </div>
           </div>
         </div>
