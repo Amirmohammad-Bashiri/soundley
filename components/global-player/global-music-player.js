@@ -107,7 +107,7 @@ function GlobalMusicPlayer() {
         </div>
 
         <div className="flex flex-col">
-          <strong className="text-gray-100 line-clamp-1 md:text-lg">
+          <strong className="text-gray-100  line-clamp-1 md:text-lg">
             {trackTitle}
           </strong>
           <Link href={`/artists/${playerInfo?.currentTrack?.artist?.id}`}>
@@ -122,7 +122,7 @@ function GlobalMusicPlayer() {
 
       <div
         onClick={togglePopup}
-        className="flex-grow h-full xl:hidden basis-8"></div>
+        className="flex-grow h-full xl:hidden basis-10"></div>
 
       <div className="items-center flex-grow hidden px-6 space-x-6 xl:flex">
         <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">
@@ -147,7 +147,7 @@ function GlobalMusicPlayer() {
             <HeartIconSolid className="w-8 h-8 text-indigo-500 cursor-pointer" />
           </button>
         ) : (
-          <button onClick={handleLike}>
+          <button className="hidden xl:block" onClick={handleLike}>
             <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
           </button>
         )}
