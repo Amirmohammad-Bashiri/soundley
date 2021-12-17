@@ -37,7 +37,7 @@ function AlbumListItem({ track }) {
   const { data } = useUser();
 
   useEffect(() => {
-    if (track && data) {
+    if (track && data && data.likes) {
       setLiked(isTrackLiked(track, data.likes));
     }
   }, [track, data]);

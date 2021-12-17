@@ -10,10 +10,14 @@ export function useLikeTrack() {
       await queryClient.cancelQueries("user");
       const previousValue = queryClient.getQueryData("user");
 
-      queryClient.setQueryData("user", old => ({
-        ...old,
-        likes: [...old.likes, track],
-      }));
+      queryClient.setQueryData("user", old => {
+        if (old.likes) {
+          return {
+            ...old,
+            likes: [...old.likes, track],
+          };
+        }
+      });
 
       return previousValue;
     },

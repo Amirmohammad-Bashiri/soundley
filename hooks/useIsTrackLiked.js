@@ -9,6 +9,7 @@ export function useIsTrackLiked(currentTrack, trackId) {
   const { data } = useUser();
 
   useEffect(() => {
+    if (data && !data.likes) return;
     if (trackId && data) {
       setLiked(isTrackLiked(currentTrack, data.likes));
     }

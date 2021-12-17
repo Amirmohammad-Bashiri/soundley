@@ -37,6 +37,7 @@ function ArtistTrackItem({ track }) {
   const { data } = useUser();
 
   useEffect(() => {
+    if (data && !data.likes) return;
     if (track && data) {
       setLiked(isTrackLiked(track, data.likes));
     }
