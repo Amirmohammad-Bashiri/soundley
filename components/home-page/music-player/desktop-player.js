@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -6,22 +6,16 @@ import {
   HeartIcon as HeartIconSolid,
 } from "@heroicons/react/solid";
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
-import cx from "clsx";
 
 import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { updateProgress } from "@utils/update-progress";
 import { useLikeTrack } from "@hooks/useLikeTrack";
 import { useDislikeTrack } from "@hooks/useDislikeTrack";
-import { isTrackLiked } from "@utils/is-track-liked";
-import { useUser } from "@hooks/useUser";
+import { useIsTrackLiked } from "@hooks/useIsTrackLiked";
 
 function DesktopPlayer() {
   const progressRef = useRef();
-
-  const [liked, setLiked] = useState(false);
-
-  const { data } = useUser();
 
   const {
     goToNextTrack,
@@ -38,11 +32,7 @@ function DesktopPlayer() {
     trackId,
   } = usePlayer();
 
-  useEffect(() => {
-    if (trackId && data) {
-      setLiked(isTrackLiked(currentTrack, data.likes));
-    }
-  }, [currentTrack, trackId, data]);
+  const { liked } = useIsTrackLiked(currentTrack, trackId);
 
   const likeMutation = useLikeTrack();
   const dislikeMutation = useDislikeTrack();
@@ -154,7 +144,7 @@ function DesktopPlayer() {
 
           {liked ? (
             <button onClick={handleDislike}>
-              <HeartIconSolid className="w-8 h-8 text-gray-100 cursor-pointer" />
+              <HeartIconSolid className="w-8 h-8 text-indigo-500 cursor-pointer" />
             </button>
           ) : (
             <button onClick={handleLike}>
