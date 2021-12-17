@@ -17,12 +17,8 @@ import { useDislikeTrack } from "@hooks/useDislikeTrack";
 import { useUser } from "@hooks/useUser";
 import { isTrackLiked } from "@utils/is-track-liked";
 
-function AlbumListItem({ track }) {
+function FavouritesListItem({ track }) {
   const [liked, setLiked] = useState(false);
-
-  const { push } = useRouter();
-
-  const { status } = useSession();
 
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
@@ -33,6 +29,10 @@ function AlbumListItem({ track }) {
   ) : (
     <PlayIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-7 xl:w-7" />
   );
+
+  const { push } = useRouter();
+
+  const { status } = useSession();
 
   const { data } = useUser();
 
@@ -62,11 +62,11 @@ function AlbumListItem({ track }) {
   };
 
   const handlePlayClick = track => {
-    findTrackIndex(track.id, "album");
+    findTrackIndex(track.id, "likes");
   };
 
   return (
-    <li className="flex items-center justify-between pt-4 space-x-1 text-gray-100">
+    <li className="flex items-center justify-between pt-4 space-x-1 text-gray-100 ">
       <strong
         onClick={() => handlePlayClick(track)}
         className={cx("text-sm cursor-pointer md:text-lg line-clamp-1", {
@@ -98,4 +98,4 @@ function AlbumListItem({ track }) {
   );
 }
 
-export default AlbumListItem;
+export default FavouritesListItem;
