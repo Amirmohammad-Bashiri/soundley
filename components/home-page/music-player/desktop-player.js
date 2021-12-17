@@ -1,6 +1,8 @@
 import { useRef } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import {
   ViewGridAddIcon,
   HeartIcon as HeartIconSolid,
@@ -32,18 +34,32 @@ function DesktopPlayer() {
     trackId,
   } = usePlayer();
 
+  const { push } = useRouter();
+
+  const { status } = useSession();
+
   const { liked } = useIsTrackLiked(currentTrack, trackId);
 
   const likeMutation = useLikeTrack();
   const dislikeMutation = useDislikeTrack();
 
   const handleLike = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
     if (!trackId) return;
+
     likeMutation.mutate(currentTrack);
   };
 
   const handleDislike = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
     if (!trackId) return;
+
     dislikeMutation.mutate(trackId);
   };
 

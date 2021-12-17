@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import cx from "clsx";
 import {
   PlayIcon,
@@ -19,6 +21,10 @@ import { isTrackLiked } from "@utils/is-track-liked";
 
 function TopTrackItem({ track }) {
   const [liked, setLiked] = useState(false);
+
+  const { push } = useRouter();
+
+  const { status } = useSession();
 
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
@@ -42,12 +48,18 @@ function TopTrackItem({ track }) {
   const dislikeMutation = useDislikeTrack();
 
   const handleLike = () => {
-    if (!track.id) return;
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
     likeMutation.mutate(track);
   };
 
   const handleDislike = () => {
-    if (!track.id) return;
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
     dislikeMutation.mutate(track.id);
   };
 

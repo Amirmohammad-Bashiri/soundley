@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import {
   PlayIcon,
   PlusIcon,
@@ -7,6 +8,7 @@ import {
 } from "@heroicons/react/solid";
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
 import cx from "clsx";
+import { useSession } from "next-auth/react";
 
 import { usePlayer } from "@store/player-context";
 import { getTrackLength } from "@utils/get-track-length";
@@ -17,6 +19,10 @@ import { isTrackLiked } from "@utils/is-track-liked";
 
 function ArtistTrackItem({ track }) {
   const [liked, setLiked] = useState(false);
+
+  const { push } = useRouter();
+
+  const { status } = useSession();
 
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
@@ -40,12 +46,18 @@ function ArtistTrackItem({ track }) {
   const dislikeMutation = useDislikeTrack();
 
   const handleLike = () => {
-    if (!track.id) return;
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
     likeMutation.mutate(track);
   };
 
   const handleDislike = () => {
-    if (!track.id) return;
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
     dislikeMutation.mutate(track.id);
   };
 
