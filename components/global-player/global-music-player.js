@@ -1,14 +1,19 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import cx from "clsx";
 import { useMediaQuery } from "react-responsive";
+import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/solid";
 
 import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { updateProgress } from "@utils/update-progress";
 import { useMusicPlayerPopup } from "@store/music-player-popup-context";
+import { useLikeTrack } from "@hooks/useLikeTrack";
+import { useDislikeTrack } from "@hooks/useDislikeTrack";
+import { useIsTrackLiked } from "@hooks/useIsTrackLiked";
 
 function GlobalMusicPlayer() {
   const { pathname } = useRouter();
@@ -22,6 +27,24 @@ function GlobalMusicPlayer() {
   const progressRef = useRef();
 
   const playerInfo = usePlayer();
+
+  const { liked } = useIsTrackLiked(
+    playerInfo.currentTrack,
+    playerInfo.trackId
+  );
+
+  const likeMutation = useLikeTrack();
+  const dislikeMutation = useDislikeTrack();
+
+  const handleLike = () => {
+    if (!playerInfo.trackId) return;
+    likeMutation.mutate(playerInfo.currentTrack);
+  };
+
+  const handleDislike = () => {
+    if (!playerInfo.trackId) return;
+    dislikeMutation.mutate(playerInfo.trackId);
+  };
 
   const progressHandler = e => {
     updateProgress(e, progressRef, playerInfo.audio);
@@ -84,7 +107,7 @@ function GlobalMusicPlayer() {
         </div>
 
         <div className="flex flex-col">
-          <strong className="text-gray-100 line-clamp-1 md:text-lg">
+          <strong className="text-gray-100  line-clamp-1 md:text-lg">
             {trackTitle}
           </strong>
           <Link href={`/artists/${playerInfo?.currentTrack?.artist?.id}`}>
@@ -99,7 +122,7 @@ function GlobalMusicPlayer() {
 
       <div
         onClick={togglePopup}
-        className="flex-grow h-full xl:hidden basis-8"></div>
+        className="flex-grow h-full xl:hidden basis-10"></div>
 
       <div className="items-center flex-grow hidden px-6 space-x-6 xl:flex">
         <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">
@@ -119,9 +142,16 @@ function GlobalMusicPlayer() {
       </div>
 
       <div className="flex items-center space-x-4">
-        <button className="hidden xl:block" onClick={playerInfo.toggleLoop}>
-          <i className={loopClass}></i>
-        </button>
+        {liked ? (
+          <button className="hidden xl:block" onClick={handleDislike}>
+            <HeartIconSolid className="w-8 h-8 text-indigo-500 cursor-pointer" />
+          </button>
+        ) : (
+          <button className="hidden xl:block" onClick={handleLike}>
+            <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
+          </button>
+        )}
+
         <button onClick={playerInfo.goToPrevTrack}>
           <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
         </button>
@@ -129,11 +159,9 @@ function GlobalMusicPlayer() {
         <button onClick={playerInfo.goToNextTrack}>
           <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
         </button>
-        <button className="hidden xl:block" onClick={playerInfo.toggleShuffle}>
-          <i
-            className={cx("text-gray-100 cursor-pointer fas fa-random", {
-              "text-indigo-500": playerInfo.isShuffled,
-            })}></i>
+
+        <button className="hidden xl:block" onClick={playerInfo.toggleLoop}>
+          <i className={loopClass}></i>
         </button>
       </div>
 

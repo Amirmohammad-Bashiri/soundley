@@ -1,12 +1,31 @@
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import cx from "clsx";
-import { PlayIcon, PlusIcon, PauseIcon } from "@heroicons/react/solid";
+import {
+  PlayIcon,
+  PlusIcon,
+  PauseIcon,
+  HeartIcon as HeartIconSolid,
+} from "@heroicons/react/solid";
+import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
 
 import { getTrackLength } from "@utils/get-track-length";
 import { usePlayer } from "@store/player-context";
+import { useLikeTrack } from "@hooks/useLikeTrack";
+import { useDislikeTrack } from "@hooks/useDislikeTrack";
+import { useUser } from "@hooks/useUser";
+import { isTrackLiked } from "@utils/is-track-liked";
 
 function TopTrackItem({ track }) {
+  const [liked, setLiked] = useState(false);
+
+  const { push } = useRouter();
+
+  const { status } = useSession();
+
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
   const isThisTrackBeingPlayed = isPlaying && trackId === track.id;
@@ -17,12 +36,39 @@ function TopTrackItem({ track }) {
     <PlayIcon className="w-5 h-5 text-indigo-500 cursor-pointer xl:h-6 xl:w-6" />
   );
 
+  const { data } = useUser();
+
+  useEffect(() => {
+    if (track && data) {
+      setLiked(isTrackLiked(track, data.likes));
+    }
+  }, [track, data]);
+
+  const likeMutation = useLikeTrack();
+  const dislikeMutation = useDislikeTrack();
+
+  const handleLike = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
+    likeMutation.mutate(track);
+  };
+
+  const handleDislike = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
+    dislikeMutation.mutate(track.id);
+  };
+
   const handlePlayClick = () => {
     findTrackIndex(track.id, "topTracks");
   };
 
   return (
-    <li className="flex items-center justify-between">
+    <li className="flex items-center justify-between space-x-1 md:space-x-3">
       <div className="flex items-center space-x-5">
         <div
           className="relative w-16 h-16"
@@ -51,8 +97,8 @@ function TopTrackItem({ track }) {
         </div>
       </div>
 
-      <div className="flex items-center space-x-4 md:space-x-6">
-        <time className="text-sm font-semibold text-gray-200">
+      <div className="flex items-center justify-center space-x-4 md:space-x-6">
+        <time className="text-sm font-semibold text-gray-200 md:text-base">
           {getTrackLength(track.duration)}
         </time>
         <button
@@ -65,6 +111,15 @@ function TopTrackItem({ track }) {
         <button className="hidden bg-gray-500 rounded md:block">
           <PlusIcon className="w-4 h-4 cursor-pointer xl:h-5 xl:w-5" />
         </button>
+        {liked ? (
+          <button onClick={handleDislike}>
+            <HeartIconSolid className="w-6 h-6 text-indigo-500 cursor-pointer md:w-7 md:h-7" />
+          </button>
+        ) : (
+          <button onClick={handleLike}>
+            <HeartIconOutline className="w-6 h-6 text-gray-100 cursor-pointer md:w-7 md:h-7" />
+          </button>
+        )}
       </div>
     </li>
   );

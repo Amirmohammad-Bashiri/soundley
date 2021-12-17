@@ -1,16 +1,20 @@
 import { useRef } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import {
   ViewGridAddIcon,
   HeartIcon as HeartIconSolid,
 } from "@heroicons/react/solid";
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
-import cx from "clsx";
 
 import { usePlayer } from "@store/player-context";
 import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { updateProgress } from "@utils/update-progress";
+import { useLikeTrack } from "@hooks/useLikeTrack";
+import { useDislikeTrack } from "@hooks/useDislikeTrack";
+import { useIsTrackLiked } from "@hooks/useIsTrackLiked";
 
 function DesktopPlayer() {
   const progressRef = useRef();
@@ -27,7 +31,37 @@ function DesktopPlayer() {
     currentTime,
     audio,
     trackCover,
+    trackId,
   } = usePlayer();
+
+  const { push } = useRouter();
+
+  const { status } = useSession();
+
+  const { liked } = useIsTrackLiked(currentTrack, trackId);
+
+  const likeMutation = useLikeTrack();
+  const dislikeMutation = useDislikeTrack();
+
+  const handleLike = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
+    if (!trackId) return;
+
+    likeMutation.mutate(currentTrack);
+  };
+
+  const handleDislike = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+    }
+
+    if (!trackId) return;
+
+    dislikeMutation.mutate(trackId);
+  };
 
   const progressHandler = e => {
     updateProgress(e, progressRef, audio);
@@ -123,15 +157,16 @@ function DesktopPlayer() {
           <button onClick={goToNextTrack}>
             <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
           </button>
-          <button>
-            <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
 
-            {/* <i
-              className={cx(
-                "text-gray-100 cursor-pointer fas fa-random fa-lg",
-                { "text-indigo-500": isShuffled }
-              )}></i> */}
-          </button>
+          {liked ? (
+            <button onClick={handleDislike}>
+              <HeartIconSolid className="w-8 h-8 text-indigo-500 cursor-pointer" />
+            </button>
+          ) : (
+            <button onClick={handleLike}>
+              <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
+            </button>
+          )}
         </div>
       </div>
     </>
