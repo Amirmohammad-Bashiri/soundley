@@ -11,7 +11,7 @@ function FavouritesPage() {
   if (isLoading) return <h1 className="text-white">Loading...</h1>;
 
   return (
-    <main className="pb-6 mx-6 mt-10 space-y-20 xl:pb-10 md:mx-12 md:mt-16">
+    <main className="pb-6 mx-6 mt-10 space-y-16 md:space-y-20 xl:pb-10 md:mx-12 md:mt-16">
       <FavouritesHeader />
 
       {!data.likes || data.likes.length === 0 ? (
