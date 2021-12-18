@@ -1,8 +1,10 @@
+import PlaylistItem from "./playlist-item";
+
 function Playlist({ data }) {
   return (
-    <ul>
+    <ul className="w-full space-y-5 overflow-y-scroll max-h-[600px]">
       {data.playlists.map(playlist => (
-        <li key={playlist.id}>{playlist.name}</li>
+        <PlaylistItem key={playlist.id} playlist={playlist} />
       ))}
     </ul>
   );
