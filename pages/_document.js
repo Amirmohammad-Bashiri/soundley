@@ -42,6 +42,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <div id="music-portal" />
+          <div id="playlist-portal" />
           <NextScript />
         </body>
       </Html>
