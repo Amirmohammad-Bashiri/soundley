@@ -1,4 +1,6 @@
 import { getSession } from "next-auth/react";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "@components/error-fallback";
 
 import { useUser } from "@hooks/useUser";
 import FavouritesList from "@components/favourites-page/favourites-list";
@@ -24,7 +26,15 @@ function FavouritesPage() {
           {!data.likes || data.likes.length === 0 ? (
             <NoFavourites />
           ) : (
-            <FavouritesList data={data} />
+            <ErrorBoundary
+              fallbackRender={({ resetErrorBoundary }) => (
+                <ErrorFallback
+                  resetErrorBoundary={resetErrorBoundary}
+                  queryKey={["user"]}
+                />
+              )}>
+              <FavouritesList data={data} />
+            </ErrorBoundary>
           )}
         </>
       )}
