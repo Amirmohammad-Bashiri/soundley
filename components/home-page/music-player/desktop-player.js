@@ -49,6 +49,7 @@ function DesktopPlayer() {
   const handleLike = () => {
     if (status === "unauthenticated") {
       push("/api/auth/signin");
+      return;
     }
 
     if (!trackId) return;
@@ -59,6 +60,7 @@ function DesktopPlayer() {
   const handleDislike = () => {
     if (status === "unauthenticated") {
       push("/api/auth/signin");
+      return;
     }
 
     if (!trackId) return;
@@ -68,6 +70,15 @@ function DesktopPlayer() {
 
   const progressHandler = e => {
     updateProgress(e, progressRef, audio);
+  };
+
+  const handlePlaylistPopup = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+      return;
+    }
+
+    togglePopup();
   };
 
   const trackDuration =
@@ -94,7 +105,7 @@ function DesktopPlayer() {
     <>
       <div className="hidden px-6 2xl:items-center 2xl:justify-between 2xl:flex text-gray-50">
         <h2 className="text-xl font-semibold">Player</h2>
-        <button onClick={togglePopup}>
+        <button onClick={handlePlaylistPopup}>
           <ViewGridAddIcon className="w-5 h-5 cursor-pointer xl:h-6 xl:w-6" />
         </button>
       </div>
