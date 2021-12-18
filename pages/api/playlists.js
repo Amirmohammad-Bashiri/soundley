@@ -1,4 +1,5 @@
 import { getSession } from "next-auth/react";
+import { v4 as uuidv4 } from "uuid";
 
 import clientPromise from "@lib/mongodb";
 
@@ -29,9 +30,14 @@ export default async function handler(req, res) {
       let playlists;
 
       if (user.playlists) {
-        playlists = [...user.playlists, { [req.body.playlistName]: [] }];
+        playlists = [
+          ...user.playlists,
+          { id: uuidv4(), name: [req.body.playlistName], tracks: [] },
+        ];
       } else {
-        playlists = [{ [req.body.playlistName]: [] }];
+        playlists = [
+          { id: uuidv4(), name: [req.body.playlistName], tracks: [] },
+        ];
       }
 
       const query = { email: session.user.email };

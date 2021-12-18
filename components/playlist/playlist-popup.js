@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useUser } from "@hooks/useUser";
 import NewPlaylist from "./new-playlist";
 import NoPlaylists from "./no-playlists";
+import Playlist from "./playlist";
 
 const dropIn = {
   hidden: {
@@ -27,7 +28,7 @@ const dropIn = {
 
 function PlaylistPopup() {
   const { data, isLoading, isFetching } = useUser();
-
+  console.log(data.playlists);
   return (
     <motion.div
       key="playlist"
@@ -40,7 +41,9 @@ function PlaylistPopup() {
 
       {data && (!data.playlists || data.playlists.length === 0) ? (
         <NoPlaylists />
-      ) : null}
+      ) : (
+        <Playlist data={data} />
+      )}
     </motion.div>
   );
 }

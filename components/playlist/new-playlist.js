@@ -12,7 +12,7 @@ function NewPlaylist() {
 
     mutation.mutate({ playlistName });
 
-    // setPlaylistName("");
+    setPlaylistName("");
   };
 
   const handleChange = e => {
