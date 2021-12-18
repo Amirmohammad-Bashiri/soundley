@@ -34,7 +34,7 @@ function PlaylistPopup() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex flex-col items-center px-10 space-y-16 playlist-popup space-y-44 xl:space-y-52">
+      className="flex flex-col items-center px-10 space-y-16 playlist-popup md:space-y-44 xl:space-y-52">
       <NewPlaylist />
 
       {data && (!data.playlists || data.playlists.length === 0) ? (
