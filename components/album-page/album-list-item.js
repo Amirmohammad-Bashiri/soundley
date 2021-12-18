@@ -16,6 +16,7 @@ import { useLikeTrack } from "@hooks/useLikeTrack";
 import { useDislikeTrack } from "@hooks/useDislikeTrack";
 import { useUser } from "@hooks/useUser";
 import { isTrackLiked } from "@utils/is-track-liked";
+import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 
 function AlbumListItem({ track }) {
   const [liked, setLiked] = useState(false);
@@ -25,6 +26,8 @@ function AlbumListItem({ track }) {
   const { status } = useSession();
 
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
+
+  const { togglePopup: togglePlaylist } = usePlaylistPopup();
 
   const isThisTrackBeingPlayed = isPlaying && trackId === track.id;
 
@@ -61,6 +64,15 @@ function AlbumListItem({ track }) {
     dislikeMutation.mutate(track.id);
   };
 
+  const handlePlaylistPopup = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+      return;
+    }
+
+    togglePlaylist();
+  };
+
   const handlePlayClick = track => {
     findTrackIndex(track.id, "album");
   };
@@ -81,7 +93,9 @@ function AlbumListItem({ track }) {
         <button onClick={() => handlePlayClick(track)}>
           {actionButtonIcon}
         </button>
-        <button className="hidden bg-gray-500 rounded md:block">
+        <button
+          onClick={handlePlaylistPopup}
+          className="hidden bg-gray-500 rounded md:block">
           <PlusIcon className="w-4 h-4 cursor-pointer xl:h-6 xl:w-6" />
         </button>
         {liked ? (

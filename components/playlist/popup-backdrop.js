@@ -6,7 +6,7 @@ function PopupBackdrop() {
   return (
     <div
       onClick={togglePopup}
-      className="fixed top-0 left-0 z-40 w-full h-full bg-gray-900 opacity-50"></div>
+      className="fixed top-0 left-0 z-50 w-full h-full bg-gray-900 opacity-50"></div>
   );
 }
 
