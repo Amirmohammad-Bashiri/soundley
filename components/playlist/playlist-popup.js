@@ -30,6 +30,7 @@ function PlaylistPopup() {
 
   return (
     <motion.div
+      key="playlist"
       variants={dropIn}
       initial="hidden"
       animate="visible"

@@ -8,9 +8,7 @@ const MusicPlayerPortal = ({ children }) => {
 
   if (typeof document !== "undefined") {
     return createPortal(
-      <AnimatePresence exitBeforeEnter>
-        {isPopupOpen ? children : null}
-      </AnimatePresence>,
+      <AnimatePresence>{isPopupOpen ? children : null}</AnimatePresence>,
       document.getElementById("music-portal")
     );
   } else {

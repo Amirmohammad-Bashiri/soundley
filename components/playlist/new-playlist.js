@@ -1,6 +1,22 @@
+import { useState } from "react";
+
+import { useCreatePlaylist } from "@hooks/useCreatePlaylist";
+
 function NewPlaylist() {
+  const [playlistName, setPlaylistName] = useState("");
+
+  const mutation = useCreatePlaylist();
+
   const handleSubmit = e => {
     e.preventDefault();
+
+    mutation.mutate({ playlistName });
+
+    // setPlaylistName("");
+  };
+
+  const handleChange = e => {
+    setPlaylistName(e.target.value);
   };
 
   return (
@@ -10,6 +26,8 @@ function NewPlaylist() {
       <input
         type="text"
         placeholder="Playlist Name"
+        value={playlistName}
+        onChange={handleChange}
         className="py-3 pl-3 placeholder-gray-200 bg-gray-800 md:rounded text-gray-50"
       />
       <button

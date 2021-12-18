@@ -29,21 +29,21 @@ export default async function handler(req, res) {
       let playlists;
 
       if (user.playlists) {
-        playlists = [...user.playlists, { [req.body]: [] }];
+        playlists = [...user.playlists, { [req.body.playlistName]: [] }];
       } else {
-        playlists = [{ [req.body]: [] }];
+        playlists = [{ [req.body.playlistName]: [] }];
       }
 
       const query = { email: session.user.email };
       const update = { $set: { playlists } };
       const options = { returnDocument: "after" };
 
-      const updatedDocument = await client
+      await client
         .db()
         .collection("users")
         .findOneAndUpdate(query, update, options);
 
-      res.status(200).json({ message: "Success", updatedDocument });
+      res.status(200).json({ message: "Success" });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: error.message });

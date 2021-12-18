@@ -109,6 +109,7 @@ function MusicPlayerPopup() {
 
   return (
     <motion.div
+      key="music-player"
       variants={dropIn}
       initial="hidden"
       animate="visible"
