@@ -6,7 +6,7 @@ function NewPlaylist() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center mt-4 space-y-5 md:space-y-0 md:space-x-5 md:mt-8 md:flex-row 2xl:space-x-8 text-gray-50">
+      className="flex flex-col items-center mt-4 space-y-5 md:space-y-0 md:space-x-5 md:mt-8 md:flex-row 2xl:space-x-8">
       <input
         type="text"
         placeholder="Playlist Name"
@@ -14,7 +14,7 @@ function NewPlaylist() {
       />
       <button
         type="submit"
-        className="px-4 py-2 text-base font-semibold bg-indigo-600 rounded cursor-pointer md:text-lg active:bg-indigo-700">
+        className="px-4 py-2 text-base font-semibold bg-indigo-600 rounded cursor-pointer text-indigo-50 md:text-lg active:bg-indigo-700">
         Create Playlist
       </button>
     </form>

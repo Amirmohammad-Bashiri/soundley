@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 
 import { useUser } from "@hooks/useUser";
 import NewPlaylist from "./new-playlist";
+import NoPlaylists from "./no-playlists";
 
 const dropIn = {
   hidden: {
@@ -33,11 +34,11 @@ function PlaylistPopup() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex flex-col items-center px-10 playlist-popup space-y-52">
+      className="flex flex-col items-center px-10 space-y-16 playlist-popup space-y-44 xl:space-y-52">
       <NewPlaylist />
 
-      {!data.playlists || data.playlists.length === 0 ? (
-        <h1>No Playlists</h1>
+      {data && (!data.playlists || data.playlists.length === 0) ? (
+        <NoPlaylists />
       ) : null}
     </motion.div>
   );
