@@ -15,9 +15,12 @@ import { updateProgress } from "@utils/update-progress";
 import { useLikeTrack } from "@hooks/useLikeTrack";
 import { useDislikeTrack } from "@hooks/useDislikeTrack";
 import { useIsTrackLiked } from "@hooks/useIsTrackLiked";
+import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 
 function DesktopPlayer() {
   const progressRef = useRef();
+
+  const { togglePopup } = usePlaylistPopup();
 
   const {
     goToNextTrack,
@@ -91,7 +94,7 @@ function DesktopPlayer() {
     <>
       <div className="hidden px-6 2xl:items-center 2xl:justify-between 2xl:flex text-gray-50">
         <h2 className="text-xl font-semibold">Player</h2>
-        <button>
+        <button onClick={togglePopup}>
           <ViewGridAddIcon className="w-5 h-5 cursor-pointer xl:h-6 xl:w-6" />
         </button>
       </div>
