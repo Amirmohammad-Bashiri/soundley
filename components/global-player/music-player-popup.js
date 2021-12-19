@@ -88,8 +88,8 @@ function MusicPlayerPopup() {
       return;
     }
 
-    if (trackId) {
-      selectTrackForPlaylist(currentTrack);
+    if (playerInfo.trackId) {
+      selectTrackForPlaylist(playerInfo.currentTrack);
     }
 
     togglePlaylistPopup();
