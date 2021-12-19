@@ -8,10 +8,12 @@ function PlaylistItem({ playlist }) {
   const mutation = useAddToPlaylist();
 
   const handlePlaylistClick = () => {
-    mutation.mutate({
-      playlistId: playlist.id,
-      track: selectedTrackForPlaylist,
-    });
+    if (selectedTrackForPlaylist) {
+      mutation.mutate({
+        playlistId: playlist.id,
+        track: selectedTrackForPlaylist,
+      });
+    }
 
     togglePlaylistPopup();
   };
