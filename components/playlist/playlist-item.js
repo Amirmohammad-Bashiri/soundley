@@ -1,10 +1,15 @@
 import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
+import { useAddToPlaylist } from "@hooks/useAddToPlaylist";
 
 function PlaylistItem({ playlist }) {
-  const { selectPlaylist } = usePlaylistPopup();
+  const { selectedTrackForPlaylist } = usePlaylistPopup();
+  const mutation = useAddToPlaylist();
 
   const handlePlaylistClick = () => {
-    selectPlaylist(playlist.id);
+    mutation.mutate({
+      playlistId: playlist.id,
+      track: selectedTrackForPlaylist,
+    });
   };
 
   return (
