@@ -2,7 +2,7 @@ import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 import { useAddToPlaylist } from "@hooks/useAddToPlaylist";
 
 function PlaylistItem({ playlist }) {
-  const { selectedTrackForPlaylist } = usePlaylistPopup();
+  const { selectedTrackForPlaylist, togglePlaylistPopup } = usePlaylistPopup();
   const mutation = useAddToPlaylist();
 
   const handlePlaylistClick = () => {
@@ -10,6 +10,8 @@ function PlaylistItem({ playlist }) {
       playlistId: playlist.id,
       track: selectedTrackForPlaylist,
     });
+
+    togglePlaylistPopup();
   };
 
   return (

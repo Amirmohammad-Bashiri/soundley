@@ -17,25 +17,17 @@ export default async function handler(req, res) {
 
       const client = await clientPromise;
 
-      const user = await client
+      const query = {
+        email: session.user.email,
+        "playlists.id": req.body.playlistId,
+      };
+      const update = { $push: { "playlists.$.tracks": req.body.track } };
+      const options = { returnDocument: "after" };
+
+      await client
         .db()
         .collection("users")
-        .findOne({ email: session.user.email });
-
-      if (!user) {
-        res.status(404).json({ message: "User not found" });
-      }
-
-      const updatedDocument = await client
-        .db()
-        .collection("users")
-        .findOneAndUpdate(
-          { email: session.user.email, "playlists.id": req.body.playlistId },
-          { $push: { "playlists.$.tracks": req.body.track } },
-          { returnDocument: "after" }
-        );
-
-      console.log(updatedDocument);
+        .findOneAndUpdate(query, update, options);
 
       res.status(200).json({ message: "Success" });
     } catch (error) {
