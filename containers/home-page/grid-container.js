@@ -24,7 +24,7 @@ function GridContainer() {
         </ErrorBoundary>
       </section>
 
-      <section className="hidden py-4 bg-gray-800 rounded xl:order-3 2xl:order-none xl:row-span-3 2xl:row-span-6 xl:block xl:col-span-5 2xl:col-span-4">
+      <section className="hidden py-4 bg-gray-800 rounded xl:order-3 2xl:order-none xl:row-span-3 2xl:row-span-6 xl:block xl:col-span-4 2xl:col-span-4">
         <DesktopPlayer />
       </section>
 
@@ -44,7 +44,7 @@ function GridContainer() {
         </ErrorBoundary>
       </section>
 
-      <section className="relative overflow-y-scroll bg-gray-800 rounded xl:order-4 2xl:order-none xl:row-span-3 xl:col-span-7 2xl:col-span-5 max-h-80">
+      <section className="relative overflow-y-scroll bg-gray-800 rounded xl:order-4 2xl:order-none xl:row-span-3 xl:col-span-8 2xl:col-span-5 max-h-80">
         <h2 className="sticky top-0 z-10 py-4 pl-6 mb-6 text-xl font-semibold tracking-wide bg-gray-800 md:text-2xl text-gray-50">
           Top Tracks
         </h2>
