@@ -18,6 +18,7 @@ import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { useLikeTrack } from "@hooks/useLikeTrack";
 import { useDislikeTrack } from "@hooks/useDislikeTrack";
 import { useIsTrackLiked } from "@hooks/useIsTrackLiked";
+import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 
 const dropIn = {
   hidden: {
@@ -45,7 +46,11 @@ function MusicPlayerPopup() {
 
   const { push } = useRouter();
 
+  const { status } = useSession();
+
   const { togglePopup } = useMusicPlayerPopup();
+
+  const { togglePlaylistPopup, selectTrackForPlaylist } = usePlaylistPopup();
 
   const playerInfo = usePlayer();
 
@@ -53,8 +58,6 @@ function MusicPlayerPopup() {
     playerInfo.currentTrack,
     playerInfo.trackId
   );
-
-  const { status } = useSession();
 
   const likeMutation = useLikeTrack();
   const dislikeMutation = useDislikeTrack();
@@ -77,6 +80,19 @@ function MusicPlayerPopup() {
     if (!playerInfo.trackId) return;
 
     dislikeMutation.mutate(playerInfo.trackId);
+  };
+
+  const handlePlaylistPopup = () => {
+    if (status === "unauthenticated") {
+      push("/api/auth/signin");
+      return;
+    }
+
+    if (playerInfo.trackId) {
+      selectTrackForPlaylist(playerInfo.currentTrack);
+    }
+
+    togglePlaylistPopup();
   };
 
   const progressHandler = e => {
@@ -109,6 +125,7 @@ function MusicPlayerPopup() {
 
   return (
     <motion.div
+      key="music-player"
       variants={dropIn}
       initial="hidden"
       animate="visible"
@@ -118,7 +135,7 @@ function MusicPlayerPopup() {
         <button onClick={togglePopup}>
           <ChevronDownIcon className="w-8 h-8 md:w-14 md:h-14" />
         </button>
-        <button>
+        <button onClick={handlePlaylistPopup}>
           <CollectionIcon className="w-7 h-7 md:w-12 md:h-12" />
         </button>
       </div>

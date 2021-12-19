@@ -9,6 +9,7 @@ import PlayerProvider from "@store/player-context";
 import MusicPlayerPopupProvider from "@store/music-player-popup-context";
 
 import "../styles/globals.css";
+import PlaylistPopupProvider from "@store/playlist-popup-contenxt";
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -21,9 +22,11 @@ function MyApp({ Component, pageProps }) {
         <Hydrate state={pageProps.dehydratedState}>
           <PlayerProvider albumId={query?.albumId} artistId={query?.artistId}>
             <MusicPlayerPopupProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <PlaylistPopupProvider>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </PlaylistPopupProvider>
             </MusicPlayerPopupProvider>
           </PlayerProvider>
         </Hydrate>

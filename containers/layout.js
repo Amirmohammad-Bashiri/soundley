@@ -9,6 +9,8 @@ import BottomNavigation from "@components/navigation/bottom-navigation";
 import GlobalMusicPlayer from "@components/global-player/global-music-player";
 import { usePlayer } from "@store/player-context";
 import { useUser } from "@hooks/useUser";
+import PlaylistPopup from "@components/playlist/playlist-popup";
+import PopupBackdrop from "@components/playlist/popup-backdrop";
 
 const MusicPlayerPortal = dynamic(() => import("../hoc/music-player-portal"), {
   ssr: false,
@@ -17,6 +19,9 @@ const MusicPlayerPopup = dynamic(
   () => import("@components/global-player/music-player-popup"),
   { ssr: false }
 );
+const PlaylistPortal = dynamic(() => import("../hoc/playlist-portal"), {
+  ssr: false,
+});
 
 function Layout({ children }) {
   const { pathname } = useRouter();
@@ -42,6 +47,11 @@ function Layout({ children }) {
 
         {trackId ? <GlobalMusicPlayer /> : null}
       </div>
+
+      <PlaylistPortal>
+        <PopupBackdrop />
+        <PlaylistPopup />
+      </PlaylistPortal>
 
       <div
         className={cx("pt-28 xl:pt-0", {

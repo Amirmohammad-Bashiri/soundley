@@ -1,19 +1,19 @@
 import { createPortal } from "react-dom";
 import { AnimatePresence } from "framer-motion";
 
-import { useMusicPlayerPopup } from "@store/music-player-popup-context";
+import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 
-const MusicPlayerPortal = ({ children }) => {
-  const { isPopupOpen } = useMusicPlayerPopup();
+const PlaylistPortal = ({ children }) => {
+  const { isPopupOpen } = usePlaylistPopup();
 
   if (typeof document !== "undefined") {
     return createPortal(
       <AnimatePresence>{isPopupOpen ? children : null}</AnimatePresence>,
-      document.getElementById("music-portal")
+      document.getElementById("playlist-portal")
     );
   } else {
     return null;
   }
 };
 
-export default MusicPlayerPortal;
+export default PlaylistPortal;

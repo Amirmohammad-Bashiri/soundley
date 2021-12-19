@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import cx from "clsx";
 import { useMediaQuery } from "react-responsive";
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/solid";
@@ -107,7 +106,7 @@ function GlobalMusicPlayer() {
         </div>
 
         <div className="flex flex-col">
-          <strong className="text-gray-100  line-clamp-1 md:text-lg">
+          <strong className="text-gray-100 line-clamp-1 md:text-lg">
             {trackTitle}
           </strong>
           <Link href={`/artists/${playerInfo?.currentTrack?.artist?.id}`}>
