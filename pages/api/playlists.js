@@ -32,12 +32,10 @@ export default async function handler(req, res) {
       if (user.playlists) {
         playlists = [
           ...user.playlists,
-          { id: uuidv4(), name: [req.body.playlistName], tracks: [] },
+          { id: uuidv4(), name: req.body.playlistName, tracks: [] },
         ];
       } else {
-        playlists = [
-          { id: uuidv4(), name: [req.body.playlistName], tracks: [] },
-        ];
+        playlists = [{ id: uuidv4(), name: req.body.playlistName, tracks: [] }];
       }
 
       const query = { email: session.user.email };
