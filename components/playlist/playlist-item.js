@@ -2,20 +2,26 @@ import { XCircleIcon } from "@heroicons/react/solid";
 
 import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 import { useAddToPlaylist } from "@hooks/useAddToPlaylist";
+import { useRemovePlaylist } from "@hooks/useRemovePlaylist";
 
 function PlaylistItem({ playlist }) {
   const { selectedTrackForPlaylist, togglePlaylistPopup } = usePlaylistPopup();
-  const mutation = useAddToPlaylist();
+  const addToPlaylistMutation = useAddToPlaylist();
+  const removePlaylistMutation = useRemovePlaylist();
 
   const handlePlaylistClick = () => {
     if (selectedTrackForPlaylist) {
-      mutation.mutate({
+      addToPlaylistMutation.mutate({
         playlistId: playlist.id,
         track: selectedTrackForPlaylist,
       });
     }
 
     togglePlaylistPopup();
+  };
+
+  const handleRemovePlaylist = () => {
+    removePlaylistMutation.mutate({ playlistId: playlist.id });
   };
 
   return (
@@ -26,7 +32,7 @@ function PlaylistItem({ playlist }) {
         {playlist.name}
       </strong>
 
-      <button className="cursor-pointer" onClick={() => console.log("boop")}>
+      <button className="cursor-pointer" onClick={handleRemovePlaylist}>
         <XCircleIcon className="w-6 h-6 text-lg text-rose-500" />
       </button>
     </li>
