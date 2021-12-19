@@ -4,6 +4,7 @@ import { useUser } from "@hooks/useUser";
 import NewPlaylist from "./new-playlist";
 import NoPlaylists from "./no-playlists";
 import Playlist from "./playlist";
+import Loader from "@components/loader";
 
 const dropIn = {
   hidden: {
@@ -27,7 +28,7 @@ const dropIn = {
 };
 
 function PlaylistPopup() {
-  const { data, isLoading, isFetching } = useUser();
+  const { data, isLoading } = useUser();
 
   return (
     <motion.div
@@ -39,10 +40,16 @@ function PlaylistPopup() {
       className="flex flex-col items-center px-10 space-y-14 playlist-popup md:space-y-20">
       <NewPlaylist />
 
-      {data && (!data.playlists || data.playlists.length === 0) ? (
-        <NoPlaylists />
+      {isLoading ? (
+        <Loader type="Oval" color="#D1D5DB" height={100} width={100} />
       ) : (
-        <Playlist data={data} />
+        <>
+          {!data.playlists || data.playlists.length === 0 ? (
+            <NoPlaylists />
+          ) : (
+            <Playlist data={data} />
+          )}
+        </>
       )}
     </motion.div>
   );
