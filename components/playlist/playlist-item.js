@@ -1,3 +1,5 @@
+import { XCircleIcon } from "@heroicons/react/solid";
+
 import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 import { useAddToPlaylist } from "@hooks/useAddToPlaylist";
 
@@ -15,12 +17,16 @@ function PlaylistItem({ playlist }) {
   };
 
   return (
-    <li
-      onClick={handlePlaylistClick}
-      className="p-4 bg-gray-800 rounded cursor-pointer md:px-4 md:py-6">
-      <strong className="text-base text-gray-100 md:text-lg line-clamp-1">
+    <li className="flex items-center justify-between p-4 bg-gray-800 rounded md:px-4 md:py-6">
+      <strong
+        onClick={handlePlaylistClick}
+        className="text-base text-gray-100 cursor-pointer md:text-lg line-clamp-1">
         {playlist.name}
       </strong>
+
+      <button className="cursor-pointer" onClick={() => console.log("boop")}>
+        <XCircleIcon className="w-6 h-6 text-lg text-rose-500" />
+      </button>
     </li>
   );
 }
