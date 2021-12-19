@@ -62,7 +62,19 @@ export default async function handler(req, res) {
           .json({ message: "Not authorized to access this endpoint" });
       }
 
-      console.log(req.body);
+      const client = await clientPromise;
+
+      const query = {
+        email: session.user.email,
+        "playlists.id": req.body.playlistId,
+      };
+      const update = { $pull: { playlists: { id: req.body.playlistId } } };
+      const options = { returnDocument: "after" };
+
+      await client
+        .db()
+        .collection("users")
+        .findOneAndUpdate(query, update, options);
 
       res.status(200).json({ message: "Success" });
     } catch (error) {
