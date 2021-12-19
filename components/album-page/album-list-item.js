@@ -27,7 +27,7 @@ function AlbumListItem({ track }) {
 
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
-  const { togglePopup: togglePlaylist } = usePlaylistPopup();
+  const { togglePlaylistPopup, selectTrackForPlaylist } = usePlaylistPopup();
 
   const isThisTrackBeingPlayed = isPlaying && trackId === track.id;
 
@@ -70,7 +70,8 @@ function AlbumListItem({ track }) {
       return;
     }
 
-    togglePlaylist();
+    selectTrackForPlaylist(track);
+    togglePlaylistPopup();
   };
 
   const handlePlayClick = track => {

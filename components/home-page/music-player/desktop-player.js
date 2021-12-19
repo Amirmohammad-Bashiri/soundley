@@ -20,7 +20,7 @@ import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 function DesktopPlayer() {
   const progressRef = useRef();
 
-  const { togglePopup } = usePlaylistPopup();
+  const { togglePlaylistPopup, selectTrackForPlaylist } = usePlaylistPopup();
 
   const {
     goToNextTrack,
@@ -78,7 +78,11 @@ function DesktopPlayer() {
       return;
     }
 
-    togglePopup();
+    if (trackId) {
+      selectTrackForPlaylist(currentTrack);
+    }
+
+    togglePlaylistPopup();
   };
 
   const trackDuration =

@@ -25,7 +25,7 @@ function ArtistTrackItem({ track }) {
 
   const { status } = useSession();
 
-  const { togglePopup: togglePlaylist } = usePlaylistPopup();
+  const { togglePlaylistPopup, selectTrackForPlaylist } = usePlaylistPopup();
 
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
@@ -71,7 +71,8 @@ function ArtistTrackItem({ track }) {
       return;
     }
 
-    togglePlaylist();
+    selectTrackForPlaylist(track);
+    togglePlaylistPopup();
   };
 
   const handlePlayClick = track => {

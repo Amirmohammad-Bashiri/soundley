@@ -50,7 +50,7 @@ function MusicPlayerPopup() {
 
   const { togglePopup } = useMusicPlayerPopup();
 
-  const { togglePopup: togglePlaylist } = usePlaylistPopup();
+  const { togglePlaylistPopup, selectTrackForPlaylist } = usePlaylistPopup();
 
   const playerInfo = usePlayer();
 
@@ -88,7 +88,11 @@ function MusicPlayerPopup() {
       return;
     }
 
-    togglePlaylist();
+    if (trackId) {
+      selectTrackForPlaylist(currentTrack);
+    }
+
+    togglePlaylistPopup();
   };
 
   const progressHandler = e => {

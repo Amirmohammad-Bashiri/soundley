@@ -5,12 +5,23 @@ PlaylistPopupContext.displayName = "PlaylistPopupContext";
 
 function PlaylistPopupProvider(props) {
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+  const [selectedTrackForPlaylist, setSelectedTrackForPlaylist] =
+    React.useState(null);
 
-  const togglePopup = () => {
+  const togglePlaylistPopup = () => {
     setIsPopupOpen(prevState => !prevState);
   };
 
-  const context = { isPopupOpen, togglePopup };
+  const selectTrackForPlaylist = track => {
+    setSelectedTrackForPlaylist(track);
+  };
+
+  const context = {
+    isPopupOpen,
+    selectTrackForPlaylist,
+    togglePlaylistPopup,
+    selectedTrackForPlaylist,
+  };
 
   return <PlaylistPopupContext.Provider value={context} {...props} />;
 }

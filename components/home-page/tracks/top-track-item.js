@@ -29,7 +29,7 @@ function TopTrackItem({ track }) {
 
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
-  const { togglePopup } = usePlaylistPopup();
+  const { togglePlaylistPopup, selectTrackForPlaylist } = usePlaylistPopup();
 
   const isThisTrackBeingPlayed = isPlaying && trackId === track.id;
 
@@ -73,7 +73,8 @@ function TopTrackItem({ track }) {
       return;
     }
 
-    togglePopup();
+    selectTrackForPlaylist(track);
+    togglePlaylistPopup();
   };
 
   const handlePlayClick = () => {
