@@ -52,5 +52,22 @@ export default async function handler(req, res) {
       console.log(error);
       res.status(400).json({ message: error.message });
     }
+  } else if (method === "PUT") {
+    try {
+      const session = await getSession({ req });
+
+      if (!session) {
+        res
+          .status(401)
+          .json({ message: "Not authorized to access this endpoint" });
+      }
+
+      console.log(req.body);
+
+      res.status(200).json({ message: "Success" });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: error.message });
+    }
   }
 }
