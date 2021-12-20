@@ -4,20 +4,24 @@ import { QueryClient, dehydrate } from "react-query";
 import { getUser } from "@lib/get-user";
 import { useUser } from "@hooks/useUser";
 import PlaylistTracksList from "@components/playlist-page/playlist-tracks-list";
+import PlaylistTracksHeader from "@components/playlist-page/playlist-tracks-header";
 
 function PlaylistPage() {
   const { query } = useRouter();
 
   const { data, isLoading } = useUser();
 
-  const tracks = data?.playlists.find(
+  const playlist = data?.playlists.find(
     playlist => playlist.id === query.playlistId
-  ).tracks;
+  );
+
+  const tracks = playlist?.tracks;
 
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <main>
+    <main className="px-8 py-16 space-y-20 md:px-20">
+      <PlaylistTracksHeader playlistName={playlist.name} />
       <PlaylistTracksList tracks={tracks} />
     </main>
   );
