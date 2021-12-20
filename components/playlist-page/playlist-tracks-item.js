@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import {
   PlayIcon,
   PauseIcon,
@@ -16,6 +17,8 @@ import { isTrackLiked } from "@utils/is-track-liked";
 
 function PlaylistTracksItem({ track }) {
   const [liked, setLiked] = useState(false);
+
+  const { query } = useRouter();
 
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
@@ -48,7 +51,7 @@ function PlaylistTracksItem({ track }) {
   };
 
   const handlePlayClick = track => {
-    findTrackIndex(track.id, "artist");
+    findTrackIndex(track.id, "playlists", query.playlistId);
   };
 
   return (
