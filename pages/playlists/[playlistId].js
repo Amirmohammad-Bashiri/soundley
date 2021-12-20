@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
-import { QueryClient, dehydrate } from "react-query";
+import { getSession } from "next-auth/react";
 
-import { getUser } from "@lib/get-user";
 import { useUser } from "@hooks/useUser";
 import PlaylistTracksList from "@components/playlist-page/playlist-tracks-list";
 import PlaylistTracksHeader from "@components/playlist-page/playlist-tracks-header";
@@ -32,17 +31,20 @@ function PlaylistPage() {
   );
 }
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
+export async function getServerSideProps(ctx) {
+  const session = await getSession({ req: ctx.req });
 
-  await queryClient.prefetchQuery("user", getUser(), {
-    staleTime: 1000 * 60 * 60 * 24 * 7,
-  });
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/api/auth/signin",
+        permanent: false,
+      },
+    };
+  }
 
   return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
+    props: {},
   };
 }
 
