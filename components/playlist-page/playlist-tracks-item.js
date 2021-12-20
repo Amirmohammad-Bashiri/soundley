@@ -4,6 +4,7 @@ import {
   PlayIcon,
   PauseIcon,
   HeartIcon as HeartIconSolid,
+  XCircleIcon,
 } from "@heroicons/react/solid";
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
 import cx from "clsx";
@@ -14,11 +15,14 @@ import { useLikeTrack } from "@hooks/useLikeTrack";
 import { useDislikeTrack } from "@hooks/useDislikeTrack";
 import { useUser } from "@hooks/useUser";
 import { isTrackLiked } from "@utils/is-track-liked";
+import { useRemoveFromPlaylist } from "@hooks/useRemoveFromPlaylist";
 
 function PlaylistTracksItem({ track }) {
   const [liked, setLiked] = useState(false);
 
   const { query } = useRouter();
+
+  const removePlaylistTrackMutation = useRemoveFromPlaylist();
 
   const { isPlaying, trackId, findTrackIndex } = usePlayer();
 
@@ -54,6 +58,13 @@ function PlaylistTracksItem({ track }) {
     findTrackIndex(track.id, "playlists", query.playlistId);
   };
 
+  const handleRemoveTrack = () => {
+    removePlaylistTrackMutation.mutate({
+      trackId: track.id,
+      playlistId: query.playlistId,
+    });
+  };
+
   return (
     <li className="flex items-center justify-between pt-4 space-x-1 text-gray-100 ">
       <strong
@@ -79,6 +90,9 @@ function PlaylistTracksItem({ track }) {
             <HeartIconOutline className="w-6 h-6 text-gray-100 cursor-pointer md:w-7 md:h-7" />
           </button>
         )}
+        <button onClick={handleRemoveTrack}>
+          <XCircleIcon className="w-6 h-6 text-gray-500 cursor-pointer md:w-7 md:h-7" />
+        </button>
       </div>
     </li>
   );
