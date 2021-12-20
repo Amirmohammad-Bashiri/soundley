@@ -5,6 +5,7 @@ import { useUser } from "@hooks/useUser";
 import PlaylistTracksList from "@components/playlist-page/playlist-tracks-list";
 import PlaylistTracksHeader from "@components/playlist-page/playlist-tracks-header";
 import NoPlaylistTracks from "@components/playlist-page/no-playlist-tracks";
+import Loader from "@components/loader";
 
 function PlaylistPage() {
   const { query } = useRouter();
@@ -17,15 +18,21 @@ function PlaylistPage() {
 
   const tracks = playlist?.tracks;
 
-  if (isLoading) return <h1>Loading...</h1>;
-
   return (
     <main className="px-8 py-16 space-y-20 md:px-20">
-      <PlaylistTracksHeader playlistName={playlist.name} />
-      {tracks.length === 0 ? (
-        <NoPlaylistTracks />
+      {isLoading ? (
+        <div className="flex items-center min-h-[440px] justify-center">
+          <Loader type="Oval" color="#D1D5DB" height={100} width={100} />
+        </div>
       ) : (
-        <PlaylistTracksList tracks={tracks} />
+        <>
+          <PlaylistTracksHeader playlistName={playlist.name} />
+          {tracks.length === 0 ? (
+            <NoPlaylistTracks />
+          ) : (
+            <PlaylistTracksList tracks={tracks} />
+          )}
+        </>
       )}
     </main>
   );
