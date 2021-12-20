@@ -4,12 +4,13 @@ import { useUser } from "@hooks/useUser";
 import PlaylistsHeader from "@components/playlists-page/playlists-header";
 import Loader from "@components/loader";
 import NoPlaylists from "@components/playlist/no-playlists";
+import Playlists from "@components/playlists-page/playlists";
 
 function PlaylistsPage() {
   const { data, isLoading, isFetching } = useUser();
 
   return (
-    <main className="pb-6 mx-6 mt-10 space-y-16 md:space-y-20 xl:pb-10 md:mx-12 md:mt-16">
+    <main className="pb-6 mx-6 mt-10 space-y-16 md:space-y-24 xl:pb-10 md:mx-12 md:mt-12">
       <PlaylistsHeader />
 
       {isLoading ? (
@@ -20,7 +21,9 @@ function PlaylistsPage() {
         <>
           {!data.playlists || data.playlists.length === 0 ? (
             <NoPlaylists />
-          ) : null}
+          ) : (
+            <Playlists data={data} />
+          )}
         </>
       )}
     </main>
