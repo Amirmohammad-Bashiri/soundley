@@ -14,7 +14,7 @@ function PlaylistsPage() {
       <PlaylistsHeader />
 
       {isLoading ? (
-        <div className="flex items-center min-h-[440px] justify-center w-full bg-gray-800 rounded-sm">
+        <div className="flex items-center min-h-[440px] justify-center">
           <Loader type="Oval" color="#D1D5DB" height={100} width={100} />
         </div>
       ) : (
