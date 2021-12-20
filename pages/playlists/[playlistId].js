@@ -5,6 +5,7 @@ import { getUser } from "@lib/get-user";
 import { useUser } from "@hooks/useUser";
 import PlaylistTracksList from "@components/playlist-page/playlist-tracks-list";
 import PlaylistTracksHeader from "@components/playlist-page/playlist-tracks-header";
+import NoPlaylistTracks from "@components/playlist-page/no-playlist-tracks";
 
 function PlaylistPage() {
   const { query } = useRouter();
@@ -22,7 +23,11 @@ function PlaylistPage() {
   return (
     <main className="px-8 py-16 space-y-20 md:px-20">
       <PlaylistTracksHeader playlistName={playlist.name} />
-      <PlaylistTracksList tracks={tracks} />
+      {tracks.length === 0 ? (
+        <NoPlaylistTracks />
+      ) : (
+        <PlaylistTracksList tracks={tracks} />
+      )}
     </main>
   );
 }
