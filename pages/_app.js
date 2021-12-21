@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { SessionProvider } from "next-auth/react";
+import NextNProgress from "nextjs-progressbar";
 
 import Layout from "@containers/layout";
 import PlayerProvider from "@store/player-context";
@@ -24,6 +25,7 @@ function MyApp({ Component, pageProps }) {
             <MusicPlayerPopupProvider>
               <PlaylistPopupProvider>
                 <Layout>
+                  <NextNProgress color="#2563EB" />
                   <Component {...pageProps} />
                 </Layout>
               </PlaylistPopupProvider>
