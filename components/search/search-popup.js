@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import SearchPopupTabs from "./search-popup-tabs";
 
 const dropIn = {
   hidden: {
@@ -29,7 +30,9 @@ function SearchPopup() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="absolute left-0 w-[500px] min-h-[500px] bg-gray-700 rounded top-20"></motion.div>
+      className="absolute left-0 w-[500px] min-h-[500px] bg-gray-700 rounded top-20">
+      <SearchPopupTabs />
+    </motion.div>
   );
 }
 
