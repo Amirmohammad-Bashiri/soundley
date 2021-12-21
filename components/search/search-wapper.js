@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 import SearchInput from "./search-input";
 import SearchPopup from "./search-popup";
@@ -28,7 +29,9 @@ function SearchWrapper() {
         handleBlur={handleBlur}
       />
 
-      {searchVal && isInputFocused ? <SearchPopup /> : null}
+      <AnimatePresence>
+        {searchVal && isInputFocused ? <SearchPopup /> : null}
+      </AnimatePresence>
     </div>
   );
 }
