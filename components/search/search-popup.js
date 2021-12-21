@@ -20,6 +20,12 @@ const dropIn = {
   exit: {
     y: "10vh",
     opacity: 0,
+    transition: {
+      duration: 0.2,
+      type: "spring",
+      damping: 50,
+      stiffness: 500,
+    },
   },
 };
 
@@ -33,7 +39,7 @@ function SearchPopup() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="absolute left-0 w-[500px] min-h-[500px] bg-gray-700 rounded top-20">
+      className="absolute z-10 left-0 w-[500px] min-h-[500px] bg-gray-700 rounded top-20">
       <SearchPopupTabs setActiveTab={setActiveTab} />
     </motion.div>
   );
