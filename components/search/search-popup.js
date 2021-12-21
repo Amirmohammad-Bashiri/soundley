@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import SearchPopupTabs from "./search-popup-tabs";
 
@@ -23,6 +24,8 @@ const dropIn = {
 };
 
 function SearchPopup() {
+  const [activeTab, setActiveTab] = useState("track");
+
   return (
     <motion.div
       key="search-popup"
@@ -31,7 +34,7 @@ function SearchPopup() {
       animate="visible"
       exit="exit"
       className="absolute left-0 w-[500px] min-h-[500px] bg-gray-700 rounded top-20">
-      <SearchPopupTabs />
+      <SearchPopupTabs setActiveTab={setActiveTab} />
     </motion.div>
   );
 }
