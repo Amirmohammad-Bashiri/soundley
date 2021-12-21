@@ -68,7 +68,7 @@ function PlayerProvider(props) {
     togglePlay(hasAudioSourceChanged(trackId, currentTrack));
   };
 
-  const findTrackIndex = (trackId, queryKey) => {
+  const findTrackIndex = (trackId, queryKey, id) => {
     if (queryKey === "topTracks") {
       // set tracks data and id by query key
       setTracksData(topTracks);
@@ -101,6 +101,17 @@ function PlayerProvider(props) {
       tracksDataRef.current = userData.likes;
       setTrackId(trackId);
       setTrackCover(userData.likes[0]?.album.cover_big);
+
+      if (!hasAudioSourceChanged(trackId, currentTrack)) {
+        setAudioData();
+      }
+    } else if (queryKey === "playlists") {
+      const playlist = userData.playlists.find(playlist => playlist.id === id);
+
+      setTracksData(playlist.tracks);
+      tracksDataRef.current = playlist.tracks;
+      setTrackId(trackId);
+      setTrackCover(playlist[0]?.album.cover_big);
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
