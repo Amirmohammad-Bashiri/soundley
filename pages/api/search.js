@@ -3,7 +3,7 @@ export default async function handler(req, res) {
 
   if (method === "GET") {
     const response = await fetch(
-      `https://api.deezer.com/search/${query.activeTab}?q=${query.searchVal}`
+      `https://api.deezer.com/search/${query.activeTab}?q=${query.searchTerm}`
     );
     const result = await response.json();
 
