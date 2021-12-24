@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import SearchPopupTabs from "./search-popup-tabs";
-import SearchResults from "./search-result";
+import SearchResults from "./search-results";
 import { soundleyClient } from "@clients/soundley-client";
 
 const dropIn = {
@@ -55,10 +55,14 @@ function SearchPopup({ searchVal }) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="absolute z-10 left-0 w-[500px] min-h-[500px] bg-gray-700 rounded top-20">
+      className="absolute z-10 left-0 w-[500px] max-h-[500px] overflow-y-scroll min-h-[500px] bg-gray-800 rounded top-20">
       <SearchPopupTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <SearchResults searchResult={searchResult} isLoading={isLoading} />
+      <SearchResults
+        activeTab={activeTab}
+        searchResult={searchResult}
+        isLoading={isLoading}
+      />
     </motion.div>
   );
 }
