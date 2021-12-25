@@ -6,7 +6,6 @@ import NoResult from "./no-result";
 
 function SearchResults({ searchResult, isLoading, activeTab, setSearchVal }) {
   const result = searchResult?.data?.result;
-  console.log(result);
 
   const handleResultClick = () => {
     setSearchVal("");

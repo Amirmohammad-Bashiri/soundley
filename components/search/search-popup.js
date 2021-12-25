@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import SearchPopupTabs from "./search-popup-tabs";
 import SearchResults from "./search-results";
 import { useSearch } from "@hooks/useSearch";
+import { useDebounce } from "@hooks/useDebounce";
 
 const dropIn = {
   hidden: {
@@ -35,7 +36,9 @@ const dropIn = {
 function SearchPopup({ searchVal, setSearchVal }) {
   const [activeTab, setActiveTab] = useState("track");
 
-  const { data, isLoading } = useSearch(activeTab, searchVal);
+  const debouncedSearchTerm = useDebounce(searchVal, 600);
+
+  const { data, isLoading } = useSearch(activeTab, debouncedSearchTerm);
 
   return (
     <motion.div

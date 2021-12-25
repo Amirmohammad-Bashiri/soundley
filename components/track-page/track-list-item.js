@@ -87,16 +87,14 @@ function TrackListItem({ track }) {
         })}>
         {track.title}
       </strong>
-      <div className="flex items-center space-x-5">
+      <div className="flex items-center space-x-3 md:space-x-5">
         <time className="text-sm font-semibold text-gray-200 md:text-base xl:text-lg">
           {getTrackLength(track.duration)}
         </time>
         <button onClick={() => handlePlayClick(track)}>
           {actionButtonIcon}
         </button>
-        <button
-          onClick={handlePlaylistPopup}
-          className="hidden bg-gray-500 rounded md:block">
+        <button onClick={handlePlaylistPopup} className="bg-gray-500 rounded">
           <PlusIcon className="w-4 h-4 cursor-pointer xl:h-6 xl:w-6" />
         </button>
         {liked ? (
