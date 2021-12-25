@@ -21,7 +21,10 @@ function MyApp({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={pageProps.session}>
         <Hydrate state={pageProps.dehydratedState}>
-          <PlayerProvider albumId={query?.albumId} artistId={query?.artistId}>
+          <PlayerProvider
+            albumId={query?.albumId}
+            artistId={query?.artistId}
+            trackId={query?.trackId}>
             <MusicPlayerPopupProvider>
               <PlaylistPopupProvider>
                 <Layout>
