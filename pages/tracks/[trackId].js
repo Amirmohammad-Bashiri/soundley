@@ -7,6 +7,7 @@ import { soundleyClient } from "@clients/soundley-client";
 import { deezerClient } from "@clients/deezer-client";
 import { useTrack } from "@hooks/useTrack";
 import TrackHeader from "@components/track-page/track-header";
+import TrackList from "@components/track-page/track-list";
 
 function TrackPage() {
   const { query } = useRouter();
@@ -26,6 +27,8 @@ function TrackPage() {
       <main className="w-full">
         <section className="flex flex-col items-center justify-center px-8 py-16 space-y-20 md:px-20">
           <TrackHeader data={data} />
+
+          <TrackList data={data} isFetching={isFetching} />
         </section>
       </main>
     </div>
