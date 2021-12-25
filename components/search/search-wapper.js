@@ -30,7 +30,9 @@ function SearchWrapper() {
       />
 
       <AnimatePresence>
-        {searchVal ? <SearchPopup searchVal={searchVal} /> : null}
+        {searchVal ? (
+          <SearchPopup setSearchVal={setSearchVal} searchVal={searchVal} />
+        ) : null}
       </AnimatePresence>
     </div>
   );

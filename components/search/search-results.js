@@ -4,9 +4,13 @@ import Link from "next/link";
 import Loader from "@components/loader";
 import NoResult from "./no-result";
 
-function SearchResults({ searchResult, isLoading, activeTab }) {
+function SearchResults({ searchResult, isLoading, activeTab, setSearchVal }) {
   const result = searchResult?.data?.result;
   console.log(result);
+
+  const handleResultClick = () => {
+    setSearchVal("");
+  };
 
   if (isLoading)
     return (
@@ -64,19 +68,25 @@ function SearchResults({ searchResult, isLoading, activeTab }) {
                 </div>
                 {activeTab === "album" ? (
                   <Link href={`/albums/${item.id}`}>
-                    <a className="text-lg font-bold line-clamp-1">
+                    <a
+                      onClick={handleResultClick}
+                      className="text-lg font-bold line-clamp-1">
                       {item.title}
                     </a>
                   </Link>
                 ) : activeTab === "artist" ? (
                   <Link href={`/artists/${item.id}`}>
-                    <a className="text-lg font-bold line-clamp-1">
+                    <a
+                      onClick={handleResultClick}
+                      className="text-lg font-bold line-clamp-1">
                       {item.name}
                     </a>
                   </Link>
                 ) : (
                   <Link href={`/tracks/${item.id}`}>
-                    <a className="text-lg font-bold line-clamp-1">
+                    <a
+                      onClick={handleResultClick}
+                      className="text-lg font-bold line-clamp-1">
                       {item.title}
                     </a>
                   </Link>
