@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 
-import { getTopTracks } from "@lib/tracks";
+import { getTopTracks } from "@lib/top-tracks";
 
 function getTracksWithPreviews(tracks) {
   return tracks.filter(track => track.preview);
