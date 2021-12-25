@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 import SearchPopupTabs from "./search-popup-tabs";
 import SearchResults from "./search-results";
-import { soundleyClient } from "@clients/soundley-client";
+import { useSearch } from "@hooks/useSearch";
 
 const dropIn = {
   hidden: {
@@ -34,19 +34,8 @@ const dropIn = {
 
 function SearchPopup({ searchVal }) {
   const [activeTab, setActiveTab] = useState("track");
-  const [searchResult, setSearchResult] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-
-    soundleyClient
-      .get(`/search?activeTab=${activeTab}&searchTerm=${searchVal}`)
-      .then(data => {
-        setSearchResult(data);
-        setIsLoading(false);
-      });
-  }, [searchVal, activeTab]);
+  const { data, isLoading } = useSearch(activeTab, searchVal);
 
   return (
     <motion.div
@@ -60,7 +49,7 @@ function SearchPopup({ searchVal }) {
 
       <SearchResults
         activeTab={activeTab}
-        searchResult={searchResult}
+        searchResult={data}
         isLoading={isLoading}
       />
     </motion.div>

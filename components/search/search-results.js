@@ -26,7 +26,7 @@ function SearchResults({ searchResult, isLoading, activeTab }) {
               <li
                 key={item.id}
                 className="flex items-center px-5 pt-2 pb-3 space-x-10 text-gray-100">
-                <div className="relative w-14 h-14">
+                <div className="relative flex-shrink-0 w-14 h-14">
                   {activeTab === "track" ? (
                     <>
                       {item && item.album && (
@@ -62,13 +62,23 @@ function SearchResults({ searchResult, isLoading, activeTab }) {
                     </>
                   ) : null}
                 </div>
-                {activeTab !== "artist" ? (
+                {activeTab === "album" ? (
                   <Link href={`/albums/${item.id}`}>
-                    <a className="text-lg font-bold">{item.title}</a>
+                    <a className="text-lg font-bold line-clamp-1">
+                      {item.title}
+                    </a>
+                  </Link>
+                ) : activeTab === "artist" ? (
+                  <Link href={`/artists/${item.id}`}>
+                    <a className="text-lg font-bold line-clamp-1">
+                      {item.name}
+                    </a>
                   </Link>
                 ) : (
-                  <Link href={`/artists/${item.id}`}>
-                    <a className="text-lg font-bold">{item.title}</a>
+                  <Link href={`/tracks/${item.id}`}>
+                    <a className="text-lg font-bold line-clamp-1">
+                      {item.title}
+                    </a>
                   </Link>
                 )}
               </li>
