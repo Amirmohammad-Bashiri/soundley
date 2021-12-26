@@ -4,11 +4,11 @@ import Link from "next/link";
 import Loader from "@components/loader";
 import NoResult from "./no-result";
 
-function SearchResults({ searchResult, isLoading, activeTab, setSearchVal }) {
+function SearchResults({ searchResult, isLoading, activeTab, setSearchTerm }) {
   const result = searchResult?.data?.result;
 
   const handleResultClick = () => {
-    setSearchVal("");
+    setSearchTerm("");
   };
 
   if (isLoading)
