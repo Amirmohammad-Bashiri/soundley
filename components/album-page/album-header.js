@@ -47,7 +47,7 @@ function AlbumHeader({ data }) {
 
           {/* number of tracks */}
           <small className="font-semibold text-gray-300 md:text-sm">
-            {data.tracks.data.length + 1} songs
+            {data.tracks.data.length} songs
           </small>
         </div>
       </div>
