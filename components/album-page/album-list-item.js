@@ -79,7 +79,7 @@ function AlbumListItem({ track }) {
   };
 
   return (
-    <li className="flex items-center justify-between pt-4 space-x-1 text-gray-100">
+    <li className="flex items-center justify-between pt-4 pb-2 space-x-1 text-gray-100">
       <strong
         onClick={() => handlePlayClick(track)}
         className={cx("text-sm cursor-pointer md:text-lg line-clamp-1", {

@@ -5,9 +5,7 @@ function AlbumList({ data, isFetching }) {
   return (
     <>
       {isFetching ? (
-        <div
-          style={{ minHeight: "440px" }}
-          className="flex items-center justify-center w-full bg-gray-800">
+        <div className="flex items-center min-h-[440px] justify-center w-full bg-gray-800">
           <Loader type="Oval" color="#D1D5DB" height={100} width={100} />
         </div>
       ) : (
