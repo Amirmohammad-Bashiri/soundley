@@ -74,6 +74,10 @@ function GlobalMusicPlayer() {
     playerInfo.toggleLoop();
   };
 
+  const preventPropagation = e => {
+    e.stopPropagation();
+  };
+
   const loopClass = !playerInfo.loop
     ? "text-gray-100 cursor-pointer fas fa-redo-alt"
     : "text-indigo-500 cursor-pointer fas fa-redo-alt";
@@ -136,7 +140,7 @@ function GlobalMusicPlayer() {
             {trackTitle}
           </strong>
           <Link href={`/artists/${playerInfo?.currentTrack?.artist?.id}`}>
-            <a>
+            <a onClick={preventPropagation}>
               <small className="font-semibold text-gray-300 max-w-max line-clamp-1 md:text-base">
                 {trackArtist}
               </small>
