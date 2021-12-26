@@ -30,7 +30,7 @@ function PlaylistPage() {
           {tracks.length === 0 ? (
             <NoPlaylistTracks />
           ) : (
-            <PlaylistTracksList tracks={tracks} />
+            <PlaylistTracksList tracks={tracks} playlistId={query.playlistId} />
           )}
         </>
       )}

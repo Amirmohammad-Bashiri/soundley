@@ -18,7 +18,7 @@ import { useUser } from "@hooks/useUser";
 import { isTrackLiked } from "@utils/is-track-liked";
 import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 
-function AlbumListItem({ track }) {
+function AlbumListItem({ track, albumId }) {
   const [liked, setLiked] = useState(false);
 
   const { push } = useRouter();
@@ -75,7 +75,7 @@ function AlbumListItem({ track }) {
   };
 
   const handlePlayClick = track => {
-    findTrackIndex(track.id, "album");
+    findTrackIndex(track.id, `album ${albumId}`);
   };
 
   return (

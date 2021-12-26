@@ -17,7 +17,7 @@ import { useUser } from "@hooks/useUser";
 import { isTrackLiked } from "@utils/is-track-liked";
 import { useRemoveFromPlaylist } from "@hooks/useRemoveFromPlaylist";
 
-function PlaylistTracksItem({ track }) {
+function PlaylistTracksItem({ track, playlistId }) {
   const [liked, setLiked] = useState(false);
 
   const { query } = useRouter();
@@ -55,7 +55,7 @@ function PlaylistTracksItem({ track }) {
   };
 
   const handlePlayClick = track => {
-    findTrackIndex(track.id, "playlists", query.playlistId);
+    findTrackIndex(track.id, `playlists ${playlistId}`, query.playlistId);
   };
 
   const handleRemoveTrack = () => {
