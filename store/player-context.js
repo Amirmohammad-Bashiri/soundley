@@ -87,7 +87,7 @@ function PlayerProvider(props) {
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
       }
-    } else if (queryKey === "album") {
+    } else if (queryKey.includes("album")) {
       setTracksData(album.tracks.data);
       tracksDataRef.current = album.tracks.data;
       setTrackId(trackId);
@@ -97,7 +97,7 @@ function PlayerProvider(props) {
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
       }
-    } else if (queryKey === "artist") {
+    } else if (queryKey.includes("artist")) {
       setTracksData(artistTracks.data);
       tracksDataRef.current = artistTracks.data;
       setTrackId(trackId);
@@ -117,7 +117,7 @@ function PlayerProvider(props) {
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
       }
-    } else if (queryKey === "playlists") {
+    } else if (queryKey.includes("playlists")) {
       const playlist = userData.playlists.find(playlist => playlist.id === id);
 
       setTracksData(playlist.tracks);
@@ -216,17 +216,6 @@ function PlayerProvider(props) {
         setCurrentTime(audio.currentTime);
       });
   }, [audio]);
-
-  // React.useEffect(() => {
-  //   if (isShuffled) {
-  //     setTracksData(shuffle(tracksData));
-  //     // const trackIndex = tracksData.findIndex(track => track.id === trackId);
-  //     // setCurrentTrack(tracksData[trackIndex]);
-  //     // setTrackId(tracksData[trackIndex].id);
-  //   } else {
-  //     setTracksData(topTracks);
-  //   }
-  // }, [isShuffled]);
 
   React.useEffect(() => {
     if (tracksData) {
