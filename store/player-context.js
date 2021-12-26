@@ -129,7 +129,7 @@ function PlayerProvider(props) {
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
       }
-    } else if (queryKey === "track") {
+    } else if (queryKey.includes("track")) {
       const data = [trackData];
       setTracksData(data);
       tracksDataRef.current = data;
@@ -239,13 +239,13 @@ function PlayerProvider(props) {
   }, [tracksData, trackId, queryKey]);
 
   React.useEffect(() => {
-    if (firstLoad.current) {
-      firstLoad.current = false;
-      return;
-    }
+    // if (firstLoad.current) {
+    //   firstLoad.current = false;
+    //   return;
+    // }
 
-    console.log("newQueryKey");
-
+    if (!tracksData) return;
+    console.log(newQueryKey);
     setCurrentTrack(tracksData[trackIndex]);
     setAudioData();
 
