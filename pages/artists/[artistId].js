@@ -37,7 +37,11 @@ function ArtistPage() {
               />
             )}>
             <ArtistHeader data={data} />
-            <ArtistTrackList data={data} isFetching={isFetching} />
+            <ArtistTrackList
+              data={data}
+              isFetching={isFetching}
+              artistId={query.artistId}
+            />
           </ErrorBoundary>
         </section>
       </main>

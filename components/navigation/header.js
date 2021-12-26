@@ -3,7 +3,7 @@ import Image from "next/image";
 import { UserCircleIcon } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useQueryClient } from "react-query";
-import SearchWrapper from "../search/search-wapper";
+import SearchWrapper from "../search/search-wrapper";
 
 function Header() {
   const [isAuthButtonDisabled, setIsAuthButtonDisabled] = useState(false);

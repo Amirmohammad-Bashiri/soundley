@@ -75,7 +75,7 @@ function TrackListItem({ track }) {
   };
 
   const handlePlayClick = track => {
-    findTrackIndex(track.id, "track");
+    findTrackIndex(track.id, `track ${track.id}`);
   };
 
   return (

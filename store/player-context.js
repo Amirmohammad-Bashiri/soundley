@@ -44,6 +44,8 @@ function PlayerProvider(props) {
   const [currentTime, setCurrentTime] = React.useState(0);
   const [tracksData, setTracksData] = React.useState(null);
   const [trackCover, setTrackCover] = React.useState(null);
+  const [queryKey, setQueryKey] = React.useState(null);
+  const [newQueryKey, setNewQueryKey] = React.useState(null);
 
   const firstLoad = React.useRef(true);
   const trackIndexRef = React.useRef(trackIndex);
@@ -80,24 +82,27 @@ function PlayerProvider(props) {
       setTracksData(topTracks);
       tracksDataRef.current = topTracks;
       setTrackId(trackId);
+      setQueryKey(queryKey);
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
       }
-    } else if (queryKey === "album") {
+    } else if (queryKey.includes("album")) {
       setTracksData(album.tracks.data);
       tracksDataRef.current = album.tracks.data;
       setTrackId(trackId);
       setTrackCover(album.cover_big);
+      setQueryKey(queryKey);
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
       }
-    } else if (queryKey === "artist") {
+    } else if (queryKey.includes("artist")) {
       setTracksData(artistTracks.data);
       tracksDataRef.current = artistTracks.data;
       setTrackId(trackId);
       setTrackCover(artistTracks.data[0]?.album.cover_big);
+      setQueryKey(queryKey);
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
@@ -107,27 +112,30 @@ function PlayerProvider(props) {
       tracksDataRef.current = userData.likes;
       setTrackId(trackId);
       setTrackCover(userData.likes[0]?.album.cover_big);
+      setQueryKey(queryKey);
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
       }
-    } else if (queryKey === "playlists") {
+    } else if (queryKey.includes("playlists")) {
       const playlist = userData.playlists.find(playlist => playlist.id === id);
 
       setTracksData(playlist.tracks);
       tracksDataRef.current = playlist.tracks;
       setTrackId(trackId);
       setTrackCover(playlist[0]?.album.cover_big);
+      setQueryKey(queryKey);
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
       }
-    } else if (queryKey === "track") {
+    } else if (queryKey.includes("track")) {
       const data = [trackData];
       setTracksData(data);
       tracksDataRef.current = data;
       setTrackId(trackId);
       setTrackCover(data[0].album.cover_big);
+      setQueryKey(queryKey);
 
       if (!hasAudioSourceChanged(trackId, currentTrack)) {
         setAudioData();
@@ -209,37 +217,29 @@ function PlayerProvider(props) {
       });
   }, [audio]);
 
-  // React.useEffect(() => {
-  //   if (isShuffled) {
-  //     setTracksData(shuffle(tracksData));
-  //     // const trackIndex = tracksData.findIndex(track => track.id === trackId);
-  //     // setCurrentTrack(tracksData[trackIndex]);
-  //     // setTrackId(tracksData[trackIndex].id);
-  //   } else {
-  //     setTracksData(topTracks);
-  //   }
-  // }, [isShuffled]);
-
   React.useEffect(() => {
     if (tracksData) {
       // find track index
       const trackIndex = tracksData.findIndex(track => track.id === trackId);
       setTrackIndex(trackIndex);
       trackIndexRef.current = trackIndex;
+      setNewQueryKey(queryKey);
     }
-  }, [tracksData, trackId]);
+  }, [tracksData, trackId, queryKey]);
 
   React.useEffect(() => {
-    if (firstLoad.current) {
-      firstLoad.current = false;
-      return;
-    }
+    // if (firstLoad.current) {
+    //   firstLoad.current = false;
+    //   return;
+    // }
+
+    if (!tracksData) return;
 
     setCurrentTrack(tracksData[trackIndex]);
     setAudioData();
 
     // eslint-disable-next-line
-  }, [trackIndex, trackIndexRef.current]);
+  }, [trackIndex, trackIndexRef.current, newQueryKey]);
 
   React.useEffect(() => {
     audio.addEventListener("ended", () => {

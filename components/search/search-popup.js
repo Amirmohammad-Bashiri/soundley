@@ -33,10 +33,10 @@ const dropIn = {
   },
 };
 
-function SearchPopup({ searchVal, setSearchVal }) {
+function SearchPopup({ searchTerm, setSearchTerm }) {
   const [activeTab, setActiveTab] = useState("track");
 
-  const debouncedSearchTerm = useDebounce(searchVal, 600);
+  const debouncedSearchTerm = useDebounce(searchTerm, 600);
 
   const { data, isLoading } = useSearch(activeTab, debouncedSearchTerm);
 
@@ -53,7 +53,7 @@ function SearchPopup({ searchVal, setSearchVal }) {
       <SearchResults
         activeTab={activeTab}
         searchResult={data}
-        setSearchVal={setSearchVal}
+        setSearchTerm={setSearchTerm}
         isLoading={isLoading}
       />
     </motion.div>

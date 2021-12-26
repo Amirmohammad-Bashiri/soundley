@@ -17,7 +17,7 @@ import { usePlayer } from "@store/player-context";
 
 function BottomNavigation() {
   const [isSignOutOpen, setIsSignOutOpen] = useState(false);
-  const [isAuthButtonDisabled, setIsAuthButtonDisabled] = useState(false);
+  const [setIsAuthButtonDisabled] = useState(false);
 
   const { pathname } = useRouter();
 
@@ -113,7 +113,7 @@ function BottomNavigation() {
               {isSignOutOpen ? (
                 <div
                   className={cx(
-                    "absolute px-5 py-2 rounded-sm bg-gray-700 -top-16 -left-12",
+                    "absolute px-5 py-2 rounded-sm bg-gray-700 -top-16 -left-16",
                     { "-top-40": trackId }
                   )}>
                   <button

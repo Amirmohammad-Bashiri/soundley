@@ -47,7 +47,11 @@ function AlbumPage() {
             )}>
             <AlbumHeader data={data} />
 
-            <AlbumList data={data} isFetching={isFetching} />
+            <AlbumList
+              data={data}
+              albumId={query.albumId}
+              isFetching={isFetching}
+            />
           </ErrorBoundary>
         </section>
       </main>

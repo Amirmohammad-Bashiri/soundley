@@ -49,6 +49,35 @@ function GlobalMusicPlayer() {
     updateProgress(e, progressRef, playerInfo.audio);
   };
 
+  const handlePlay = e => {
+    e.stopPropagation();
+    playerInfo.play();
+  };
+
+  const handlePause = e => {
+    e.stopPropagation();
+    playerInfo.pause();
+  };
+
+  const handleNextTrack = e => {
+    e.stopPropagation();
+    playerInfo.goToNextTrack();
+  };
+
+  const handlePrevTrack = e => {
+    e.stopPropagation();
+    playerInfo.goToPrevTrack();
+  };
+
+  const handleLoop = e => {
+    e.stopPropagation();
+    playerInfo.toggleLoop();
+  };
+
+  const preventPropagation = e => {
+    e.stopPropagation();
+  };
+
   const loopClass = !playerInfo.loop
     ? "text-gray-100 cursor-pointer fas fa-redo-alt"
     : "text-indigo-500 cursor-pointer fas fa-redo-alt";
@@ -70,11 +99,11 @@ function GlobalMusicPlayer() {
       : "0:00";
 
   const actionButtonIcon = playerInfo.isPlaying ? (
-    <button onClick={playerInfo.pause}>
+    <button onClick={handlePause}>
       <i className="text-gray-100 cursor-pointer fas fa-pause fa-lg"></i>
     </button>
   ) : (
-    <button onClick={playerInfo.play}>
+    <button onClick={handlePlay}>
       <i className="text-gray-100 cursor-pointer fas fa-play fa-lg"></i>
     </button>
   );
@@ -84,6 +113,7 @@ function GlobalMusicPlayer() {
   return (
     <div
       style={{ display: shouldDisplay }}
+      onClick={togglePopup}
       className="fixed z-30 flex items-center justify-between w-full h-24 px-5 -mb-1 bg-black xl:space-x-5 xl:-mb-0 opacity-95 bottom-16 xl:bottom-0 xl:right-0">
       <div className="flex items-center space-x-5">
         <div className="relative w-14 h-14 xl:w-16 xl:h-16">
@@ -110,7 +140,7 @@ function GlobalMusicPlayer() {
             {trackTitle}
           </strong>
           <Link href={`/artists/${playerInfo?.currentTrack?.artist?.id}`}>
-            <a>
+            <a onClick={preventPropagation}>
               <small className="font-semibold text-gray-300 max-w-max line-clamp-1 md:text-base">
                 {trackArtist}
               </small>
@@ -118,10 +148,6 @@ function GlobalMusicPlayer() {
           </Link>
         </div>
       </div>
-
-      <div
-        onClick={togglePopup}
-        className="flex-grow h-full xl:hidden basis-10"></div>
 
       <div className="items-center flex-grow hidden px-6 space-x-6 xl:flex">
         <time className="flex-grow-0 flex-shrink-0 font-medium text-gray-100">
@@ -142,24 +168,24 @@ function GlobalMusicPlayer() {
 
       <div className="flex items-center space-x-4">
         {liked ? (
-          <button className="hidden xl:block" onClick={handleDislike}>
+          <button className="hidden md:block" onClick={handleDislike}>
             <HeartIconSolid className="w-8 h-8 text-indigo-500 cursor-pointer" />
           </button>
         ) : (
-          <button className="hidden xl:block" onClick={handleLike}>
+          <button className="hidden md:block" onClick={handleLike}>
             <HeartIconOutline className="w-8 h-8 text-gray-100 cursor-pointer" />
           </button>
         )}
 
-        <button onClick={playerInfo.goToPrevTrack}>
+        <button onClick={handlePrevTrack}>
           <i className="text-gray-100 cursor-pointer fas fa-step-backward fa-lg"></i>
         </button>
         {actionButtonIcon}
-        <button onClick={playerInfo.goToNextTrack}>
+        <button onClick={handleNextTrack}>
           <i className="text-gray-100 cursor-pointer fas fa-step-forward fa-lg"></i>
         </button>
 
-        <button className="hidden xl:block" onClick={playerInfo.toggleLoop}>
+        <button className="hidden md:block" onClick={handleLoop}>
           <i className={loopClass}></i>
         </button>
       </div>

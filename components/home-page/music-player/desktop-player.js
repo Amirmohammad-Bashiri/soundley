@@ -86,7 +86,7 @@ function DesktopPlayer() {
   };
 
   const trackDuration =
-    audio && audio.duration ? convertTrackCurrentTime(audio.duration) : "0:00";
+    audio && audio.duration ? convertTrackCurrentTime(audio.duration) : "00:00";
 
   const percentage =
     audio && currentTime ? (currentTime / audio.duration) * 100 : 0;

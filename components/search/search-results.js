@@ -4,11 +4,11 @@ import Link from "next/link";
 import Loader from "@components/loader";
 import NoResult from "./no-result";
 
-function SearchResults({ searchResult, isLoading, activeTab, setSearchVal }) {
+function SearchResults({ searchResult, isLoading, activeTab, setSearchTerm }) {
   const result = searchResult?.data?.result;
 
   const handleResultClick = () => {
-    setSearchVal("");
+    setSearchTerm("");
   };
 
   if (isLoading)
@@ -32,7 +32,7 @@ function SearchResults({ searchResult, isLoading, activeTab, setSearchVal }) {
                 <div className="relative flex-shrink-0 w-14 h-14">
                   {activeTab === "track" ? (
                     <>
-                      {item && item.album && (
+                      {item && item.album && item.album.cover_medium && (
                         <Image
                           layout="fill"
                           src={item.album.cover_medium}
@@ -43,7 +43,7 @@ function SearchResults({ searchResult, isLoading, activeTab, setSearchVal }) {
                     </>
                   ) : activeTab === "album" ? (
                     <>
-                      {item.cover_medium && (
+                      {item && item.cover_medium && (
                         <Image
                           layout="fill"
                           src={item.cover_medium}
@@ -54,7 +54,7 @@ function SearchResults({ searchResult, isLoading, activeTab, setSearchVal }) {
                     </>
                   ) : activeTab === "artist" ? (
                     <>
-                      {item.picture_medium && (
+                      {item && item.picture_medium && (
                         <Image
                           layout="fill"
                           src={item.picture_medium}

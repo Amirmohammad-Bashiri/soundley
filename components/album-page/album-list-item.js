@@ -18,7 +18,7 @@ import { useUser } from "@hooks/useUser";
 import { isTrackLiked } from "@utils/is-track-liked";
 import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
 
-function AlbumListItem({ track }) {
+function AlbumListItem({ track, albumId }) {
   const [liked, setLiked] = useState(false);
 
   const { push } = useRouter();
@@ -75,11 +75,11 @@ function AlbumListItem({ track }) {
   };
 
   const handlePlayClick = track => {
-    findTrackIndex(track.id, "album");
+    findTrackIndex(track.id, `album ${albumId}`);
   };
 
   return (
-    <li className="flex items-center justify-between pt-4 space-x-1 text-gray-100">
+    <li className="flex items-center justify-between pt-4 pb-2 space-x-1 text-gray-100">
       <strong
         onClick={() => handlePlayClick(track)}
         className={cx("text-sm cursor-pointer md:text-lg line-clamp-1", {
