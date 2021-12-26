@@ -245,7 +245,7 @@ function PlayerProvider(props) {
     // }
 
     if (!tracksData) return;
-    console.log(newQueryKey);
+
     setCurrentTrack(tracksData[trackIndex]);
     setAudioData();
 
