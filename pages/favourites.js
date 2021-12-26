@@ -9,16 +9,14 @@ import NoFavourites from "@components/favourites-page/no-favourites";
 import Loader from "@components/loader";
 
 function FavouritesPage() {
-  const { data, isLoading, isFetching } = useUser();
+  const { data, isLoading } = useUser();
 
   return (
     <main className="pb-6 mx-6 mt-10 space-y-16 md:space-y-20 xl:pb-10 md:mx-12 md:mt-16">
       <FavouritesHeader />
 
-      {isLoading || isFetching ? (
-        <div
-          style={{ minHeight: "440px" }}
-          className="flex items-center justify-center w-full bg-gray-800 rounded-sm">
+      {isLoading ? (
+        <div className="flex min-h-[440px] items-center justify-center w-full bg-gray-800 rounded-sm">
           <Loader type="Oval" color="#D1D5DB" height={100} width={100} />
         </div>
       ) : (
