@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function GenreArtistsList({ artists }) {
   return (
-    <ul className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 md:gap-x-5 gap-y-10">
+    <ul className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 md:gap-x-6 xl:gap-x-8 gap-y-10">
       {artists.map(artist => (
         <li key={artist.id} className="col-span-1">
           <Link href={`/artists/${artist.id}`}>
