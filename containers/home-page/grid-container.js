@@ -4,14 +4,15 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import TopArtists from "@components/home-page/artists/top-artists";
 import TopAlbums from "@components/home-page/albums/top-albums";
-// import TopTracks from "@components/home-page/tracks/top-tracks";
 import DesktopPlayer from "@components/home-page/music-player/desktop-player";
-import ErrorFallback from "@components/error-fallback";
 
 const TopTracks = dynamic(
   () => import("@components/home-page/tracks/top-tracks"),
-  { ssr: true }
+  { ssr: false }
 );
+const ErrorFallback = dynamic(() => import("@components/error-fallback"), {
+  ssr: false,
+});
 
 function GridContainer() {
   const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
