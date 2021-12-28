@@ -14,8 +14,6 @@ function TopTracks() {
     );
   }
 
-  console.log(data);
-
   return (
     <ul className="px-6 pb-6 space-y-6">
       {data.map(track => (
