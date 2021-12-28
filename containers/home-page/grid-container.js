@@ -1,15 +1,21 @@
+import dynamic from "next/dynamic";
 import { useInView } from "react-intersection-observer";
 import { ErrorBoundary } from "react-error-boundary";
 
 import TopArtists from "@components/home-page/artists/top-artists";
 import TopAlbums from "@components/home-page/albums/top-albums";
-import TopTracks from "@components/home-page/tracks/top-tracks";
+// import TopTracks from "@components/home-page/tracks/top-tracks";
 import DesktopPlayer from "@components/home-page/music-player/desktop-player";
 import ErrorFallback from "@components/error-fallback";
 
+const TopTracks = dynamic(
+  () => import("@components/home-page/tracks/top-tracks"),
+  { ssr: true }
+);
+
 function GridContainer() {
   const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
-  console.log(inView);
+
   return (
     <div className="home-grid-layout">
       <section className="relative px-4 py-4 bg-gray-800 rounded xl:order-1 2xl:order-none xl:col-span-8 xl:row-span-3 xl:px-6">
