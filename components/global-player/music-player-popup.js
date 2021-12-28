@@ -18,7 +18,7 @@ import { convertTrackCurrentTime } from "@utils/convert-track-current-time";
 import { useLikeTrack } from "@hooks/useLikeTrack";
 import { useDislikeTrack } from "@hooks/useDislikeTrack";
 import { useIsTrackLiked } from "@hooks/useIsTrackLiked";
-import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
+import { usePlaylistPopup } from "@store/playlist-popup-context";
 
 const dropIn = {
   hidden: {

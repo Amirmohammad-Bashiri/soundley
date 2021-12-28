@@ -1,6 +1,6 @@
 import { XCircleIcon } from "@heroicons/react/solid";
 
-import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
+import { usePlaylistPopup } from "@store/playlist-popup-context";
 import { useAddToPlaylist } from "@hooks/useAddToPlaylist";
 import { useRemovePlaylist } from "@hooks/useRemovePlaylist";
 

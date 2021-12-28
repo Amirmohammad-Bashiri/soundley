@@ -1,5 +1,4 @@
 import * as React from "react";
-// import shuffle from "lodash.shuffle";
 
 import { useTopTracks } from "@hooks/useTopTracks";
 import { useAlbum } from "@hooks/useAlbum";

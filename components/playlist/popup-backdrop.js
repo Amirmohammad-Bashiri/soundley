@@ -1,4 +1,4 @@
-import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
+import { usePlaylistPopup } from "@store/playlist-popup-context";
 
 function PopupBackdrop() {
   const { togglePlaylistPopup } = usePlaylistPopup();

@@ -15,7 +15,7 @@ import { updateProgress } from "@utils/update-progress";
 import { useLikeTrack } from "@hooks/useLikeTrack";
 import { useDislikeTrack } from "@hooks/useDislikeTrack";
 import { useIsTrackLiked } from "@hooks/useIsTrackLiked";
-import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
+import { usePlaylistPopup } from "@store/playlist-popup-context";
 
 function DesktopPlayer() {
   const progressRef = useRef();

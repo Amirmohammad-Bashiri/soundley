@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { QueryClient, dehydrate } from "react-query";
 import { ErrorBoundary } from "react-error-boundary";

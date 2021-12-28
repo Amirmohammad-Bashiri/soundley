@@ -7,7 +7,7 @@ function TopAlbums() {
   const { data, isFetching } = useAlbums(soundleyClient, "/albums");
 
   return (
-    <>
+    <div>
       {isFetching ? (
         <div className="flex items-center justify-center">
           <Loader type="Oval" color="#D1D5DB" height={70} width={70} />
@@ -19,7 +19,7 @@ function TopAlbums() {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
