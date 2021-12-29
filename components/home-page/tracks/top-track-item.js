@@ -84,9 +84,7 @@ function TopTrackItem({ track }) {
   return (
     <li className="flex items-center justify-between space-x-1 md:space-x-3">
       <div className="flex items-center space-x-5">
-        <div
-          className="relative w-16 h-16"
-          style={{ minHeight: "4rem", minWidth: "4rem" }}>
+        <div className="relative w-16 h-16 min-h-[4rem] min-w-[4rem]">
           <Image
             src={track.album.cover_medium}
             alt={track.title}
