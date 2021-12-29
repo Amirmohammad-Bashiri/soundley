@@ -139,11 +139,15 @@ function DesktopPlayer() {
         <h1 className="text-xl font-semibold 2xl:text-2xl line-clamp-1 text-gray-50">
           {currentTrack.title ? currentTrack.title : "Song Title"}
         </h1>
-        <Link href={`/artists/${currentTrack?.artist?.id}`}>
-          <a className="text-base text-gray-300 2xl:text-lg line-clamp-1">
-            {currentTrack.artist ? currentTrack.artist.name : "Artist Name"}
-          </a>
-        </Link>
+        {currentTrack.artist ? (
+          <Link href={`/artists/${currentTrack?.artist?.id}`}>
+            <a className="text-base text-gray-300 2xl:text-lg line-clamp-1">
+              {currentTrack.artist ? currentTrack.artist.name : "Artist Name"}
+            </a>
+          </Link>
+        ) : (
+          <p className="text-base text-gray-300 2xl:text-lg">Artist Name</p>
+        )}
       </div>
 
       <div className="flex items-center px-6 mt-4 space-x-6">
