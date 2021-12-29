@@ -8,7 +8,6 @@ import NextNProgress from "nextjs-progressbar";
 import Layout from "@containers/layout";
 import PlayerProvider from "@store/player-context";
 import MusicPlayerPopupProvider from "@store/music-player-popup-context";
-
 import PlaylistPopupProvider from "@store/playlist-popup-context";
 
 import "../styles/globals.css";
