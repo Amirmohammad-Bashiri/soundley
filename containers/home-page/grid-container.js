@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic";
 import { useInView } from "react-intersection-observer";
 import { ErrorBoundary } from "react-error-boundary";
-import { useMediaQuery } from "react-responsive";
 
 import TopArtists from "@components/home-page/artists/top-artists";
 import TopAlbums from "@components/home-page/albums/top-albums";
@@ -21,10 +20,6 @@ const ErrorFallback = dynamic(() => import("@components/error-fallback"), {
 function GridContainer() {
   const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
 
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1280px)",
-  });
-
   return (
     <div className="home-grid-layout">
       <section className="relative px-4 py-4 bg-gray-800 rounded xl:order-1 2xl:order-none xl:col-span-8 xl:row-span-3 xl:px-6">
@@ -42,11 +37,9 @@ function GridContainer() {
         </ErrorBoundary>
       </section>
 
-      {isDesktopOrLaptop ? (
-        <section className="py-4 bg-gray-800 rounded xl:order-3 2xl:order-none xl:row-span-3 2xl:row-span-6 xl:col-span-4 2xl:col-span-4">
-          <DesktopPlayer />
-        </section>
-      ) : null}
+      <section className="hidden py-4 bg-gray-800 rounded xl:order-3 2xl:order-none xl:row-span-3 2xl:row-span-6 xl:block xl:col-span-4 2xl:col-span-4">
+        <DesktopPlayer />
+      </section>
 
       <section
         ref={ref}
