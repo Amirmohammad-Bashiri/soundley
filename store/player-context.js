@@ -16,7 +16,7 @@ function PlayerProvider(props) {
     []
   );
 
-  const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
+  const { data: topTracks } = useTopTracks(soundleyClient, "/tracks", false);
   const { data: album } = useAlbum(
     soundleyClient,
     `/album/${props.albumId}`,

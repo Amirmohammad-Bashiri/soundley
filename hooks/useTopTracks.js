@@ -6,7 +6,7 @@ function getTracksWithPreviews(tracks) {
   return tracks.filter(track => track.preview);
 }
 
-export function useTopTracks(client, url) {
+export function useTopTracks(client, url, inView) {
   const { data, isLoading, isFetching } = useQuery(
     "topTracks",
     () => getTopTracks(client, url),
@@ -14,6 +14,7 @@ export function useTopTracks(client, url) {
       useErrorBoundary: true,
       staleTime: 1000 * 60 * 60 * 24,
       select: getTracksWithPreviews,
+      enabled: inView,
     }
   );
 
