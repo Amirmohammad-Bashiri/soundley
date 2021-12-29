@@ -4,8 +4,11 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import TopArtists from "@components/home-page/artists/top-artists";
 import TopAlbums from "@components/home-page/albums/top-albums";
-import DesktopPlayer from "@components/home-page/music-player/desktop-player";
 
+const DesktopPlayer = dynamic(
+  () => import("@components/home-page/music-player/desktop-player"),
+  { ssr: false }
+);
 const TopTracks = dynamic(
   () => import("@components/home-page/tracks/top-tracks"),
   { ssr: false }
