@@ -51,11 +51,6 @@ export async function getStaticProps() {
       staleTime: 1000 * 60 * 60 * 24,
     }
   );
-  await queryClient.prefetchQuery("albums", () =>
-    getTopAlbums(deezerClient, "/chart/0/albums", {
-      staleTime: 1000 * 60 * 60 * 24,
-    })
-  );
 
   return {
     props: {
