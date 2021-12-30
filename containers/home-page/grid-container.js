@@ -13,13 +13,14 @@ const TopTracks = dynamic(
   () => import("@components/home-page/tracks/top-tracks"),
   { ssr: false }
 );
+
 const ErrorFallback = dynamic(() => import("@components/error-fallback"), {
   ssr: false,
 });
 
 function GridContainer() {
-  const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
-  console.log(inView);
+  const { ref, inView } = useInView({ threshold: 1, triggerOnce: true });
+
   return (
     <div className="home-grid-layout">
       <section className="relative px-4 py-4 bg-gray-800 rounded xl:order-1 2xl:order-none xl:col-span-8 xl:row-span-3 xl:px-6">
