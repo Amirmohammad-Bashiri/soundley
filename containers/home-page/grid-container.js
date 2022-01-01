@@ -19,7 +19,7 @@ const ErrorFallback = dynamic(() => import("@components/error-fallback"), {
 });
 
 function GridContainer() {
-  const { ref, inView } = useInView({ threshold: 1, triggerOnce: true });
+  const { ref, inView } = useInView({ threshold: 0.6, triggerOnce: true });
 
   return (
     <div className="home-grid-layout">
