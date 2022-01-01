@@ -12,7 +12,6 @@
     "@next-auth/mongodb-adapter": "^1.0.1",
     "axios": "^0.24.0",
     "clsx": "^1.1.1",
-    "color.js": "^1.2.0",
     "framer-motion": "^5.4.5",
     "lodash.debounce": "^4.0.8",
     "mongodb": "^4.2.2",
