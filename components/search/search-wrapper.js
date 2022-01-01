@@ -1,8 +1,11 @@
+import dynamic from "next/dynamic";
+
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 import SearchInput from "./search-input";
-import SearchPopup from "./search-popup";
+
+const SearchPopup = dynamic(() => import("./search-popup"));
 
 function SearchWrapper() {
   const [searchTerm, setSearchTerm] = useState("");

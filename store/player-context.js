@@ -1,5 +1,4 @@
 import * as React from "react";
-// import shuffle from "lodash.shuffle";
 
 import { useTopTracks } from "@hooks/useTopTracks";
 import { useAlbum } from "@hooks/useAlbum";
@@ -17,7 +16,7 @@ function PlayerProvider(props) {
     []
   );
 
-  const { data: topTracks } = useTopTracks(soundleyClient, "/tracks");
+  const { data: topTracks } = useTopTracks(soundleyClient, "/tracks", false);
   const { data: album } = useAlbum(
     soundleyClient,
     `/album/${props.albumId}`,

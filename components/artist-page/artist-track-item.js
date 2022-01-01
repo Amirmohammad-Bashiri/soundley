@@ -16,7 +16,7 @@ import { useLikeTrack } from "@hooks/useLikeTrack";
 import { useDislikeTrack } from "@hooks/useDislikeTrack";
 import { useUser } from "@hooks/useUser";
 import { isTrackLiked } from "@utils/is-track-liked";
-import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
+import { usePlaylistPopup } from "@store/playlist-popup-context";
 
 function ArtistTrackItem({ track, artistId }) {
   const [liked, setLiked] = useState(false);

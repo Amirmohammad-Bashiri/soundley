@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { AnimatePresence } from "framer-motion";
 
-import { usePlaylistPopup } from "@store/playlist-popup-contenxt";
+import { usePlaylistPopup } from "@store/playlist-popup-context";
 
 const PlaylistPortal = ({ children }) => {
   const { isPopupOpen } = usePlaylistPopup();
