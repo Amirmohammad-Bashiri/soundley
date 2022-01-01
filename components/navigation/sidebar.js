@@ -1,5 +1,4 @@
 import Link from "next/link";
-// import Image from "next/image";
 import { useRouter } from "next/router";
 import cx from "clsx";
 import {
@@ -15,7 +14,7 @@ function Sidebar() {
   const linkStyle = "hover:text-indigo-500 transition-colors duration-300";
 
   return (
-    <div className="fixed top-0 left-0 z-10 h-full bg-gray-800 xl:w-52 2xl:w-72 text-gray-50">
+    <div className="fixed top-0 left-0 z-10 h-full bg-black xl:w-52 2xl:w-72 text-gray-50">
       <div className="relative h-full">
         <header className="absolute pt-16 text-3xl font-bold tracking-wide text-white transform 2xl:text-4xl 2xl:tracking-wider left-1/2 -translate-x-2/4">
           <h2>Soundley</h2>
