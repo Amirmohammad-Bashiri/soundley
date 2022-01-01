@@ -9,8 +9,6 @@ import {
   ViewGridIcon,
 } from "@heroicons/react/solid";
 
-// import logo from "./soundley.svg";
-
 function Sidebar() {
   const { pathname } = useRouter();
 
