@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 
@@ -19,22 +20,31 @@ function PlaylistPage() {
   const tracks = playlist?.tracks;
 
   return (
-    <main className="px-8 py-16 space-y-20 md:px-20">
-      {isLoading ? (
-        <div className="flex items-center min-h-[440px] justify-center">
-          <Loader type="Oval" color="#D1D5DB" height={100} width={100} />
-        </div>
-      ) : (
-        <>
-          <PlaylistTracksHeader playlistName={playlist.name} />
-          {tracks.length === 0 ? (
-            <NoPlaylistTracks />
-          ) : (
-            <PlaylistTracksList tracks={tracks} playlistId={query.playlistId} />
-          )}
-        </>
-      )}
-    </main>
+    <>
+      <Head>
+        <title>Soundley | {playlist.name}</title>
+      </Head>
+
+      <main className="px-8 py-16 space-y-20 md:px-20">
+        {isLoading ? (
+          <div className="flex items-center min-h-[440px] justify-center">
+            <Loader type="Oval" color="#D1D5DB" height={100} width={100} />
+          </div>
+        ) : (
+          <>
+            <PlaylistTracksHeader playlistName={playlist.name} />
+            {tracks.length === 0 ? (
+              <NoPlaylistTracks />
+            ) : (
+              <PlaylistTracksList
+                tracks={tracks}
+                playlistId={query.playlistId}
+              />
+            )}
+          </>
+        )}
+      </main>
+    </>
   );
 }
 
