@@ -3,7 +3,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "react-query";
 import { ErrorBoundary } from "react-error-boundary";
-// import { prominent } from "color.js";
 
 import { soundleyClient } from "@clients/soundley-client";
 import { useAlbum } from "@hooks/useAlbum";
@@ -14,8 +13,6 @@ import AlbumHeader from "@components/album-page/album-header";
 import ErrorFallback from "@components/error-fallback";
 
 function AlbumPage() {
-  // const [prominentColor, setProminentColor] = useState([]);
-
   const { query } = useRouter();
 
   const { data, isFetching } = useAlbum(
@@ -23,12 +20,6 @@ function AlbumPage() {
     `/album/${query.albumId}`,
     query.albumId
   );
-
-  // if (data && data.cover_small) {
-  //   prominent(data.cover_small, { amount: 1 }).then(color => {
-  //     setProminentColor(color);
-  //   });
-  // }
 
   return (
     <div className="flex items-center justify-center">

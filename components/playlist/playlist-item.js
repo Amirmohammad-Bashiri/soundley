@@ -25,7 +25,7 @@ function PlaylistItem({ playlist }) {
   };
 
   return (
-    <li className="flex items-center justify-between p-4 bg-gray-800 rounded md:px-4 md:py-6">
+    <li className="flex items-center justify-between p-4 bg-gray-900 rounded md:px-4 md:py-6">
       <strong
         onClick={handlePlaylistClick}
         className="text-base text-gray-100 cursor-pointer md:text-lg line-clamp-1">

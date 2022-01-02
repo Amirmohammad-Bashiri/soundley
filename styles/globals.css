@@ -53,7 +53,7 @@ a {
 }
 
 .playlist-popup {
-  @apply fixed z-50 h-[500px] w-[300px] md:h-[650px] md:w-[550px] xl:h-[600px] xl:w-[550px] xs:-mt-0 sm:-mt-24 2xl:h-[800px] 2xl:w-[600px] -ml-[150px] md:-ml-[275px] xl:-ml-52 2xl:-ml-64 bg-gray-900 rounded xs:top-0 sm:top-1/4 left-1/2;
+  @apply fixed z-50 h-[500px] w-[300px] md:h-[650px] md:w-[550px] xl:h-[600px] xl:w-[550px] xs:-mt-0 sm:-mt-28 xl:-mt-36 2xl:-mt-44 2xl:h-[800px] 2xl:w-[600px] -ml-[150px] md:-ml-[275px] xl:-ml-52 2xl:-ml-64 bg-black rounded xs:top-0 sm:top-1/4 left-1/2;
 }
 
 /* width */

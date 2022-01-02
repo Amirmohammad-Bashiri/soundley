@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { QueryClient, dehydrate } from "react-query";
 
 import { getGenres } from "@lib/genres";
@@ -10,9 +11,15 @@ function GenresPage() {
   const { data } = useGenres(soundleyClient, "/genres");
 
   return (
-    <main className="pb-6 mt-10 md:mx-6 xl:pb-10 md:mt-14">
-      <GenresList data={data} />
-    </main>
+    <>
+      <Head>
+        <title>Soundley | Genres</title>
+      </Head>
+
+      <main className="pb-6 mt-10 md:mx-6 xl:pb-10 md:mt-14">
+        <GenresList data={data} />
+      </main>
+    </>
   );
 }
 

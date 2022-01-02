@@ -21,7 +21,7 @@ function TrackPage() {
   return (
     <div className="flex items-center justify-center">
       <Head>
-        <title>Soundley | Listen to What You Love</title>
+        <title>Soundley | {data.title}</title>
       </Head>
 
       <main className="w-full">

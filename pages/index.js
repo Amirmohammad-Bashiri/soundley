@@ -6,8 +6,6 @@ import GenresList from "@components/home-page/genres/genres-list";
 import GridContainer from "@containers/home-page/grid-container";
 import { getGenres } from "@lib/genres";
 import { getTopArtists } from "@lib/artists";
-import { getTopAlbums } from "@lib/albums";
-import { getTopTracks } from "@lib/top-tracks";
 import { deezerClient } from "@clients/deezer-client";
 import ErrorFallback from "@components/error-fallback";
 
