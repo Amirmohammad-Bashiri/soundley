@@ -29,7 +29,7 @@ function Header() {
       <SearchWrapper />
 
       {/* avatar and name */}
-      <div className="items-center hidden space-x-6 text-gray-100 bg-gray-700 rounded-md xl:flex focus-within:border-2 focus-within:border-gray-200">
+      <div className="items-center hidden space-x-6 text-gray-100 bg-gray-700 rounded xl:flex focus-within:border-2 focus-within:border-gray-200">
         {session && session.user.image ? (
           <div className="flex bg-gray-600 rounded-md ">
             <Image
@@ -37,11 +37,11 @@ function Header() {
               alt={session.user.name}
               width={50}
               height={50}
-              className="rounded-md"
+              className="rounded"
             />
           </div>
         ) : (
-          <div className="p-2 bg-gray-600 rounded-md">
+          <div className="p-2 bg-gray-600 rounded">
             <UserCircleIcon className="w-7 h-7" />
           </div>
         )}
