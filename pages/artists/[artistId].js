@@ -11,6 +11,7 @@ import { useArtist } from "@hooks/useArtist";
 import ArtistHeader from "@components/artist-page/artist-header";
 import ArtistTrackList from "@components/artist-page/artist-track-list";
 import ErrorFallback from "@components/error-fallback";
+import NoArtistTracks from "@components/artist-page/no-artist-tracks";
 
 function ArtistPage() {
   const { query } = useRouter();
@@ -37,11 +38,15 @@ function ArtistPage() {
               />
             )}>
             <ArtistHeader data={data} />
-            <ArtistTrackList
-              data={data}
-              isFetching={isFetching}
-              artistId={query.artistId}
-            />
+            {!data || data.data.length === 0 ? (
+              <NoArtistTracks />
+            ) : (
+              <ArtistTrackList
+                data={data}
+                isFetching={isFetching}
+                artistId={query.artistId}
+              />
+            )}
           </ErrorBoundary>
         </section>
       </main>
