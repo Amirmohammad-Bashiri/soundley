@@ -13,7 +13,7 @@ import "swiper/css/free-mode";
 SwiperCore.use([FreeMode]);
 
 function GenresList() {
-  const { data, isLoading } = useGenres(soundleyClient, "/genres");
+  const { data, isFetching } = useGenres(soundleyClient, "/genres");
 
   return (
     <section className="px-4 pt-4 pb-6 mx-6 mt-10 bg-gray-800 rounded xl:px-6 md:mt-14 md:mx-10">
@@ -28,9 +28,9 @@ function GenresList() {
         </Link>
       </div>
 
-      {isLoading ? (
+      {isFetching ? (
         <div className="flex items-center justify-center">
-          <Loader type="Oval" color="#D1D5DB" height={100} width={100} />
+          <Loader type="Oval" color="#D1D5DB" height={140} width={100} />
         </div>
       ) : (
         <Swiper
