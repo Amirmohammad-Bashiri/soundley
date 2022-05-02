@@ -17,12 +17,18 @@ function PlaylistPage() {
     playlist => playlist.id === query.playlistId
   );
 
+  const pageTitle =
+    playlist && !isLoading
+      ? `Soundley | ${playlist.name}`
+      : "Soundley | Listen To What You Love";
+
+  console.log(playlist);
   const tracks = playlist?.tracks;
 
   return (
     <>
       <Head>
-        <title>Soundley | {playlist.name}</title>
+        <title>{pageTitle}</title>
       </Head>
 
       <main className="px-8 py-16 space-y-20 md:px-20">
