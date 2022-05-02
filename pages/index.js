@@ -35,20 +35,22 @@ function HomePage() {
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(
-    "genres",
-    () => getGenres(deezerClient, "/genre"),
-    {
-      staleTime: 1000 * 60 * 60 * 24,
-    }
-  );
-  await queryClient.prefetchQuery(
-    "artists",
-    () => getTopArtists(deezerClient, "/chart/0/artists"),
-    {
-      staleTime: 1000 * 60 * 60 * 24,
-    }
-  );
+  Promise.allSettled([
+    await queryClient.prefetchQuery(
+      "genres",
+      () => getGenres(deezerClient, "/genre"),
+      {
+        staleTime: 1000 * 60 * 60 * 24,
+      }
+    ),
+    await queryClient.prefetchQuery(
+      "artists",
+      () => getTopArtists(deezerClient, "/chart/0/artists"),
+      {
+        staleTime: 1000 * 60 * 60 * 24,
+      }
+    ),
+  ]);
 
   return {
     props: {
