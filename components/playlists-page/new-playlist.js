@@ -10,6 +10,8 @@ function NewPlaylist() {
   const handleSubmit = e => {
     e.preventDefault();
 
+    if (!playlistName) return;
+
     mutation.mutate({ playlistName });
 
     setPlaylistName("");
@@ -22,13 +24,13 @@ function NewPlaylist() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col space-y-6 items-center md:space-x-5 md:space-y-0 md:flex-row 2xl:space-x-8">
+      className="flex flex-col items-center space-y-6 md:space-x-5 md:space-y-0 md:flex-row 2xl:space-x-8">
       <input
         value={playlistName}
         onChange={handleChange}
         type="text"
         placeholder="Playlist Name"
-        className="py-4 pl-3 2xl:placeholder:text-lg 2xl:text-lg placeholder-gray-200 bg-gray-800 md:rounded text-gray-50"
+        className="py-4 pl-3 placeholder-gray-200 bg-gray-800 2xl:placeholder:text-lg 2xl:text-lg md:rounded text-gray-50"
       />
       <button
         type="submit"
